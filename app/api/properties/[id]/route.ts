@@ -1,0 +1,47 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { updateProperty, deleteProperty, getPropertyById } from '@/lib/properties';
+import { getSession } from '@/lib/session';
+
+type Params = { params: Promise<{ id: string }> };
+
+export async function GET(_request: NextRequest, { params }: Params) {
+  const { id } = await params;
+  const property = getPropertyById(id);
+  if (!property) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+  return NextResponse.json(property);
+}
+
+export async function PUT(request: NextRequest, { params }: Params) {
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const { id } = await params;
+  try {
+    const body = await request.json();
+    const updated = updateProperty(id, body);
+    if (!updated) {
+      return NextResponse.json({ error: 'Property not found' }, { status: 404 });
+    }
+    return NextResponse.json(updated);
+  } catch {
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}
+
+export async function DELETE(_request: NextRequest, { params }: Params) {
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const { id } = await params;
+  const deleted = deleteProperty(id);
+  if (!deleted) {
+    return NextResponse.json({ error: 'Property not found' }, { status: 404 });
+  }
+  return NextResponse.json({ success: true });
+}

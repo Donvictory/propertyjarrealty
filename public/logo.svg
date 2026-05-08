@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 110" fill="none">
+  <!-- Building silhouettes (dark red/crimson) -->
+  <rect x="12" y="8" width="14" height="58" fill="#800020" rx="1"/>
+  <rect x="30" y="22" width="10" height="44" fill="#800020" rx="1"/>
+  <rect x="44" y="16" width="8" height="50" fill="#9a1028" rx="1"/>
+
+  <!-- House roof (silver/gray) -->
+  <polyline points="10,68 56,32 102,68" stroke="#B0B0B0" stroke-width="6" stroke-linejoin="round" fill="none" stroke-linecap="round"/>
+  <!-- Chimney accent -->
+  <rect x="52" y="48" width="8" height="8" fill="#B0B0B0" rx="1"/>
+
+  <!-- Red separator line -->
+  <line x1="10" y1="100" x2="210" y2="100" stroke="#800020" stroke-width="2.5"/>
+
+  <!-- PROPERTYJAR text -->
+  <text x="118" y="75" font-family="'League Spartan', 'Arial Black', Arial, sans-serif" font-size="32" font-weight="900" letter-spacing="1" fill="#1a1a1a">PROPERTYJAR</text>
+  <!-- REALTY LTD text -->
+  <text x="145" y="96" font-family="'League Spartan', 'Arial', sans-serif" font-size="14" font-weight="600" letter-spacing="5" fill="#555555">REALTY LTD</text>
+</svg>
