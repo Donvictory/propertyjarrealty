@@ -6,7 +6,7 @@ type Params = { params: Promise<{ id: string }> };
 
 export async function GET(_request: NextRequest, { params }: Params) {
   const { id } = await params;
-  const property = getPropertyById(id);
+  const property = await getPropertyById(id);
   if (!property) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   }
@@ -22,7 +22,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
   const { id } = await params;
   try {
     const body = await request.json();
-    const updated = updateProperty(id, body);
+    const updated = await updateProperty(id, body);
     if (!updated) {
       return NextResponse.json({ error: 'Property not found' }, { status: 404 });
     }
@@ -39,7 +39,7 @@ export async function DELETE(_request: NextRequest, { params }: Params) {
   }
 
   const { id } = await params;
-  const deleted = deleteProperty(id);
+  const deleted = await deleteProperty(id);
   if (!deleted) {
     return NextResponse.json({ error: 'Property not found' }, { status: 404 });
   }

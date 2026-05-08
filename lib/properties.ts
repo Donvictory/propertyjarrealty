@@ -1,55 +1,41 @@
 import 'server-only';
-import fs from 'fs';
-import path from 'path';
+import { db } from './firebase-admin';
 import type { Property } from './types';
 
-const DATA_FILE = path.join(process.cwd(), 'data', 'properties.json');
+const PROPERTIES_COLLECTION = 'properties';
 
-function readData(): Property[] {
+export async function getProperties(): Promise<Property[]> {
+  console.log(`[Firestore] Fetching from project: ${process.env.FIREBASE_PROJECT_ID} | Collection: ${PROPERTIES_COLLECTION}`);
+  const snapshot = await db.collection(PROPERTIES_COLLECTION).get();
+  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Property));
+}
+
+export async function getPropertyById(id: string): Promise<Property | undefined> {
+  const doc = await db.collection(PROPERTIES_COLLECTION).doc(id).get();
+  if (!doc.exists) return undefined;
+  return { id: doc.id, ...doc.data() } as Property;
+}
+
+export async function addProperty(data: Omit<Property, 'id'>): Promise<Property> {
+  const docRef = await db.collection(PROPERTIES_COLLECTION).add(data);
+  return { id: docRef.id, ...data } as Property;
+}
+
+export async function updateProperty(id: string, data: Partial<Omit<Property, 'id'>>): Promise<Property | null> {
+  const docRef = db.collection(PROPERTIES_COLLECTION).doc(id);
+  const doc = await docRef.get();
+  if (!doc.exists) return null;
+  
+  await docRef.update(data);
+  const updated = await docRef.get();
+  return { id: updated.id, ...updated.data() } as Property;
+}
+
+export async function deleteProperty(id: string): Promise<boolean> {
   try {
-    const raw = fs.readFileSync(DATA_FILE, 'utf-8');
-    return JSON.parse(raw) as Property[];
+    await db.collection(PROPERTIES_COLLECTION).doc(id).delete();
+    return true;
   } catch {
-    return [];
+    return false;
   }
-}
-
-function writeData(properties: Property[]): void {
-  fs.writeFileSync(DATA_FILE, JSON.stringify(properties, null, 2), 'utf-8');
-}
-
-export function getProperties(): Property[] {
-  return readData();
-}
-
-export function getPropertyById(id: string): Property | undefined {
-  return readData().find((p) => p.id === id);
-}
-
-export function addProperty(data: Omit<Property, 'id'>): Property {
-  const properties = readData();
-  const newProperty: Property = {
-    ...data,
-    id: String(Date.now()),
-  };
-  properties.push(newProperty);
-  writeData(properties);
-  return newProperty;
-}
-
-export function updateProperty(id: string, data: Partial<Omit<Property, 'id'>>): Property | null {
-  const properties = readData();
-  const index = properties.findIndex((p) => p.id === id);
-  if (index === -1) return null;
-  properties[index] = { ...properties[index], ...data };
-  writeData(properties);
-  return properties[index];
-}
-
-export function deleteProperty(id: string): boolean {
-  const properties = readData();
-  const filtered = properties.filter((p) => p.id !== id);
-  if (filtered.length === properties.length) return false;
-  writeData(filtered);
-  return true;
 }

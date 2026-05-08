@@ -1,10 +1,12 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 import { loginAction, type LoginState } from '@/app/actions/auth';
 
 export default function AdminLoginPage() {
   const [state, formAction, pending] = useActionState<LoginState, FormData>(loginAction, {});
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="min-h-screen bg-off-white flex items-center justify-center p-4 relative overflow-hidden">
@@ -51,15 +53,24 @@ export default function AdminLoginPage() {
               <label htmlFor="password" className="block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">
                 Password
               </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                autoComplete="current-password"
-                placeholder="••••••••"
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-charcoal text-sm placeholder:text-gray-300 focus:outline-none focus:border-brand transition-colors"
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  required
+                  autoComplete="current-password"
+                  placeholder="••••••••"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-charcoal text-sm placeholder:text-gray-300 focus:outline-none focus:border-brand transition-colors pr-12"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-brand transition-colors p-1"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
             </div>
 
             {state?.error && (

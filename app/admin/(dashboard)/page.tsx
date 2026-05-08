@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminDashboardPage() {
-  const properties = getProperties();
+  const properties = await getProperties();
   const session = await getSession();
 
   const stats = [

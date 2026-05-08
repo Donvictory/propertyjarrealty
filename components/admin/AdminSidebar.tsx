@@ -10,6 +10,7 @@ import type { SessionPayload } from '@/lib/types';
 const navItems = [
   { href: '/admin', label: 'Dashboard', icon: '▦' },
   { href: '/admin/admins', label: 'Admin Users', icon: '👤' },
+  { href: '/admin/settings', label: 'Settings', icon: '⚙️' },
 ];
 
 export default function AdminSidebar({ 

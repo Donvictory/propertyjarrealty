@@ -17,15 +17,21 @@ const CampaignPropertyModal = ({ property, onClose }: CampaignPropertyModalProps
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate API call
+    
+    // In a real app, you would send lead data to your CRM here
     await new Promise(resolve => setTimeout(resolve, 1500));
+    
     setIsSubmitting(false);
     setIsSuccess(true);
     
-    // In a real app, this would trigger a file download
-    setTimeout(() => {
-      alert('Brochure download started! (Simulated)');
-    }, 500);
+    // Trigger download if URL exists
+    if (property.brochureUrl) {
+      setTimeout(() => {
+        window.open(property.brochureUrl, '_blank');
+      }, 500);
+    } else {
+      console.warn('No brochure URL found for this property');
+    }
   };
 
   return (

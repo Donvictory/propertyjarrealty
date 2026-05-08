@@ -16,57 +16,57 @@ export const metadata: Metadata = {
 
 const services = [
   {
-    icon: '🏠',
-    title: 'Property Acquisition',
-    subtitle: 'Find Your Dream Home',
+    icon: '🏛️',
+    title: 'Brokerage',
+    subtitle: 'Expert Transaction Support',
     description:
-      'We guide you through every step of purchasing a luxury property — from curated viewings to negotiation and closing. Our advisors have access to exclusive off-market listings not available to the public.',
-    features: ['Exclusive off-market access', 'Negotiation expertise', 'Due diligence support', 'End-to-end closing'],
+      'Our brokerage services provide end-to-end support for buying and selling premium real estate. We manage negotiations, due diligence, and legal transitions with absolute precision.',
+    features: ['Strategic negotiations', 'Seamless closings', 'Vetted buyer network', 'Premium listing exposure'],
+    accent: '#800020',
+  },
+  {
+    icon: '🤝',
+    title: 'Real Estate Consulting',
+    subtitle: 'Strategic Market Insights',
+    description:
+      'We provide professional guidance on market entry, property valuation, and local regulatory landscapes to help you make informed real estate decisions.',
+    features: ['Market entry strategy', 'Valuation services', 'Regulatory compliance', 'Feasibility studies'],
     accent: '#800020',
   },
   {
     icon: '💼',
-    title: 'Property Sales',
-    subtitle: 'Maximize Your Returns',
+    title: 'Investment Portfolio Management',
+    subtitle: 'Wealth Building Strategies',
     description:
-      'When it\'s time to sell, our global marketing machine ensures your property reaches the right buyers. Bespoke staging, professional photography, and targeted campaigns deliver premium results.',
-    features: ['Global buyer network', 'Professional staging', 'Luxury photography & video', 'Premium marketing campaigns'],
+      'Build and manage a high-yield real estate portfolio. We help you identify, acquire, and manage multiple assets to ensure long-term capital appreciation and consistent cash flow.',
+    features: ['Diversified asset selection', 'Performance monitoring', 'Tenant & yield management', 'Exit planning'],
     accent: '#800020',
   },
   {
-    icon: '📈',
-    title: 'Investment Advisory',
-    subtitle: 'Grow Your Portfolio',
+    icon: '🌱',
+    title: 'Land Banking',
+    subtitle: 'High-Growth Asset Growth',
     description:
-      'Our investment specialists analyze market trends, rental yields, and capital appreciation to help you build a high-performing real estate portfolio with confidence.',
-    features: ['Market trend analysis', 'Portfolio diversification', 'ROI projections', 'Tax optimization strategies'],
+      'Secure high-potential land in developing corridors. Our land banking service focuses on acquiring undervalued land for future development or high-margin resale.',
+    features: ['Strategic land acquisition', 'Title verification', 'Growth corridor analysis', 'Appreciation tracking'],
     accent: '#800020',
   },
   {
-    icon: '🔑',
-    title: 'Property Management',
-    subtitle: 'Hands-Free Ownership',
+    icon: '💎',
+    title: 'Luxury Property Sales',
+    subtitle: 'Exclusive Lifestyle Assets',
     description:
-      'From tenant sourcing to maintenance coordination, we handle every aspect of managing your investment property — so you can enjoy returns without the hassle.',
-    features: ['Tenant vetting & placement', 'Rent collection', 'Maintenance coordination', 'Monthly reporting'],
+      'Access the most prestigious residential and commercial properties in Lagos. We represent the pinnacle of luxury living, offering exclusive assets to discerning clients.',
+    features: ['Exclusive penthouses', 'Smart home villas', 'Off-market mansions', 'Bespoke viewing experiences'],
     accent: '#800020',
   },
   {
-    icon: '🌍',
-    title: 'Relocation Services',
-    subtitle: 'Seamless Transitions',
+    icon: '📊',
+    title: 'Investment Advisory Services',
+    subtitle: 'Data-Driven Decisions',
     description:
-      'Moving cities or countries? Our relocation specialists handle every logistical detail — neighborhoods, schools, legal requirements — so your transition is effortless.',
-    features: ['Neighborhood consultation', 'School & lifestyle matching', 'Legal & visa guidance', 'Move-in coordination'],
-    accent: '#800020',
-  },
-  {
-    icon: '🏛️',
-    title: 'Legal & Conveyancing',
-    subtitle: 'Protected at Every Step',
-    description:
-      'Our network of trusted legal partners ensures your transaction is airtight. From title searches to contract review, we safeguard your interests throughout the process.',
-    features: ['Title searches & insurance', 'Contract review', 'Settlement coordination', 'Dispute resolution'],
+      'Our advisory services focus on maximizing ROI through rigorous data analysis, risk assessment, and structured investment modeling for international investors.',
+    features: ['ROI modeling', 'Risk mitigation', 'Foreign exchange advisory', 'Structured investment plans'],
     accent: '#800020',
   },
 ];

@@ -1,41 +1,68 @@
 import 'server-only';
-import fs from 'fs';
-import path from 'path';
 import bcrypt from 'bcryptjs';
+import { db } from './firebase-admin';
 import type { Admin } from './types';
 
-const DATA_FILE = path.join(process.cwd(), 'data', 'admins.json');
+const ADMINS_COLLECTION = 'admins';
 
-function readData(): Admin[] {
-  try {
-    const raw = fs.readFileSync(DATA_FILE, 'utf-8');
-    return JSON.parse(raw) as Admin[];
-  } catch {
-    return [];
+import fs from 'fs';
+import path from 'path';
+
+export async function getAdminByEmail(email: string): Promise<Admin | undefined> {
+  // 1. Try Firestore first
+  const snapshot = await db.collection(ADMINS_COLLECTION)
+    .where('email', '==', email.toLowerCase())
+    .limit(1)
+    .get();
+  
+  if (!snapshot.empty) {
+    const doc = snapshot.docs[0];
+    return { id: doc.id, ...doc.data() } as Admin;
   }
+
+  // 2. Fallback to local JSON if Firestore is empty (for migration)
+  const adminsPath = path.join(process.cwd(), 'data', 'admins.json');
+  if (fs.existsSync(adminsPath)) {
+    const admins = JSON.parse(fs.readFileSync(adminsPath, 'utf-8'));
+    return admins.find((a: Admin) => a.email.toLowerCase() === email.toLowerCase());
+  }
+  
+  return undefined;
 }
 
-function writeData(admins: Admin[]): void {
-  fs.writeFileSync(DATA_FILE, JSON.stringify(admins, null, 2), 'utf-8');
+export async function getAdminById(id: string): Promise<Admin | undefined> {
+  const doc = await db.collection(ADMINS_COLLECTION).doc(id).get();
+  if (!doc.exists) return undefined;
+  return { id: doc.id, ...doc.data() } as Admin;
 }
 
-export function getAdminByEmail(email: string): Admin | undefined {
-  return readData().find((a) => a.email.toLowerCase() === email.toLowerCase());
-}
+export async function getAllAdmins(): Promise<Omit<Admin, 'passwordHash'>[]> {
+  console.log(`[Firestore] Fetching admins from project: ${process.env.FIREBASE_PROJECT_ID} | Collection: ${ADMINS_COLLECTION}`);
+  const snapshot = await db.collection(ADMINS_COLLECTION).get();
+  if (!snapshot.empty) {
+    return snapshot.docs.map(doc => {
+      const { passwordHash: _, ...rest } = doc.data();
+      return { id: doc.id, ...rest } as Omit<Admin, 'passwordHash'>;
+    });
+  }
 
-export function getAdminById(id: string): Admin | undefined {
-  return readData().find((a) => a.id === id);
-}
+  const adminsPath = path.join(process.cwd(), 'data', 'admins.json');
+  if (fs.existsSync(adminsPath)) {
+    const admins = JSON.parse(fs.readFileSync(adminsPath, 'utf-8'));
+    return admins.map((a: Admin) => {
+      const { passwordHash: _, ...rest } = a;
+      return rest;
+    });
+  }
 
-export function getAllAdmins(): Omit<Admin, 'passwordHash'>[] {
-  return readData().map(({ passwordHash: _, ...rest }) => rest);
+  return [];
 }
 
 export async function verifyAdminPassword(
   email: string,
   password: string
 ): Promise<Admin | null> {
-  const admin = getAdminByEmail(email);
+  const admin = await getAdminByEmail(email);
   if (!admin) return null;
   const valid = await bcrypt.compare(password, admin.passwordHash);
   return valid ? admin : null;
@@ -47,29 +74,39 @@ export async function createAdmin(data: {
   password: string;
   role?: 'admin' | 'super_admin';
 }): Promise<Omit<Admin, 'passwordHash'>> {
-  const admins = readData();
-  const exists = admins.find((a) => a.email.toLowerCase() === data.email.toLowerCase());
+  const exists = await getAdminByEmail(data.email);
   if (exists) throw new Error('An admin with this email already exists.');
 
   const passwordHash = await bcrypt.hash(data.password, 12);
-  const newAdmin: Admin = {
-    id: String(Date.now()),
+  const newAdminData = {
     name: data.name,
-    email: data.email,
+    email: data.email.toLowerCase(),
     passwordHash,
     role: data.role ?? 'admin',
     createdAt: new Date().toISOString(),
   };
-  admins.push(newAdmin);
-  writeData(admins);
-  const { passwordHash: _, ...rest } = newAdmin;
-  return rest;
+
+  const docRef = await db.collection(ADMINS_COLLECTION).add(newAdminData);
+  console.log(`[Firestore] SUCCESS: Added new admin with ID: ${docRef.id} to project: ${process.env.FIREBASE_PROJECT_ID}`);
+  return {
+    id: docRef.id,
+    name: newAdminData.name,
+    email: newAdminData.email,
+    role: newAdminData.role,
+    createdAt: newAdminData.createdAt,
+  };
 }
 
-export function deleteAdmin(id: string): boolean {
-  const admins = readData();
-  const filtered = admins.filter((a) => a.id !== id);
-  if (filtered.length === admins.length) return false;
-  writeData(filtered);
-  return true;
+export async function deleteAdmin(id: string): Promise<boolean> {
+  try {
+    await db.collection(ADMINS_COLLECTION).doc(id).delete();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export async function updateAdminPassword(id: string, newPassword: string): Promise<void> {
+  const passwordHash = await bcrypt.hash(newPassword, 12);
+  await db.collection(ADMINS_COLLECTION).doc(id).update({ passwordHash });
 }

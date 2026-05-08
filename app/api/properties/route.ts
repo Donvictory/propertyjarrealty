@@ -3,7 +3,7 @@ import { getProperties, addProperty } from '@/lib/properties';
 import { getSession } from '@/lib/session';
 
 export async function GET() {
-  const properties = getProperties();
+  const properties = await getProperties();
   return NextResponse.json(properties);
 }
 
@@ -15,13 +15,13 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-    const { title, location, price, beds, baths, sqft, image, tag, type, description } = body;
+    const { title, location, price, beds, baths, sqft, image, tag, type, description, isCampaign, brochureUrl } = body;
 
     if (!title || !location || !price || !beds || !baths || !sqft || !image || !type) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const newProperty = addProperty({
+    const newProperty = await addProperty({
       title,
       location,
       price,
@@ -32,6 +32,8 @@ export async function POST(request: NextRequest) {
       tag: tag || null,
       type,
       description: description || '',
+      isCampaign: !!isCampaign,
+      brochureUrl: brochureUrl || '',
     });
 
     return NextResponse.json(newProperty, { status: 201 });

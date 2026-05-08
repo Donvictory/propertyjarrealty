@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { sendContactEmail } from '@/app/actions/contact';
 
 const contactInfo = [
   { icon: '📍', label: 'Visit Us', value: '21 Alexander court, Osapa London Lekki' },
@@ -14,13 +15,22 @@ const contactInfo = [
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1200));
+    setError('');
+
+    const formData = new FormData(e.currentTarget);
+    const result = await sendContactEmail(formData);
+
     setLoading(false);
-    setSubmitted(true);
+    if (result.success) {
+      setSubmitted(true);
+    } else {
+      setError(result.error || 'Something went wrong.');
+    }
   }
 
   return (
@@ -112,7 +122,14 @@ export default function ContactPage() {
                   <label className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="message">Message</label>
                   <textarea id="message" name="message" required rows={5} placeholder="Tell us about your requirements..." className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors resize-none" />
                 </div>
-                <button type="submit" disabled={loading} className="w-full bg-brand text-white py-4 rounded-xl font-bold text-lg hover:bg-brand-hover transition-all disabled:opacity-70">
+
+                {error && (
+                  <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3">
+                    <p className="text-red-500 text-sm font-bold">{error}</p>
+                  </div>
+                )}
+
+                <button type="submit" disabled={loading} className="w-full bg-brand text-white py-4 rounded-xl font-bold text-lg hover:bg-brand-hover transition-all disabled:opacity-70 shadow-lg shadow-brand/10 active:scale-95">
                   {loading ? 'Sending...' : 'Send Message'}
                 </button>
               </form>

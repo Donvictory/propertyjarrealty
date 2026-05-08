@@ -23,6 +23,8 @@ const EMPTY: Omit<Property, 'id'> = {
   tag: '',
   type: 'Residential',
   description: '',
+  isCampaign: false,
+  brochureUrl: '',
 };
 
 export default function PropertyModal({ property, onClose, onSaved }: PropertyModalProps) {
@@ -55,6 +57,8 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
           beds: Number(form.beds),
           baths: Number(form.baths),
           tag: form.tag || null,
+          isCampaign: !!form.isCampaign,
+          brochureUrl: form.brochureUrl || '',
         }),
       });
 
@@ -133,7 +137,7 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
             </div>
           </div>
 
-          {/* Type / Tag */}
+          {/* Type / Tag / Campaign */}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className={labelClass} htmlFor="pm-type">Property Type</label>
@@ -148,6 +152,36 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
               </select>
             </div>
           </div>
+
+          <div className="flex items-center gap-3 bg-white/5 p-4 rounded-2xl border border-white/5">
+            <input
+              type="checkbox"
+              id="pm-campaign"
+              name="isCampaign"
+              checked={form.isCampaign}
+              onChange={(e) => setForm(prev => ({ ...prev, isCampaign: e.target.checked }))}
+              className="w-5 h-5 rounded border-white/10 bg-[#1a1a1a] text-brand focus:ring-brand accent-brand"
+            />
+            <label htmlFor="pm-campaign" className="text-sm font-bold text-white cursor-pointer select-none">
+              Add to Campaign Page
+              <span className="block text-[10px] font-normal text-gray-500 uppercase tracking-widest mt-0.5">Show this property in the campaign selection</span>
+            </label>
+          </div>
+
+          {form.isCampaign && (
+            <div className="bg-brand/5 p-6 rounded-2xl border border-brand/10 space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
+              <label className={labelClass} htmlFor="pm-brochure">Brochure PDF URL (Campaign Only)</label>
+              <input 
+                id="pm-brochure" 
+                name="brochureUrl" 
+                value={form.brochureUrl || ''} 
+                onChange={handleChange} 
+                placeholder="https://..." 
+                className={inputClass} 
+              />
+              <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Users must fill a form to download this PDF on the campaign page</p>
+            </div>
+          )}
 
           {/* Image URL */}
           <div>

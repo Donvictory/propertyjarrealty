@@ -7,7 +7,7 @@ export async function GET() {
   if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
-  const admins = getAllAdmins();
+  const admins = await getAllAdmins();
   return NextResponse.json(admins);
 }
 
@@ -43,7 +43,7 @@ export async function DELETE(request: NextRequest) {
     if (id === session.adminId) {
       return NextResponse.json({ error: 'You cannot delete your own account' }, { status: 400 });
     }
-    const deleted = deleteAdmin(id);
+    const deleted = await deleteAdmin(id);
     if (!deleted) return NextResponse.json({ error: 'Admin not found' }, { status: 404 });
     return NextResponse.json({ success: true });
   } catch {

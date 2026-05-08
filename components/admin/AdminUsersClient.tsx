@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 import type { SessionPayload } from '@/lib/types';
 
 interface AdminUser {
@@ -24,6 +25,7 @@ export default function AdminUsersClient({ session }: { session: SessionPayload 
   const [admins, setAdmins] = useState<AdminUser[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState<InviteForm>(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -62,6 +64,7 @@ export default function AdminUsersClient({ session }: { session: SessionPayload 
       setAdmins((prev) => [...prev, data]);
       setForm(EMPTY_FORM);
       setShowForm(false);
+      setShowPassword(false);
       setSuccess(`Admin "${data.name}" has been added successfully.`);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Failed to add admin');
@@ -141,7 +144,26 @@ export default function AdminUsersClient({ session }: { session: SessionPayload 
             </div>
             <div>
               <label className={labelClass} htmlFor="au-password">Initial Password</label>
-              <input id="au-password" name="password" type="password" required minLength={8} value={form.password} onChange={handleChange} placeholder="Min 8 characters" className={inputClass} />
+              <div className="relative">
+                <input 
+                  id="au-password" 
+                  name="password" 
+                  type={showPassword ? "text" : "password"} 
+                  required 
+                  minLength={8} 
+                  value={form.password} 
+                  onChange={handleChange} 
+                  placeholder="Min 8 characters" 
+                  className={`${inputClass} pr-12`} 
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-brand transition-colors p-1"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
             </div>
             <div>
               <label className={labelClass} htmlFor="au-role">Role</label>

@@ -16,6 +16,8 @@ export interface Property {
   installmentPlan?: string;
   bestFor?: string;
   whatYouCanBuild?: string[];
+  isCampaign?: boolean;
+  brochureUrl?: string;
 }
 
 export interface Admin {
