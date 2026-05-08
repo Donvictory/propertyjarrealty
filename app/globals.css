@@ -37,8 +37,8 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  max-width: 800px;
-  overflow-x: hidden;
+  /* max-width: 800px;
+  overflow-x: hidden; */
 }
 
 .glass {
