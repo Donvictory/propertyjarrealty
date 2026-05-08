@@ -22,7 +22,7 @@ export default function AboutPage() {
       <section className="bg-gradient-to-br from-white to-off-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-charcoal mb-4">About Us</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-charcoal mb-4">About Me</h2>
             <div className="w-24 h-1 bg-brand mx-auto rounded-full" />
           </div>
 

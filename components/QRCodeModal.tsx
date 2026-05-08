@@ -14,9 +14,7 @@ const QRCodeModal = ({ isOpen, onClose }: QRCodeModalProps) => {
   const qrRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setCampaignUrl(`${window.location.origin}/campaign`);
-    }
+    setCampaignUrl('https://propertyjarrealty.vercel.app/campaign');
   }, [isOpen]);
 
   const downloadQRCode = () => {
