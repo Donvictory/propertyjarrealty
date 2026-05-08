@@ -15,6 +15,64 @@ export default function CampaignPage() {
     <main className="min-h-screen pt-32 bg-off-white">
       <Navbar />
 
+      {/* Why Invest Section */}
+      <section className="py-4 bg-white overflow-hidden">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-charcoal">
+                Why Invest in <br />
+                <span className="text-brand">Lagos?</span>
+              </h2>
+              
+              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-8">
+                Why smart investors are looking at Lagos
+              </h3>
+
+              <ul className="space-y-4">
+                {[
+                  "Lagos = fastest-growing real estate hub in West Africa",
+                  "High rental demand (shortlet & residential)",
+                  "Entry prices significantly lower than UK property market",
+                  "Strong appreciation potential in developing corridors"
+                ].map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-3 group">
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 flex-shrink-0" />
+                    <p className="text-lg text-gray-600 font-light leading-relaxed">{item}</p>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative lg:pl-16"
+            >
+              <div className="absolute -top-12 -right-12 w-64 h-64 bg-brand/5 rounded-full blur-3xl" />
+              <div className="relative z-10">
+                <div className="w-16 h-px bg-gray-200 mb-8" />
+                <h4 className="text-3xl md:text-6xl font-bold text-charcoal leading-tight">
+                  Projected ROI: <br />
+                  <span className="text-brand tracking-tighter">15% – 30%</span>
+                  <span className="text-sm md:text-base text-gray-400 font-medium uppercase tracking-[0.2em] mt-6 block">
+                    Depending on investment type
+                  </span>
+                </h4>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Property Grid Section */}
       <section className="py-24">
         <div className="container mx-auto px-6">
@@ -75,26 +133,106 @@ export default function CampaignPage() {
         </div>
       </section>
 
-      {/* Trust Section */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6 text-center">
-          <div className="max-w-2xl mx-auto mb-16">
-            <h2 className="text-4xl font-bold text-charcoal mb-4 tracking-tight">Direct Connections</h2>
-            <p className="text-gray-500">Our agents are standing by to provide personalized tours and investment consultations.</p>
+      {/* Investment Options Section */}
+      <section className="py-24 bg-white border-t border-gray-100">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-charcoal uppercase tracking-[0.3em] mb-2">Investment Options</h2>
+            <div className="w-16 h-0.5 bg-brand mx-auto" />
           </div>
-          <div className="flex flex-wrap justify-center gap-6">
-             <a href="#" className="flex items-center gap-3 px-8 py-4 bg-off-white rounded-2xl border border-gray-100 hover:border-brand/20 transition-all group">
-                <span className="text-2xl">📱</span>
-                <span className="font-bold text-charcoal group-hover:text-brand transition-colors">Direct WhatsApp</span>
-             </a>
-             <a href="#" className="flex items-center gap-3 px-8 py-4 bg-off-white rounded-2xl border border-gray-100 hover:border-brand/20 transition-all group">
-                <span className="text-2xl">📸</span>
-                <span className="font-bold text-charcoal group-hover:text-brand transition-colors">Instagram DM</span>
-             </a>
-             <a href="#" className="flex items-center gap-3 px-8 py-4 bg-off-white rounded-2xl border border-gray-100 hover:border-brand/20 transition-all group">
-                <span className="text-2xl">✉️</span>
-                <span className="font-bold text-charcoal group-hover:text-brand transition-colors">Email Listing Agent</span>
-             </a>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            {/* Option 1 */}
+            <div className="space-y-4">
+              <h3 className="font-bold text-charcoal text-sm uppercase tracking-widest">Option 1: Shortlet Apartments</h3>
+              <ul className="space-y-2 text-sm text-gray-500 uppercase font-medium tracking-wide">
+                <li>• Entry: ₦XXM</li>
+                <li>• ROI: 20-30%</li>
+                <li>• Target: Airbnb / Business Travelers</li>
+              </ul>
+            </div>
+
+            {/* Option 3 (Moved to match screenshot layout) */}
+            <div className="space-y-4">
+              <h3 className="font-bold text-charcoal text-sm uppercase tracking-widest">Option 3: Off-plan Developments</h3>
+              <ul className="space-y-2 text-sm text-gray-500 uppercase font-medium tracking-wide">
+                <li>• Flexible Payment Plan</li>
+                <li>• Capital Appreciation before completion</li>
+              </ul>
+            </div>
+
+            {/* Option 2 */}
+            <div className="space-y-4">
+              <h3 className="font-bold text-charcoal text-sm uppercase tracking-widest">Option 2: Land Banking</h3>
+              <ul className="space-y-2 text-sm text-gray-500 uppercase font-medium tracking-wide">
+                <li>• Entry: ₦XM</li>
+                <li>• Appreciation: 2x-5x in 2-4 years</li>
+              </ul>
+            </div>
+
+            {/* Architectural Graphic Placeholder (Matching screenshot) */}
+            <div className="lg:col-span-3 flex justify-end mt-8">
+              <div className="max-w-xs text-right">
+                 <div className="border border-gray-200 p-4 rounded-xl mb-4 bg-off-white">
+                    <img 
+                      src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=400&h=300&fit=crop" 
+                      alt="Floor plan concept" 
+                      className="w-full h-32 object-cover opacity-50 grayscale"
+                    />
+                 </div>
+                 <p className="text-[10px] uppercase font-bold text-charcoal tracking-widest mb-1">Function in Form</p>
+                 <p className="text-[8px] uppercase text-gray-400 leading-tight">Every piece of furniture serves a purpose</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Offer Stack Section */}
+      <section className="py-24 bg-off-white">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-3xl font-bold text-charcoal uppercase tracking-[0.3em] mb-2">Offer Stack</h2>
+            <div className="w-16 h-0.5 bg-brand mx-auto" />
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-24 gap-y-16">
+            {/* Entry Investor */}
+            <div className="space-y-8">
+              <div className="flex items-center gap-4">
+                <div className="w-4 h-4 rounded-full bg-[#00FF85]" />
+                <h3 className="text-2xl font-bold text-charcoal uppercase tracking-tighter">Entry Investor</h3>
+              </div>
+              <ul className="space-y-4 text-sm text-charcoal font-bold uppercase tracking-widest">
+                <li>• 1 Plot / 1 Unit</li>
+                <li>• 6-12 Months Payment</li>
+                <li>• Clear Appreciation Angle</li>
+              </ul>
+            </div>
+
+            {/* Elite Investor */}
+            <div className="space-y-8 lg:row-span-2 flex flex-col justify-center">
+              <h3 className="text-2xl font-bold text-charcoal uppercase tracking-tighter">Elite Investor</h3>
+              <ul className="space-y-4 text-sm text-charcoal font-bold uppercase tracking-widest">
+                <li>• 4-5+ Units</li>
+                <li>• Bulk Discount</li>
+                <li>• Priority Allocation</li>
+                <li>• Optional JV Conversation</li>
+              </ul>
+            </div>
+
+            {/* Smart Investor */}
+            <div className="space-y-8">
+              <div className="flex items-center gap-4">
+                <div className="w-4 h-4 rounded-full bg-[#FFD600]" />
+                <h3 className="text-2xl font-bold text-charcoal uppercase tracking-tighter">Smart Investor</h3>
+              </div>
+              <ul className="space-y-4 text-sm text-charcoal font-bold uppercase tracking-widest">
+                <li>• 2-3 Units</li>
+                <li>• Discount Bundle</li>
+                <li>• Rental/Shortlet Angle</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>

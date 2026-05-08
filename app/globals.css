@@ -68,3 +68,11 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+@media (min-width: 860px) and (max-width: 999px) {
+  .nav-container {
+    max-width: 100% !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+}

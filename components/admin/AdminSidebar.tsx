@@ -29,18 +29,18 @@ export default function AdminSidebar({
   }
 
   return (
-    <aside className="fixed left-0 top-0 h-full w-64 bg-[#111111] border-r border-white/5 flex flex-col z-50">
+    <aside className="fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-100 flex flex-col z-50 shadow-sm">
       {/* Logo */}
-      <div className="p-6 border-b border-white/5">
+      <div className="p-6 border-b border-gray-500">
         <Link href="/" className="block">
           <Image
-            src="/logo-white.svg"
+            src="/Propertyjaarrealty.jpeg"
             alt="PropertyJar Realty Ltd"
             width={180}
             height={50}
-            className="h-10 w-auto object-contain"
+            className="h-10 w-auto object-contain rounded-md"
           />
-          <p className="text-[10px] uppercase tracking-widest text-gray-600 mt-1">Admin Console</p>
+          <p className="text-[10px] uppercase font-bold tracking-widest text-gray-400 mt-2">Admin Console</p>
         </Link>
       </div>
 
@@ -55,8 +55,8 @@ export default function AdminSidebar({
               onClick={onClose}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
                 isActive
-                  ? 'bg-brand text-white'
-                  : 'text-gray-400 hover:text-white hover:bg-white/5'
+                  ? 'bg-brand text-white shadow-md'
+                  : 'text-gray-500 hover:text-charcoal hover:bg-gray-50'
               }`}
             >
               <span className="text-base">{item.icon}</span>
@@ -65,11 +65,11 @@ export default function AdminSidebar({
           );
         })}
 
-        <div className="pt-4 border-t border-white/5 mt-4">
+        <div className="pt-4 border-t border-gray-100 mt-4">
           <Link
             href="/"
             target="_blank"
-            className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-400 hover:text-white hover:bg-white/5 transition-all"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-500 hover:text-charcoal hover:bg-gray-50 transition-all"
           >
             <span className="text-base">🌐</span>
             View Website
@@ -78,20 +78,20 @@ export default function AdminSidebar({
       </nav>
 
       {/* User Info + Logout */}
-      <div className="p-4 border-t border-white/5">
-        <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 mb-2">
+      <div className="p-4 border-t border-gray-100">
+        <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-gray-50 mb-2">
           <div className="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
             {session.adminName.charAt(0).toUpperCase()}
           </div>
           <div className="min-w-0">
-            <p className="text-white text-sm font-semibold truncate">{session.adminName}</p>
-            <p className="text-gray-500 text-[10px] uppercase tracking-widest truncate">{session.role.replace('_', ' ')}</p>
+            <p className="text-charcoal text-sm font-bold truncate">{session.adminName}</p>
+            <p className="text-gray-400 text-[10px] uppercase font-bold tracking-widest truncate">{session.role.replace('_', ' ')}</p>
           </div>
         </div>
         <button
           onClick={handleLogout}
           disabled={pending}
-          className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-all disabled:opacity-50"
+          className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-500 hover:text-red-600 hover:bg-red-50 transition-all disabled:opacity-50"
         >
           <span>→</span>
           {pending ? 'Signing out...' : 'Sign Out'}

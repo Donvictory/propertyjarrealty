@@ -6,5 +6,13 @@
     "passwordHash": "$2b$12$FV.VrU0q6GyjEJVdnAi.XObgDFDODDwaG5N8dQIsYKpDHNaau4KGy",
     "role": "super_admin",
     "createdAt": "2026-05-07T00:00:00Z"
+  },
+  {
+    "id": "1778250714441",
+    "name": "John",
+    "email": "john@propertyjarrealty.com",
+    "passwordHash": "$2b$12$Sd7.cbNnGKmrmouJAyWA4eRAexY8McAzzLifB5xbtJDvJTmXFrtD6",
+    "role": "admin",
+    "createdAt": "2026-05-08T14:31:54.441Z"
   }
 ]

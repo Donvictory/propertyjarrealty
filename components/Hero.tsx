@@ -28,7 +28,7 @@ const Hero = () => {
             <span className="inline-block py-1 px-4 rounded-full bg-brand/20 border border-brand/30 text-brand text-xs font-bold tracking-widest uppercase mb-6">
               Premium Real Estate Agency
             </span>
-            <h1 className="text-6xl md:text-8xl font-bold text-white mb-6 tracking-tight leading-[0.9]">
+            <h1 className="text-4xl md:text-8xl font-bold text-white mb-6 tracking-tight leading-[0.9]">
               Elevating <br />
               <span className="text-brand">Luxury</span> Living.
             </h1>

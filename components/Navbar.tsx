@@ -39,15 +39,15 @@ const Navbar = () => {
           isScrolled ? 'py-3 glass-dark shadow-lg' : 'py-5 glass'
         }`}
       >
-        <div className="container mx-auto px-6 flex justify-between items-center">
+        <div className="w-full max-w-7xl mx-auto px-6 nav-container flex justify-between items-center">
           <Link href="/" className="flex items-center group" aria-label="PropertyJar Realty Home">
             <Image
-              src="/logo.svg"
+              src="/Propertyjaarrealty.jpeg"
               alt="PropertyJar Realty Ltd"
-              width={200}
-              height={55}
+              width={220}
+              height={70}
               priority
-              className="h-12 w-auto object-contain"
+              className="h-16 w-auto object-contain rounded-lg"
             />
           </Link>
 

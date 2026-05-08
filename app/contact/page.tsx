@@ -5,10 +5,10 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 const contactInfo = [
-  { icon: '📍', label: 'Visit Us', value: '1 Luxury Lane, Beverly Hills, CA 90210' },
-  { icon: '📞', label: 'Call Us', value: '+1 (310) 555-0198' },
-  { icon: '✉️', label: 'Email Us', value: 'hello@propertyjarrealty.com' },
-  { icon: '🕐', label: 'Office Hours', value: 'Mon – Sat, 9AM – 7PM PST' },
+  { icon: '📍', label: 'Visit Us', value: '21 Alexander court, Osapa London Lekki' },
+  { icon: '📞', label: 'Call Us', value: '09153869750 / +2348146259729' },
+  { icon: '✉️', label: 'Email Us', value: 'PROPERTYJARREALTYLTD@gmail.com' },
+  { icon: '🕐', label: 'Office Hours', value: 'Mon – Sat, 9AM – 6PM' },
 ];
 
 export default function ContactPage() {

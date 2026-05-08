@@ -16,17 +16,17 @@ export default function AdminLayoutClient({
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#0f0f0f] flex flex-col lg:flex-row">
+    <div className="min-h-screen bg-off-white flex flex-col lg:flex-row">
       {/* Mobile Header */}
-      <header className="lg:hidden bg-[#111111] border-b border-white/5 p-4 flex justify-between items-center sticky top-0 z-[60]">
+      <header className="lg:hidden bg-white border-b border-gray-100 p-4 flex justify-between items-center sticky top-0 z-[60]">
         <div className="flex items-center gap-2">
-           <p className="text-sm font-bold text-white tracking-tighter uppercase">
+           <p className="text-sm font-bold text-charcoal tracking-tighter uppercase">
             PropertyJar<span className="text-brand">Admin</span>
           </p>
         </div>
         <button 
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="text-white p-2 text-2xl focus:outline-none"
+          className="text-charcoal p-2 text-2xl focus:outline-none"
         >
           {isSidebarOpen ? '✕' : '☰'}
         </button>

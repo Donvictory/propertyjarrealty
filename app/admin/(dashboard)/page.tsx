@@ -29,17 +29,17 @@ export default async function AdminDashboardPage() {
     <div>
       {/* Page Header */}
       <div className="mb-8">
-        <p className="text-gray-500 text-xs uppercase tracking-widest font-bold mb-1">Welcome back</p>
-        <h1 className="text-3xl font-bold text-white">{session?.adminName} 👋</h1>
+        <p className="text-gray-400 text-xs uppercase tracking-widest font-bold mb-1">Welcome back</p>
+        <h1 className="text-3xl font-bold text-charcoal">{session?.adminName} 👋</h1>
         <p className="text-gray-500 text-sm mt-1">Here is what is happening with your properties today.</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
         {stats.map((stat) => (
-          <div key={stat.label} className="bg-[#111111] border border-white/5 rounded-2xl p-5">
+          <div key={stat.label} className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-gray-500 text-xs uppercase tracking-widest font-bold">{stat.label}</p>
+              <p className="text-gray-400 text-[10px] uppercase tracking-widest font-bold">{stat.label}</p>
               <span className="text-xl">{stat.icon}</span>
             </div>
             <p className={`text-4xl font-bold ${colorMap[stat.color]}`}>{stat.value}</p>
@@ -50,8 +50,8 @@ export default async function AdminDashboardPage() {
       {/* Properties Table */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold text-white">All Properties</h2>
-          <p className="text-gray-600 text-xs">Manage your property listings</p>
+          <h2 className="text-lg font-bold text-charcoal">All Properties</h2>
+          <p className="text-gray-400 text-xs">Manage your property listings</p>
         </div>
         <PropertyTable initialProperties={properties} />
       </div>

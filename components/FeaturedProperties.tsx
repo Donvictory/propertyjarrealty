@@ -5,84 +5,9 @@ import PropertyCard from './PropertyCard';
 import Link from 'next/link';
 import type { Property } from '@/lib/types';
 
-const properties: Property[] = [
-  {
-    id: '1',
-    title: 'The Glass House',
-    location: 'Malibu, California',
-    price: '$8,500,000',
-    beds: 5,
-    baths: 6,
-    sqft: '6,500',
-    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop',
-    tag: 'Exclusive',
-    type: 'Residential',
-    description: 'A breathtaking glass-walled estate perched on the Malibu cliffside with panoramic ocean views.',
-  },
-  {
-    id: '2',
-    title: 'Mountain Retreat',
-    location: 'Aspen, Colorado',
-    price: '$5,200,000',
-    beds: 4,
-    baths: 4,
-    sqft: '4,200',
-    image: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?q=80&w=2065&auto=format&fit=crop',
-    tag: 'New Listing',
-    type: 'Residential',
-    description: 'A luxurious mountain chalet nestled among Aspen\'s snow-capped peaks.',
-  },
-  {
-    id: '3',
-    title: 'Modern Oasis',
-    location: 'Miami, Florida',
-    price: '$12,000,000',
-    beds: 6,
-    baths: 8,
-    sqft: '8,900',
-    image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop',
-    tag: 'Featured',
-    type: 'Residential',
-    description: 'An ultra-modern waterfront masterpiece with infinity pool and private dock.',
-  },
-  {
-    id: '4',
-    title: 'The Penthouse',
-    location: 'New York, NY',
-    price: '$15,750,000',
-    beds: 3,
-    baths: 4,
-    sqft: '3,500',
-    image: 'https://images.unsplash.com/photo-1512915922686-57c11f9ad6b3?q=80&w=2070&auto=format&fit=crop',
-    type: 'Residential',
-    description: 'Manhattan\'s crown jewel — a full-floor penthouse with 360° skyline views.',
-  },
-  {
-    id: '5',
-    title: 'Desert Villa',
-    location: 'Palm Springs, CA',
-    price: '$3,800,000',
-    beds: 4,
-    baths: 3,
-    sqft: '3,200',
-    image: 'https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?q=80&w=2074&auto=format&fit=crop',
-    type: 'Residential',
-    description: 'A mid-century modern desert gem with stunning mountain views.',
-  },
-  {
-    id: '6',
-    title: 'Coastal Manor',
-    location: 'Hamptons, NY',
-    price: '$9,200,000',
-    beds: 7,
-    baths: 6,
-    sqft: '7,800',
-    image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop',
-    tag: 'Sold',
-    type: 'Residential',
-    description: 'A grand coastal estate steps from the beach featuring formal gardens.',
-  },
-];
+import propertiesData from '@/data/properties.json';
+
+const properties = propertiesData as Property[];
 
 const FeaturedProperties = () => {
   return (
