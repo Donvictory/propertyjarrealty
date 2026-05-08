@@ -3,131 +3,75 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: 'About Us — PropertyJar Realty',
-  description: 'Learn about PropertyJar Realty — our mission, our story, and the team behind the world\'s most exclusive luxury real estate experiences.',
+  title: 'About Us',
+  description: 'Learn about PropertyJar Realty Ltd — our mission, our story, and the expert team behind the world\'s most exclusive luxury real estate experiences.',
+  openGraph: {
+    title: 'About PropertyJar Realty Ltd',
+    description: 'Founded on the belief that finding your dream home should be extraordinary. Meet our team of luxury real estate specialists.',
+    url: 'https://propertyjarrealty.com/about',
+    images: [{ url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&h=630&fit=crop', width: 1200, height: 630, alt: 'PropertyJar Realty Team' }],
+  },
+  alternates: { canonical: 'https://propertyjarrealty.com/about' },
 };
-
-const stats = [
-  { value: '15+', label: 'Years of Excellence' },
-  { value: '$2.4B+', label: 'Properties Sold' },
-  { value: '1,200+', label: 'Happy Clients' },
-  { value: '30+', label: 'Markets Covered' },
-];
-
-const team = [
-  {
-    name: 'Victoria Chase',
-    role: 'Founder & CEO',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop',
-    bio: 'With 20 years in luxury real estate, Victoria founded PropertyJar Realty with a vision to redefine the home-buying experience.',
-  },
-  {
-    name: 'Marcus Bennett',
-    role: 'Head of Acquisitions',
-    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop',
-    bio: 'Marcus brings deep expertise in off-market transactions and has brokered over $400M in landmark deals.',
-  },
-  {
-    name: 'Sophia Laurent',
-    role: 'Director of Client Relations',
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&auto=format&fit=crop',
-    bio: "Sophia's passion for people-first service has earned PropertyJar Realty its reputation for exceptional client care.",
-  },
-  {
-    name: 'James Okafor',
-    role: 'Chief Investment Strategist',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop',
-    bio: 'A former investment banker, James specializes in helping clients build high-yield luxury property portfolios.',
-  },
-];
-
-const values = [
-  { icon: '⭐', title: 'Excellence', description: 'We never settle for ordinary. Every property and service reflects the highest standard of quality.' },
-  { icon: '🤝', title: 'Integrity', description: 'Trust is the foundation of every relationship. We operate with complete transparency and honesty.' },
-  { icon: '🎯', title: 'Precision', description: 'We listen deeply to understand your vision, then execute precisely to find exactly the right fit.' },
-  { icon: '🌐', title: 'Global Reach', description: 'Our network spans 30+ markets worldwide, giving clients access to exclusive opportunities everywhere.' },
-];
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen pt-32 bg-white">
       <Navbar />
 
-      <section className="relative pt-40 pb-24 bg-charcoal overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-cover bg-center" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop)' }} />
-        <div className="relative container mx-auto px-6 text-white text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.3em] text-brand mb-4 block">Our Story</span>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">About <span className="italic font-light">Us</span></h1>
-          <p className="text-white/60 text-lg max-w-2xl mx-auto">PropertyJar Realty was built on one belief — that finding your dream home should be an extraordinary experience, not just a transaction.</p>
-        </div>
-      </section>
-
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((s) => (
-              <div key={s.label} className="text-center">
-                <p className="text-4xl md:text-5xl font-bold text-brand mb-2">{s.value}</p>
-                <p className="text-xs font-bold uppercase tracking-widest text-gray-400">{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24 bg-off-white">
-        <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div>
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-brand mb-4 block">Our Mission</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-charcoal mb-8">Redefining <span className="italic font-light">Luxury Living</span></h2>
-            <p className="text-gray-500 leading-relaxed mb-6">Since 2011, PropertyJar Realty has set the benchmark for luxury real estate. We combine global market intelligence with deeply personal service to deliver outcomes that exceed expectations.</p>
-            <p className="text-gray-500 leading-relaxed">Our advisors are more than agents — they are trusted partners who understand that a home is a foundation for life's most meaningful moments.</p>
-          </div>
-          <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
-            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop" alt="Luxury interior" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-charcoal/40 to-transparent" />
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24 bg-white">
+      <section className="bg-gradient-to-br from-white to-off-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-brand mb-4 block">What Drives Us</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-charcoal">Our <span className="italic font-light">Values</span></h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-charcoal mb-4">About Us</h2>
+            <div className="w-24 h-1 bg-brand mx-auto rounded-full" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((v) => (
-              <div key={v.title} className="text-center p-8 rounded-2xl border border-gray-100 hover:border-brand/30 hover:shadow-lg transition-all">
-                <div className="text-4xl mb-4">{v.icon}</div>
-                <h3 className="text-xl font-bold text-charcoal mb-3">{v.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{v.description}</p>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl order-1 lg:order-1 border-8 border-white">
+              <img 
+                src="/profile.jpeg" 
+                alt="Jaiyesinmi MA - Founder" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/40 via-transparent to-transparent" />
+              <div className="absolute bottom-8 left-8">
+                <p className="text-white text-2xl font-bold">Jaiyesinmi MA</p>
+                <p className="text-brand font-medium">Founder & CEO</p>
               </div>
-            ))}
+            </div>
+
+            <div className="space-y-8 order-2 lg:order-2">
+              <h1 className="text-4xl md:text-6xl font-bold text-charcoal leading-[1.1]">
+                Hi, I'm <span className="text-brand">Jaiyesinmi MA</span>, <br />
+                founder of Property Jar Realty Ltd.
+              </h1>
+              <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
+                <p>
+                  At Property Jar Realty, we specialize in bridging the gap for UK-based and international investors looking to tap into the high-growth potential of the Lagos real estate market. Our firm provides a sophisticated, data-driven approach to property acquisition, ensuring that every investment is backed by a clear entry and exit strategy tailored to long-term wealth preservation.
+                </p>
+                <p>
+                  We understand that investing from abroad requires an unparalleled level of trust and transparency. That is why we have built a reputation for excellence, offering seamless end-to-end guidance—from initial property identification to secure closing and management. 
+                </p>
+                <p>
+                  Whether you are looking to diversify your portfolio into a fast-growing emerging market or seeking exclusive residential assets, we provide the local expertise and global standards necessary to navigate the Lagos landscape with absolute confidence. If you are ready for secure, premium real estate opportunities, you are in the right place.
+                </p>
+              </div>
+              <div className="pt-4 pb-4">
+                <a href="/contact" className="inline-block bg-brand text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-brand-hover transition-all shadow-lg hover:shadow-brand/20 active:scale-95">
+                  Work With Us
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-24 bg-off-white">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-brand mb-4 block">The Experts</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-charcoal">Meet the <span className="italic font-light">Team</span></h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {team.map((member) => (
-              <div key={member.name} className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all">
-                <div className="h-64 overflow-hidden">
-                  <img src={member.image} alt={member.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                </div>
-                <div className="p-6">
-                  <p className="text-xs font-bold uppercase tracking-widest text-brand mb-1">{member.role}</p>
-                  <h3 className="text-xl font-bold text-charcoal mb-3">{member.name}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">{member.bio}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+      <section className="py-24">
+        <div className="mx-auto px-6 text-center max-w-4xl">
+          <h2 className="text-4xl font-bold mb-8 tracking-tight text-black">Our <span className="text-brand">Commitment</span></h2>
+          <p className="text-xl text-black italic leading-relaxed">
+            "At PropertyJar Realty, we bridge the gap between global investors and the vibrant Lagos real estate market. Our mission is to provide transparency, security, and exceptional returns for every client we serve."
+          </p>
         </div>
       </section>
 

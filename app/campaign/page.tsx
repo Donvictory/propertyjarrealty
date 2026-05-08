@@ -12,34 +12,15 @@ export default function CampaignPage() {
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
 
   return (
-    <main className="min-h-screen bg-off-white">
+    <main className="min-h-screen pt-32 bg-off-white">
       <Navbar />
-      
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-charcoal overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-brand/5 -skew-x-12 translate-x-1/4" />
-        <div className="container mx-auto px-6 relative z-10 text-center md:text-left">
-          <div className="max-w-3xl">
-            <span className="inline-block py-1 px-4 rounded-full bg-brand/20 border border-brand/30 text-brand text-[10px] font-bold tracking-widest uppercase mb-6">
-              2026 Collection
-            </span>
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tight">
-              Our <span className="text-brand">Curated</span> <br />
-              Property Showcase.
-            </h1>
-            <p className="text-xl text-white/60 font-light leading-relaxed">
-              Explore our exclusive campaign collection. Each property has been hand-selected for its architectural significance and prime location.
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* Property Grid Section */}
       <section className="py-24">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div className="max-w-xl">
-              <h2 className="text-4xl font-bold text-charcoal tracking-tight mb-4">The Selection</h2>
+              <h1 className="text-4xl font-bold text-charcoal tracking-tight mb-4">The Selection</h1>
               <p className="text-gray-500">
                 Click on any property below to view its full summary, download a detailed brochure, and connect directly with our luxury realtors.
               </p>

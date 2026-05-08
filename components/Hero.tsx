@@ -5,14 +5,14 @@ import { motion } from 'framer-motion';
 const Hero = () => {
   return (
     <section className="relative h-screen w-full flex items-center justify-center overflow-hidden pt-20">
-      {/* Background Image with Parallax-like effect */}
+      
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat scale-105"
         style={{ 
           backgroundImage: 'url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2070&auto=format&fit=crop")',
         }}
       >
-        {/* Professional Gradient Overlay */}
+         
         <div className="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-charcoal/40 to-transparent z-10" />
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent z-10" />
       </div>
@@ -37,7 +37,7 @@ const Hero = () => {
             </p>
           </motion.div>
 
-          {/* Search Interface - Glassmorphism */}
+           
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -80,30 +80,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Stats/Floating elements */}
-      <div className="hidden lg:block absolute bottom-12 right-12 z-20">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.5 }}
-          className="glass p-6 rounded-3xl border border-white/10 flex items-center gap-6"
-        >
-          <div className="text-center">
-            <div className="text-3xl font-bold text-white">500+</div>
-            <div className="text-[10px] text-white/50 uppercase tracking-widest font-bold">Properties</div>
-          </div>
-          <div className="w-px h-10 bg-white/10" />
-          <div className="text-center">
-            <div className="text-3xl font-bold text-white">12</div>
-            <div className="text-[10px] text-white/50 uppercase tracking-widest font-bold">Countries</div>
-          </div>
-          <div className="w-px h-10 bg-white/10" />
-          <div className="text-center">
-            <div className="text-3xl font-bold text-white">99%</div>
-            <div className="text-[10px] text-white/50 uppercase tracking-widest font-bold">Satisfied</div>
-          </div>
-        </motion.div>
-      </div>
+       
     </section>
   );
 };

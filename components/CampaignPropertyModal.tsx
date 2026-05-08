@@ -103,6 +103,9 @@ const CampaignPropertyModal = ({ property, onClose }: CampaignPropertyModalProps
                 </div>
 
                 <div className="mt-auto space-y-4">
+                  <span className='text-gray-600 font-medium text-center'>
+                    Need full details about this property? Click the button below to get it for free
+                  </span>
                   <button 
                     onClick={() => setShowLeadForm(true)}
                     className="w-full bg-brand text-white py-4 rounded-2xl font-bold hover:bg-brand-hover transition-all shadow-lg active:scale-95"

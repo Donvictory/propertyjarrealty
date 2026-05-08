@@ -3,13 +3,19 @@ export interface Property {
   title: string;
   location: string;
   price: string;
-  beds: number;
-  baths: number;
-  sqft: string;
+  beds?: number;
+  baths?: number;
+  sqft?: string;
   image: string;
   tag?: string | null;
   type: string;
   description: string;
+  highlights?: string[];
+  locationAdvantages?: string[];
+  pricingOptions?: { size: string; price: string }[];
+  installmentPlan?: string;
+  bestFor?: string;
+  whatYouCanBuild?: string[];
 }
 
 export interface Admin {

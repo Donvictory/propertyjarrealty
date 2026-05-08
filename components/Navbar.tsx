@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import QRCodeModal from './QRCodeModal';
 
@@ -39,9 +40,15 @@ const Navbar = () => {
         }`}
       >
         <div className="container mx-auto px-6 flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold tracking-tighter flex items-center group">
-            <span className="text-charcoal group-hover:text-brand transition-colors">PROPERTYJAR</span>
-            <span className="text-brand ml-1">REALTY</span>
+          <Link href="/" className="flex items-center group" aria-label="PropertyJar Realty Home">
+            <Image
+              src="/logo.svg"
+              alt="PropertyJar Realty Ltd"
+              width={200}
+              height={55}
+              priority
+              className="h-12 w-auto object-contain"
+            />
           </Link>
 
           {/* Desktop Links */}

@@ -5,8 +5,15 @@ import PropertyCard from '@/components/PropertyCard';
 import { getProperties } from '@/lib/properties';
 
 export const metadata: Metadata = {
-  title: 'Properties — PropertyJar Realty',
-  description: 'Browse our exclusive portfolio of luxury properties across the world\'s most desirable locations.',
+  title: 'Exclusive Properties',
+  description: 'Browse our curated portfolio of world-class luxury properties across the world\'s most desirable locations. Filter by type, price, and location.',
+  openGraph: {
+    title: 'Exclusive Properties | PropertyJar Realty Ltd',
+    description: 'Browse our curated portfolio of world-class luxury properties.',
+    url: 'https://propertyjarrealty.com/properties',
+    images: [{ url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1200&h=630&fit=crop', width: 1200, height: 630, alt: 'PropertyJar Luxury Properties' }],
+  },
+  alternates: { canonical: 'https://propertyjarrealty.com/properties' },
 };
 
 const PROPERTY_TYPES = ['All', 'Residential', 'Commercial', 'Industrial', 'Land'];
@@ -16,22 +23,17 @@ export default function PropertiesPage() {
   const properties = getProperties();
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen pt-32 bg-off-white">
       <Navbar />
 
-      {/* Hero */}
-      <section className="relative pt-40 pb-20 bg-charcoal overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-20 bg-cover bg-center"
-          style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop)' }}
-        />
-        <div className="relative container mx-auto px-6 text-white">
-          <span className="text-xs font-bold uppercase tracking-[0.3em] text-brand mb-4 block">Our Portfolio</span>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            Exclusive <span className="italic font-light">Properties</span>
+      {/* Header Section */}
+      <section className="bg-off-white pt-12 pb-6">
+        <div className="container mx-auto px-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-charcoal tracking-tight">
+            Our <span className="text-brand">Exclusive</span> Properties
           </h1>
-          <p className="text-white/60 text-lg max-w-xl">
-            Discover our curated selection of world-class properties — each one a testament to exceptional architecture and unparalleled lifestyle.
+          <p className="mt-4 text-gray-500 max-w-2xl leading-relaxed">
+            Discover a curated selection of the most prestigious properties in the world's most desirable locations.
           </p>
         </div>
       </section>

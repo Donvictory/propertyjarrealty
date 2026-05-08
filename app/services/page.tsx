@@ -3,8 +3,15 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: 'Services — PropertyJar Realty',
-  description: 'Explore our full suite of luxury real estate services — buying, selling, investment advisory, and property management.',
+  title: 'Our Services',
+  description: 'Explore our full suite of luxury real estate services — buying, selling, investment advisory, relocation, and property management by PropertyJar Realty Ltd.',
+  openGraph: {
+    title: 'Our Services | PropertyJar Realty Ltd',
+    description: 'White-glove real estate services — buying, selling, investment, relocation, and property management.',
+    url: 'https://propertyjarrealty.com/services',
+    images: [{ url: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1200&h=630&fit=crop', width: 1200, height: 630, alt: 'PropertyJar Realty Services' }],
+  },
+  alternates: { canonical: 'https://propertyjarrealty.com/services' },
 };
 
 const services = [
@@ -66,22 +73,17 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen pt-32 bg-white">
       <Navbar />
 
-      {/* Hero */}
-      <section className="relative pt-40 pb-24 bg-charcoal overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-10 bg-cover bg-center"
-          style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=2073&auto=format&fit=crop)' }}
-        />
-        <div className="relative container mx-auto px-6 text-white text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.3em] text-brand mb-4 block">What We Offer</span>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            Our <span className="italic font-light">Services</span>
+      {/* Header Section */}
+      <section className="bg-white pt-12 pb-6 text-center">
+        <div className="container mx-auto px-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-charcoal tracking-tight">
+            Our <span className="text-brand">Bespoke</span> Services
           </h1>
-          <p className="text-white/60 text-lg max-w-2xl mx-auto">
-            Whether you are buying, selling, investing, or relocating, our team of experts delivers a seamless, white-glove experience tailored to your needs.
+          <p className="mt-4 text-gray-500 max-w-2xl mx-auto leading-relaxed">
+            From property acquisition to investment advisory, we provide a full suite of services tailored to the luxury real estate market.
           </p>
         </div>
       </section>

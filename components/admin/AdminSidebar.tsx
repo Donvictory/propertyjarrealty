@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useTransition } from 'react';
 import { logoutAction } from '@/app/actions/auth';
@@ -32,10 +33,14 @@ export default function AdminSidebar({
       {/* Logo */}
       <div className="p-6 border-b border-white/5">
         <Link href="/" className="block">
-          <p className="text-lg font-bold text-white tracking-tighter">
-            PROPERTYJAR<span className="text-brand">REALTY</span>
-          </p>
-          <p className="text-[10px] uppercase tracking-widest text-gray-600 mt-0.5">Admin Console</p>
+          <Image
+            src="/logo-white.svg"
+            alt="PropertyJar Realty Ltd"
+            width={180}
+            height={50}
+            className="h-10 w-auto object-contain"
+          />
+          <p className="text-[10px] uppercase tracking-widest text-gray-600 mt-1">Admin Console</p>
         </Link>
       </div>
 

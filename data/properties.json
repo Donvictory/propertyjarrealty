@@ -1,80 +1,81 @@
 [
   {
-    "id": "1",
-    "title": "The Glass House",
-    "location": "Malibu, California",
-    "price": "$8,500,000",
-    "beds": 5,
-    "baths": 6,
-    "sqft": "6,500",
-    "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
-    "tag": "Exclusive",
-    "type": "Residential",
-    "description": "A breathtaking glass-walled estate perched on the Malibu cliffside with panoramic ocean views."
-  },
-  {
-    "id": "2",
-    "title": "Mountain Retreat",
-    "location": "Aspen, Colorado",
-    "price": "$5,200,000",
-    "beds": 4,
-    "baths": 4,
-    "sqft": "4,200",
-    "image": "https://images.unsplash.com/photo-1518780664697-55e3ad937233?q=80&w=2065&auto=format&fit=crop",
-    "tag": "New Listing",
-    "type": "Residential",
-    "description": "A luxurious mountain chalet nestled among Aspen's snow-capped peaks, perfect for year-round retreat."
-  },
-  {
-    "id": "3",
-    "title": "Modern Oasis",
-    "location": "Miami, Florida",
-    "price": "$12,000,000",
-    "beds": 6,
-    "baths": 8,
-    "sqft": "8,900",
-    "image": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop",
+    "id": "de-avocado-2",
+    "title": "DE AVOCADO SMART & LUXURY HOMES 2.0",
+    "location": "Lekki, Lagos",
+    "price": "₦18M",
+    "image": "https://images.unsplash.com/photo-1545324418-f1d3ac59749c?q=80&w=2070&auto=format&fit=crop",
     "tag": "Featured",
     "type": "Residential",
-    "description": "An ultra-modern waterfront masterpiece with infinity pool, private dock, and stunning Biscayne Bay views."
+    "description": "Modern luxury apartments with premium finishing.",
+    "highlights": [
+      "Solar-powered infrastructure",
+      "Smart energy systems",
+      "EV charging ports",
+      "Recreational facilities"
+    ],
+    "locationAdvantages": [
+      "Near Lekki Deep Sea Port",
+      "Close to Dangote Refinery",
+      "Pan Atlantic University axis"
+    ],
+    "pricingOptions": [
+      { "size": "300sqm", "price": "₦18M" },
+      { "size": "500sqm", "price": "₦30M" }
+    ],
+    "installmentPlan": "up to 24 months",
+    "bestFor": "early investors & eco-conscious developments"
   },
   {
-    "id": "4",
-    "title": "The Penthouse",
-    "location": "New York, NY",
-    "price": "$15,750,000",
-    "beds": 3,
-    "baths": 4,
-    "sqft": "3,500",
-    "image": "https://images.unsplash.com/photo-1512915922686-57c11f9ad6b3?q=80&w=2070&auto=format&fit=crop",
-    "tag": null,
+    "id": "fairmont-green",
+    "title": "FAIRMONT GREEN & SMART ESTATE",
+    "location": "Lekki, Lagos",
+    "price": "₦18M",
+    "image": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2070&auto=format&fit=crop",
+    "tag": "Eco-Friendly",
     "type": "Residential",
-    "description": "Manhattan's crown jewel — a full-floor penthouse with 360° skyline views and private rooftop terrace."
+    "description": "A 100% eco-friendly, tech-enabled estate built for future living",
+    "highlights": [
+      "Solar-powered infrastructure",
+      "Smart energy systems",
+      "EV charging ports",
+      "Recreational facilities"
+    ],
+    "locationAdvantages": [
+      "Near Lekki Deep Sea Port",
+      "Close to Dangote Refinery",
+      "Pan Atlantic University axis"
+    ],
+    "pricingOptions": [
+      { "size": "300sqm", "price": "₦18M" },
+      { "size": "500sqm", "price": "₦30M" }
+    ],
+    "installmentPlan": "up to 24 months",
+    "bestFor": "early investors & eco-conscious developments"
   },
   {
-    "id": "5",
-    "title": "Desert Villa",
-    "location": "Palm Springs, CA",
-    "price": "$3,800,000",
-    "beds": 4,
-    "baths": 3,
-    "sqft": "3,200",
-    "image": "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?q=80&w=2074&auto=format&fit=crop",
-    "tag": null,
-    "type": "Residential",
-    "description": "A mid-century modern desert gem with stunning mountain views, private pool, and resort-style amenities."
-  },
-  {
-    "id": "6",
-    "title": "Coastal Manor",
-    "location": "Hamptons, NY",
-    "price": "$9,200,000",
-    "beds": 7,
-    "baths": 6,
-    "sqft": "7,800",
-    "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop",
-    "tag": "Sold",
-    "type": "Residential",
-    "description": "A grand coastal estate steps from the beach featuring formal gardens, a carriage house, and tennis court."
+    "id": "marbella-smart",
+    "title": "Marbella Smart Estate",
+    "location": "Lekki Free Trade Zone, Lagos",
+    "price": "₦86.5M",
+    "image": "https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=2070&auto=format&fit=crop",
+    "tag": "Investment",
+    "type": "Commercial/Residential",
+    "description": "Prime commercial & residential investment",
+    "highlights": [
+      "Strategic location within growth corridor",
+      "Government allocated C of O",
+      "Accessible road & infrastructure",
+      "Close to Dangote Refinery & Lekki Free Trade Zone"
+    ],
+    "whatYouCanBuild": [
+      "Bank", "Tech Hub", "Hotel", "Plaza", "Cinema", "Office Complex", "Warehouse"
+    ],
+    "pricingOptions": [
+      { "size": "300sqm", "price": "₦86.5M" },
+      { "size": "500sqm", "price": "₦109.5M" },
+      { "size": "1000sqm (Commercial)", "price": "₦250M" }
+    ],
+    "bestFor": "long-term capital growth & commercial investors"
   }
 ]

@@ -1,8 +1,8 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { QRCodeSVG } from 'qrcode.react';
-import { useState, useEffect } from 'react';
+import { QRCodeCanvas } from 'qrcode.react';
+import { useState, useEffect, useRef } from 'react';
 
 interface QRCodeModalProps {
   isOpen: boolean;
@@ -10,13 +10,27 @@ interface QRCodeModalProps {
 }
 
 const QRCodeModal = ({ isOpen, onClose }: QRCodeModalProps) => {
-  const [currentUrl, setCurrentUrl] = useState('');
+  const [campaignUrl, setCampaignUrl] = useState('');
+  const qrRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setCurrentUrl(window.location.href);
+      setCampaignUrl(`${window.location.origin}/campaign`);
     }
   }, [isOpen]);
+
+  const downloadQRCode = () => {
+    const canvas = qrRef.current?.querySelector('canvas');
+    if (canvas) {
+      const url = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'propertyjar-campaign-qr.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -42,13 +56,13 @@ const QRCodeModal = ({ isOpen, onClose }: QRCodeModalProps) => {
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
 
-            <h3 className="text-2xl font-bold text-charcoal mb-2">Scan QR Code</h3>
-            <p className="text-gray-500 mb-8 text-sm">Scan this code to open this page on your mobile device.</p>
+            <h3 className="text-2xl font-bold text-charcoal mb-2">Campaign QR</h3>
+            <p className="text-gray-500 mb-8 text-sm">Scan or download this code to access our exclusive campaign.</p>
             
-            <div className="bg-off-white p-6 rounded-2xl inline-block mb-8 shadow-inner">
-              {currentUrl && (
-                <QRCodeSVG
-                  value={currentUrl}
+            <div ref={qrRef} className="bg-off-white p-6 rounded-2xl inline-block mb-8 shadow-inner">
+              {campaignUrl && (
+                <QRCodeCanvas
+                  value={campaignUrl}
                   size={200}
                   level="H"
                   includeMargin={false}
@@ -65,10 +79,18 @@ const QRCodeModal = ({ isOpen, onClose }: QRCodeModalProps) => {
             </div>
 
             <div className="space-y-4">
+              <button 
+                onClick={downloadQRCode}
+                className="w-full bg-brand text-white py-3 rounded-xl font-bold hover:bg-brand-hover transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Download QR Image
+              </button>
+              
               <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-xl border border-gray-100 overflow-hidden">
-                <span className="text-xs text-gray-400 truncate flex-1 text-left">{currentUrl}</span>
+                <span className="text-[10px] text-gray-400 truncate flex-1 text-left">{campaignUrl}</span>
                 <button 
-                  onClick={() => navigator.clipboard.writeText(currentUrl)}
+                  onClick={() => navigator.clipboard.writeText(campaignUrl)}
                   className="text-brand font-bold text-xs hover:text-brand-hover"
                 >
                   Copy

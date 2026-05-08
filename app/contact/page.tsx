@@ -24,16 +24,19 @@ export default function ContactPage() {
   }
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen pt-32 bg-off-white">
       <Navbar />
 
-      {/* Hero */}
-      <section className="relative pt-40 pb-24 bg-charcoal overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-cover bg-center" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop)' }} />
-        <div className="relative container mx-auto px-6 text-white text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.3em] text-brand mb-4 block">Reach Out</span>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">Get in <span className="italic font-light">Touch</span></h1>
-          <p className="text-white/60 text-lg max-w-xl mx-auto">Whether you have a question, a property to list, or simply want to explore what is possible — we would love to hear from you.</p>
+      {/* Appointment CTA */}
+      <section className="py-12 bg-brand text-white">
+        <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
+          <div>
+            <h3 className="text-2xl font-bold mb-2">Ready for a private consultation?</h3>
+            <p className="text-white/80">Schedule a direct appointment with one of our luxury specialists.</p>
+          </div>
+          <button className="bg-white text-brand px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all shadow-xl active:scale-95">
+            Book an Appointment
+          </button>
         </div>
       </section>
 
@@ -43,7 +46,7 @@ export default function ContactPage() {
           {/* Info */}
           <div>
             <span className="text-xs font-bold uppercase tracking-[0.3em] text-brand mb-4 block">Contact Information</span>
-            <h2 className="text-4xl font-bold text-charcoal mb-10">We are <span className="italic font-light">Here for You</span></h2>
+            <h1 className="text-4xl font-bold text-charcoal mb-10">We are <span className="italic font-light">Here for You</span></h1>
             <div className="space-y-6 mb-12">
               {contactInfo.map((item) => (
                 <div key={item.label} className="flex items-start gap-4 p-5 bg-white rounded-2xl border border-gray-100 shadow-sm">
