@@ -1,6 +1,7 @@
 import 'server-only';
 import bcrypt from 'bcryptjs';
 import { db } from './firebase-admin';
+import { FieldValue } from 'firebase-admin/firestore';
 import type { Admin } from './types';
 
 const ADMINS_COLLECTION = 'admins';
@@ -84,6 +85,7 @@ export async function createAdmin(data: {
     passwordHash,
     role: data.role ?? 'admin',
     createdAt: new Date().toISOString(),
+    sessionVersion: 1, // incremented on every password change to invalidate old sessions
   };
 
   const docRef = await db.collection(ADMINS_COLLECTION).add(newAdminData);
@@ -94,6 +96,7 @@ export async function createAdmin(data: {
     email: newAdminData.email,
     role: newAdminData.role,
     createdAt: newAdminData.createdAt,
+    sessionVersion: newAdminData.sessionVersion,
   };
 }
 
@@ -108,5 +111,10 @@ export async function deleteAdmin(id: string): Promise<boolean> {
 
 export async function updateAdminPassword(id: string, newPassword: string): Promise<void> {
   const passwordHash = await bcrypt.hash(newPassword, 12);
-  await db.collection(ADMINS_COLLECTION).doc(id).update({ passwordHash });
+  // FieldValue.increment(1) is atomic — safely bumps the version even under concurrent writes.
+  // Any JWT session that embeds an older sessionVersion will be rejected by getSession().
+  await db.collection(ADMINS_COLLECTION).doc(id).update({
+    passwordHash,
+    sessionVersion: FieldValue.increment(1),
+  });
 }

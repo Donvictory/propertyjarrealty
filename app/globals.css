@@ -13,8 +13,12 @@
   --font-sans: var(--font-spartan), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-playfair), serif;
 
-  --radius-xl: 1rem;
-  --radius-2xl: 1.5rem;
+  --radius-sm: 5px;
+  --radius-md: 5px;
+  --radius-lg: 5px;
+  --radius-xl: 5px;
+  --radius-2xl: 5px;
+  --radius-3xl: 5px;
   
   --background-image-gold-gradient: linear-gradient(135deg, #d4af37 0%, #f9f295 25%, #d4af37 50%, #f9f295 75%, #d4af37 100%);
 }
@@ -37,6 +41,17 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global Border Radius Policy: 5px for all images and cards */
+img {
+  border-radius: 5px !important;
+}
+
+/* Apply 5px to all rounded utilities except 'full' (circles/pills) */
+[class*="rounded-"]:not([class*="rounded-full"]),
+.card {
+  border-radius: 5px !important;
 }
 
 .glass {
@@ -67,12 +82,4 @@ body {
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
-}
-
-@media (min-width: 860px) and (max-width: 999px) {
-  .nav-container {
-    max-width: 100% !important;
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
-  }
 }

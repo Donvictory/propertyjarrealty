@@ -62,11 +62,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Professional About Us Section from Screenshot */}
+       
       <section className="py-24 bg-white overflow-hidden">
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row gap-16 items-center">
-            {/* Overlapping Images Layer */}
+            
             <div className="lg:w-1/2 relative h-[600px] w-full">
               <div className="absolute top-0 left-0 w-[80%] h-[60%] z-20 rounded-2xl overflow-hidden shadow-2xl">
                 <img 
@@ -83,12 +83,11 @@ export default function AboutPage() {
                 />
               </div>
             </div>
-
-            {/* Content Layer */}
+ 
             <div className="lg:w-1/2 space-y-12">
               <div className="space-y-4">
-                <h2 className="text-4xl md:text-5xl font-bold text-charcoal tracking-tight flex items-center gap-4">
-                  ABOUT <span className="w-16 h-px bg-charcoal inline-block opacity-20" /> <span className="italic font-light serif">US</span>
+                <h2 className="text-3xl md:text-4xl font-bold text-charcoal tracking-tight flex items-center gap-4">
+                  ABOUT <span className="italic font-light serif">US</span>
                 </h2>
                 <p className="text-xl text-gray-600 leading-relaxed max-w-xl font-medium">
                   Property Jar Realty Ltd is a Lagos-based real estate brokerage firm focused on helping local and international investors access high-growth property opportunities.

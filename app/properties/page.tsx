@@ -53,22 +53,22 @@ export default async function PropertiesPage() {
       {/* Filters */}
       <section className="bg-off-white border-b border-gray-200 sticky top-[72px] z-40">
         <div className="container mx-auto px-6 py-4 flex flex-wrap gap-3 items-center">
-          <span className="text-xs font-bold uppercase tracking-widest text-gray-400 mr-2">Type:</span>
+          <span className="text-xs font-bold uppercase tracking-widest text-black mr-2">Type:</span>
           {PROPERTY_TYPES.map((type) => (
             <button
               key={type}
-              className="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white hover:bg-brand hover:text-white hover:border-brand transition-all first:bg-brand first:text-white first:border-brand"
+              className="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white hover:bg-brand hover:text-white brand:text-black hover:border-brand transition-all first:bg-brand first:text-black hover:border-brand text-black"
             >
               {type}
             </button>
           ))}
-          <span className="text-xs font-bold uppercase tracking-widest text-gray-400 ml-4 mr-2">Price:</span>
-          <select className="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white focus:outline-none focus:border-brand transition-all">
+          <span className="text-xs font-bold uppercase tracking-widest text-black ml-4 mr-2">Price:</span>
+          <select className="px-4 py-1.5 rounded-full text-xs font-bold border border-gray-200 bg-white focus:outline-none focus:border-brand transition-all text-black">
             {PRICE_RANGES.map((r) => (
               <option key={r}>{r}</option>
             ))}
           </select>
-          <span className="ml-auto text-xs text-gray-400 font-medium">{properties.length} listings found</span>
+          <span className="ml-auto text-xs text-black font-medium">{properties.length} listings found</span>
         </div>
       </section>
 
@@ -83,7 +83,7 @@ export default async function PropertiesPage() {
 
           {properties.length === 0 && (
             <div className="text-center py-32">
-              <p className="text-gray-400 text-lg">No properties found.</p>
+              <p className="text-black-400 text-lg">No properties found.</p>
             </div>
           )}
         </div>

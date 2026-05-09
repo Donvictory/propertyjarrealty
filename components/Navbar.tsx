@@ -35,19 +35,17 @@ const Navbar = () => {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'py-3 glass-dark shadow-lg' : 'py-5 glass'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 p-2.5 bg-white shadow-md`}
       >
-        <div className="w-full max-w-7xl mx-auto px-6 nav-container flex justify-between items-center">
+        <div className="w-full max-w-7xl mx-auto nav-container flex justify-between items-center">
           <Link href="/" className="flex items-center group" aria-label="PropertyJar Realty Home">
             <Image
-              src="/Propertyjaarrealty.jpeg"
+              src="/propertyjar-logo-v3.png"
               alt="PropertyJar Realty Ltd"
-              width={220}
-              height={70}
+              width={240}
+              height={120}
               priority
-              className="h-16 w-auto object-contain rounded-lg"
+              className="h-14 w-auto object-contain"
             />
           </Link>
 

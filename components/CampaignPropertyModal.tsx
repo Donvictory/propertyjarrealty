@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Property } from '@/lib/types';
+import { sendPropertyInquiry } from '@/app/actions/leads';
 
 interface CampaignPropertyModalProps {
   property: Property;
@@ -14,23 +15,29 @@ const CampaignPropertyModal = ({ property, onClose }: CampaignPropertyModalProps
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // In a real app, you would send lead data to your CRM here
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    const formData = new FormData(e.currentTarget);
+    formData.append('propertyTitle', property.title);
+    formData.append('propertyLocation', property.location);
+
+    const result = await sendPropertyInquiry(formData);
     
     setIsSubmitting(false);
-    setIsSuccess(true);
-    
-    // Trigger download if URL exists
-    if (property.brochureUrl) {
-      setTimeout(() => {
-        window.open(property.brochureUrl, '_blank');
-      }, 500);
+
+    if (result.success) {
+      setIsSuccess(true);
+      
+      // Trigger download if URL exists
+      if (property.brochureUrl) {
+        setTimeout(() => {
+          window.open(property.brochureUrl, '_blank');
+        }, 500);
+      }
     } else {
-      console.warn('No brochure URL found for this property');
+      alert(result.error || 'Something went wrong. Please try again.');
     }
   };
 
@@ -173,6 +180,7 @@ const CampaignPropertyModal = ({ property, onClose }: CampaignPropertyModalProps
                         <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 block">Full Name</label>
                         <input 
                           required
+                          name="fullName"
                           type="text" 
                           placeholder="John Doe" 
                           className="w-full bg-off-white border border-gray-100 rounded-xl px-4 py-3 text-charcoal focus:outline-none focus:border-brand transition-colors"
@@ -182,6 +190,7 @@ const CampaignPropertyModal = ({ property, onClose }: CampaignPropertyModalProps
                         <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 block">Email Address</label>
                         <input 
                           required
+                          name="email"
                           type="email" 
                           placeholder="john@example.com" 
                           className="w-full bg-off-white border border-gray-100 rounded-xl px-4 py-3 text-charcoal focus:outline-none focus:border-brand transition-colors"

@@ -30,6 +30,7 @@ export async function loginAction(
     adminEmail: admin.email,
     adminName: admin.name,
     role: admin.role,
+    sessionVersion: admin.sessionVersion ?? 1,
   });
 
   redirect('/admin');
