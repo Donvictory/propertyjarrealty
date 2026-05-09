@@ -113,7 +113,7 @@ const organizationSchema = {
     availableLanguage: 'English',
   },
   sameAs: [
-    'https://instagram.com/propertyjarrealty',
+    'https://www.instagram.com/propertyjarrealtyltd_?igsh=NWY5aTU1ZGFuc2hh',
     'https://linkedin.com/company/propertyjarrealty',
   ],
 };

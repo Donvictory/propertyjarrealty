@@ -44,9 +44,13 @@ export default function ContactPage() {
             <h3 className="text-2xl font-bold mb-2">Ready for a private consultation?</h3>
             <p className="text-white/80">Schedule a direct appointment with one of our luxury specialists.</p>
           </div>
-          <button className="bg-white text-brand px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all shadow-xl active:scale-95">
+          <a 
+            href="https://wa.me/2349153869750?text=Hello%20PropertyJar%20Realty%2C%20I%20would%20like%20to%20book%20an%20appointment%20for%20a%20private%20consultation."
+            target="_blank"
+            className="bg-white text-brand px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all shadow-xl active:scale-95 inline-block text-center"
+          >
             Book an Appointment
-          </button>
+          </a>
         </div>
       </section>
 
@@ -93,24 +97,24 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="firstName">First Name</label>
-                    <input id="firstName" name="firstName" required type="text" placeholder="Victoria" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors" />
+                    <input id="firstName" name="firstName" required type="text" placeholder="Victoria" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors text-black" />
                   </div>
                   <div>
                     <label className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="lastName">Last Name</label>
-                    <input id="lastName" name="lastName" required type="text" placeholder="Chase" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors" />
+                    <input id="lastName" name="lastName" required type="text" placeholder="Chase" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors text-black" />
                   </div>
                 </div>
                 <div>
                   <label className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="email">Email</label>
-                  <input id="email" name="email" required type="email" placeholder="hello@example.com" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors" />
+                  <input id="email" name="email" required type="email" placeholder="hello@example.com" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors text-black" />
                 </div>
                 <div>
                   <label className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="phone">Phone (Optional)</label>
-                  <input id="phone" name="phone" type="tel" placeholder="+1 (310) 555-0100" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors" />
+                  <input id="phone" name="phone" type="tel" placeholder="+1 (310) 555-0100" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors text-black" />
                 </div>
                 <div>
                   <label className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="subject">Subject</label>
-                  <select id="subject" name="subject" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors bg-white">
+                  <select id="subject" name="subject" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors bg-white text-black py-3">
                     <option>General Enquiry</option>
                     <option>Property Purchase</option>
                     <option>Property Sale / Listing</option>
@@ -120,7 +124,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <label className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="message">Message</label>
-                  <textarea id="message" name="message" required rows={5} placeholder="Tell us about your requirements..." className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors resize-none" />
+                  <textarea id="message" name="message" required rows={5} placeholder="Tell us about your requirements..." className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors resize-none text-black" />
                 </div>
 
                 {error && (

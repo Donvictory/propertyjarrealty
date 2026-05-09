@@ -128,14 +128,14 @@ const CampaignPropertyModal = ({ property, onClose }: CampaignPropertyModalProps
                   
                   <div className="flex gap-4">
                     <a 
-                      href="https://wa.me/1234567890" 
+                      href={`https://wa.me/2349153869750?text=Hello%20PropertyJar%20Realty%2C%20I'm%20interested%20in%20${property.title}`}
                       target="_blank"
                       className="flex-1 flex items-center justify-center gap-2 bg-[#25D366] text-white py-3 rounded-2xl text-sm font-bold hover:opacity-90 transition-all"
                     >
                       WhatsApp
                     </a>
                     <a 
-                      href="https://instagram.com" 
+                      href="https://www.instagram.com/propertyjarrealtyltd_?igsh=NWY5aTU1ZGFuc2hh" 
                       target="_blank"
                       className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white py-3 rounded-2xl text-sm font-bold hover:opacity-90 transition-all"
                     >
