@@ -183,7 +183,7 @@ const CampaignPropertyModal = ({ property, onClose }: CampaignPropertyModalProps
                           name="fullName"
                           type="text" 
                           placeholder="John Doe" 
-                          className="w-full bg-off-white border border-gray-100 rounded-xl px-4 py-3 text-charcoal focus:outline-none focus:border-brand transition-colors"
+                          className="w-full bg-off-white border border-gray-100 rounded-xl px-4 py-3 text-charcoal focus:outline-none focus:border-brand transition-colors text-base"
                         />
                       </div>
                       <div>
@@ -193,7 +193,7 @@ const CampaignPropertyModal = ({ property, onClose }: CampaignPropertyModalProps
                           name="email"
                           type="email" 
                           placeholder="john@example.com" 
-                          className="w-full bg-off-white border border-gray-100 rounded-xl px-4 py-3 text-charcoal focus:outline-none focus:border-brand transition-colors"
+                          className="w-full bg-off-white border border-gray-100 rounded-xl px-4 py-3 text-charcoal focus:outline-none focus:border-brand transition-colors text-base"
                         />
                       </div>
                       <button 

@@ -97,24 +97,24 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="firstName">First Name</label>
-                    <input id="firstName" name="firstName" required type="text" placeholder="Victoria" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors text-black" />
+                    <input id="firstName" name="firstName" required type="text" placeholder="Victoria" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-brand transition-colors text-black" />
                   </div>
                   <div>
                     <label className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="lastName">Last Name</label>
-                    <input id="lastName" name="lastName" required type="text" placeholder="Chase" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors text-black" />
+                    <input id="lastName" name="lastName" required type="text" placeholder="Chase" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-brand transition-colors text-black" />
                   </div>
                 </div>
                 <div>
                   <label className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="email">Email</label>
-                  <input id="email" name="email" required type="email" placeholder="hello@example.com" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors text-black" />
+                  <input id="email" name="email" required type="email" placeholder="hello@example.com" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-brand transition-colors text-black" />
                 </div>
                 <div>
                   <label className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="phone">Phone (Optional)</label>
-                  <input id="phone" name="phone" type="tel" placeholder="+1 (310) 555-0100" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors text-black" />
+                  <input id="phone" name="phone" type="tel" placeholder="+1 (310) 555-0100" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-brand transition-colors text-black" />
                 </div>
                 <div>
                   <label className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="subject">Subject</label>
-                  <select id="subject" name="subject" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors bg-white text-black py-3">
+                  <select id="subject" name="subject" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-brand transition-colors bg-white text-black py-3">
                     <option>General Enquiry</option>
                     <option>Property Purchase</option>
                     <option>Property Sale / Listing</option>
@@ -124,7 +124,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <label className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="message">Message</label>
-                  <textarea id="message" name="message" required rows={5} placeholder="Tell us about your requirements..." className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors resize-none text-black" />
+                  <textarea id="message" name="message" required rows={5} placeholder="Tell us about your requirements..." className="w-full border border-gray-200 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-brand transition-colors resize-none text-black" />
                 </div>
 
                 {error && (
