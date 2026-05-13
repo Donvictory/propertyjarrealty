@@ -63,7 +63,7 @@ export const metadata: Metadata = {
       'Discover the most exclusive luxury properties worldwide. Buy, sell, and invest with PropertyJar Realty Ltd.',
     images: [
       {
-        url: `${BASE_URL}/og-image.jpg`,
+        url: `${BASE_URL}/Propertyjaarrealty.jpeg`,
         width: 1200,
         height: 630,
         alt: 'PropertyJar Realty Ltd — Luxury Real Estate',
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     title: 'PropertyJar Realty Ltd — Luxury Real Estate',
     description:
       'Discover the most exclusive luxury properties worldwide with PropertyJar Realty Ltd.',
-    images: [`${BASE_URL}/og-image.jpg`],
+    images: [`${BASE_URL}/Propertyjaarrealty.jpeg`],
     creator: '@propertyjarrealty',
   },
   alternates: {
@@ -101,11 +101,10 @@ const organizationSchema = {
     'Premier luxury real estate agency offering exclusive properties worldwide.',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '1 Luxury Lane',
-    addressLocality: 'Beverly Hills',
-    addressRegion: 'CA',
-    postalCode: '90210',
-    addressCountry: 'US',
+    streetAddress: '21 Alexander Court',
+    addressLocality: 'Osapa London, Lekki',
+    addressRegion: 'Lagos',
+    addressCountry: 'NG',
   },
   contactPoint: {
     '@type': 'ContactPoint',
