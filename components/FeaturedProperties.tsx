@@ -19,7 +19,7 @@ const FeaturedProperties = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-gray-400 mb-4 block">Our Portfolio</span>
+            <span className="text-sm font-bold uppercase tracking-[0.3em] text-gray-400 mb-4 block">Our Portfolio</span>
             <h2 className="text-4xl md:text-5xl font-bold text-charcoal">Featured <span className="italic font-light">Properties</span></h2>
           </motion.div>
 

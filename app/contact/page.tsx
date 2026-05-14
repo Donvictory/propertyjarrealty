@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+
 import { sendContactEmail } from '@/app/actions/contact';
 
 const contactInfo = [
@@ -35,7 +34,7 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-screen pt-32 bg-off-white">
-      <Navbar />
+
 
       {/* Appointment CTA */}
       <section className="py-12 bg-brand text-white">
@@ -59,14 +58,14 @@ export default function ContactPage() {
         <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Info */}
           <div>
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-brand mb-4 block">Contact Information</span>
+            <span className="text-sm font-bold uppercase tracking-[0.3em] text-brand mb-4 block">Contact Information</span>
             <h1 className="text-4xl font-bold text-charcoal mb-10">We are <span className="italic font-light">Here for You</span></h1>
             <div className="space-y-6 mb-12">
               {contactInfo.map((item) => (
                 <div key={item.label} className="flex items-start gap-4 p-5 bg-white rounded-2xl border border-gray-100 shadow-sm">
                   <div className="text-2xl w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center flex-shrink-0">{item.icon}</div>
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">{item.label}</p>
+                    <p className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-1">{item.label}</p>
                     <p className="font-semibold text-charcoal">{item.value}</p>
                   </div>
                 </div>
@@ -93,7 +92,7 @@ export default function ContactPage() {
               <div className="text-center py-16">
                 <div className="text-5xl mb-6">✅</div>
                 <h3 className="text-2xl font-bold text-charcoal mb-3">Message Sent!</h3>
-                <p className="text-gray-500">Thank you for reaching out. One of our advisors will be in touch within 24 hours.</p>
+                <p className="text-base text-gray-500">Thank you for reaching out. One of our advisors will be in touch within 24 hours.</p>
                 <button onClick={() => setSubmitted(false)} className="mt-8 bg-brand text-white px-8 py-3 rounded-full font-bold hover:bg-brand-hover transition-all">
                   Send Another
                 </button>
@@ -102,28 +101,28 @@ export default function ContactPage() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <h3 className="text-2xl font-bold text-charcoal mb-2">Send a Message</h3>
-                  <p className="text-gray-500 text-sm">Fill out the form and we will respond within one business day.</p>
+                  <p className="text-gray-500 text-base">Fill out the form and we will respond within one business day.</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="firstName">First Name</label>
+                    <label className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="firstName">First Name</label>
                     <input id="firstName" name="firstName" required type="text" placeholder="Victoria" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-brand transition-colors text-black" />
                   </div>
                   <div>
-                    <label className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="lastName">Last Name</label>
+                    <label className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="lastName">Last Name</label>
                     <input id="lastName" name="lastName" required type="text" placeholder="Chase" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-brand transition-colors text-black" />
                   </div>
                 </div>
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="email">Email</label>
+                  <label className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="email">Email</label>
                   <input id="email" name="email" required type="email" placeholder="hello@example.com" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-brand transition-colors text-black" />
                 </div>
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="phone">Phone (Optional)</label>
+                  <label className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="phone">Phone (Optional)</label>
                   <input id="phone" name="phone" type="tel" placeholder="+1 (310) 555-0100" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-brand transition-colors text-black" />
                 </div>
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="subject">Subject</label>
+                  <label className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="subject">Subject</label>
                   <select id="subject" name="subject" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-brand transition-colors bg-white text-black py-3">
                     <option>General Enquiry</option>
                     <option>Property Purchase</option>
@@ -133,7 +132,7 @@ export default function ContactPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="message">Message</label>
+                  <label className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="message">Message</label>
                   <textarea id="message" name="message" required rows={5} placeholder="Tell us about your requirements..." className="w-full border border-gray-200 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-brand transition-colors resize-none text-black" />
                 </div>
 
@@ -152,7 +151,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <Footer />
+
     </main>
   );
 }

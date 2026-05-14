@@ -23,6 +23,16 @@
   --background-image-gold-gradient: linear-gradient(135deg, #d4af37 0%, #f9f295 25%, #d4af37 50%, #f9f295 75%, #d4af37 100%);
 }
 
+html {
+  font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #121212;

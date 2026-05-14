@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { League_Spartan, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import Script from 'next/script';
+import AppLayout from '@/components/AppLayout';
 
 const leagueSpartan = League_Spartan({
   variable: '--font-spartan',
@@ -130,7 +131,9 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
-        {children}
+        <AppLayout>
+          {children}
+        </AppLayout>
       </body>
     </html>
   );

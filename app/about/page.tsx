@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+
 
 export const metadata: Metadata = {
   title: 'About Us',
@@ -17,7 +16,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <main className="min-h-screen pt-32 bg-white">
-      <Navbar />
+
 
       <section className="bg-gradient-to-br from-white to-off-white">
         <div className="container mx-auto px-6 pt-12">
@@ -130,7 +129,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Footer />
+
     </main>
   );
 }

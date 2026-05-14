@@ -33,8 +33,6 @@ const Navbar = () => {
   return (
     <>
       <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 p-2.5 bg-white shadow-md`}
       >
         <div className="w-full max-w-7xl mx-auto nav-container flex justify-between items-center">
@@ -57,7 +55,7 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`relative px-4 py-2 text-sm font-semibold transition-all duration-300 rounded-full hover:text-brand ${
+                  className={`relative px-4 py-2 text-base font-semibold transition-all duration-300 rounded-full hover:text-brand ${
                     isActive ? 'text-brand bg-brand/5' : 'text-charcoal'
                   }`}
                 >
@@ -84,7 +82,7 @@ const Navbar = () => {
             </button>
             <Link
               href="/contact"
-              className="bg-brand text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-brand-hover transition-all shadow-md hover:shadow-brand/20 active:scale-95"
+              className="bg-brand text-white px-6 py-2.5 rounded-full text-base font-bold hover:bg-brand-hover transition-all shadow-md hover:shadow-brand/20 active:scale-95"
             >
               List Property
             </Link>

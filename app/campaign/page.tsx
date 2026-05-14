@@ -1,8 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+
 import { motion } from 'framer-motion';
 import type { Property } from '@/lib/types';
 import type { CampaignContent } from '@/lib/campaign';
@@ -71,7 +70,7 @@ export default function CampaignPage() {
 
   return (
     <main className="min-h-screen pt-32 bg-off-white">
-      <Navbar />
+
 
       {/* Why Invest Section */}
       <section className="py-4 bg-white overflow-hidden">
@@ -79,8 +78,7 @@ export default function CampaignPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
               
@@ -90,7 +88,7 @@ export default function CampaignPage() {
                 )}
               </h2>
               
-              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-8">
+              <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-gray-400 mb-8">
                 {content?.whyInvestSubtitle}
               </h3>
 
@@ -98,7 +96,7 @@ export default function CampaignPage() {
                 {content?.whyInvestPoints.map((item, idx) => (
                   <li key={idx} className="flex items-start gap-3 group">
                     <span className="w-1.5 h-1.5 rounded-full bg-brand mt-2 flex-shrink-0" />
-                    <p className="text-lg text-gray-600 font-light leading-relaxed">{item}</p>
+                    <p className="text-lg text-gray-700 leading-relaxed">{item}</p>
                   </li>
                 ))}
               </ul>
@@ -106,8 +104,7 @@ export default function CampaignPage() {
 
             <motion.div
               initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative lg:pl-16"
             >
@@ -117,7 +114,7 @@ export default function CampaignPage() {
                 <h4 className="text-3xl md:text-6xl font-bold text-charcoal leading-tight">
                   Projected ROI: <br />
                   <span className="text-brand tracking-tighter">{content?.projectedRoi}</span>
-                  <span className="text-sm md:text-base text-gray-400 font-medium uppercase tracking-[0.2em] mt-6 block">
+                  <span className="text-base md:text-lg text-gray-400 font-bold uppercase tracking-[0.2em] mt-6 block">
                     {content?.roiSubtext}
                   </span>
                 </h4>
@@ -133,7 +130,7 @@ export default function CampaignPage() {
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div className="max-w-xl">
               <h1 className="text-4xl font-bold text-charcoal tracking-tight mb-4">The Selection</h1>
-              <p className="text-gray-500">
+              <p className="text-gray-600 text-lg leading-relaxed">
                 Click on any property below to view its full summary, download a detailed brochure, and connect directly with our luxury realtors.
               </p>
             </div>
@@ -231,8 +228,8 @@ export default function CampaignPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {content?.investmentOptions.map((opt, i) => (
               <div key={i} className="space-y-4">
-                <h3 className="font-bold text-charcoal text-sm uppercase tracking-widest">{opt.title}</h3>
-                <ul className="space-y-2 text-sm text-gray-500 uppercase font-medium tracking-wide">
+                <h3 className="font-bold text-charcoal text-base uppercase tracking-widest">{opt.title}</h3>
+                <ul className="space-y-2 text-base text-gray-500 uppercase font-medium tracking-wide">
                   {opt.points.map((p, j) => (
                     <li key={j}>• {p}</li>
                   ))}
@@ -240,20 +237,7 @@ export default function CampaignPage() {
               </div>
             ))}
 
-            {/* Architectural Graphic Placeholder */}
-            <div className="lg:col-span-3 flex justify-end mt-8">
-              <div className="max-w-xs text-right">
-                 <div className="border border-gray-200 p-4 rounded-xl mb-4 bg-off-white">
-                    <img 
-                      src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=400&h=300&fit=crop" 
-                      alt="Floor plan concept" 
-                      className="w-full h-32 object-cover opacity-50 grayscale"
-                    />
-                 </div>
-                 <p className="text-[10px] uppercase font-bold text-charcoal tracking-widest mb-1">Function in Form</p>
-                 <p className="text-[8px] uppercase text-gray-400 leading-tight">Every piece of furniture serves a purpose</p>
-              </div>
-            </div>
+           
           </div>
         </div>
       </section>
@@ -266,25 +250,54 @@ export default function CampaignPage() {
             <div className="w-16 h-0.5 bg-brand mx-auto" />
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-24 gap-y-16">
-            {content?.offerStack.map((offer, i) => (
-              <div key={i} className={`space-y-8 ${offer.title === 'Elite Investor' ? 'lg:row-span-2 flex flex-col justify-center' : ''}`}>
-                <div className="flex items-center gap-4">
-                  {offer.color && <div className="w-4 h-4 rounded-full" style={{ backgroundColor: offer.color }} />}
-                  <h3 className="text-2xl font-bold text-charcoal uppercase tracking-tighter">{offer.title}</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {content?.offerStack.map((offer, i) => {
+              const isElite = offer.title.includes('Elite');
+              return (
+                <div 
+                  key={i} 
+                  className={`relative p-8 rounded-3xl border transition-all duration-300 flex flex-col h-full
+                    ${isElite 
+                      ? 'bg-charcoal border-brand shadow-2xl lg:-mt-4 lg:mb-4 z-10' 
+                      : 'bg-white border-gray-100 hover:border-gray-200'}`}
+                >
+                  {isElite && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand text-white text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1 rounded-full whitespace-nowrap">
+                      Most Exclusive
+                    </div>
+                  )}
+                  
+                  <div className="flex items-center gap-4 mb-8">
+                    {offer.color && <div className="w-3 h-3 rounded-full" style={{ backgroundColor: offer.color }} />}
+                    <h3 className={`text-2xl font-bold uppercase tracking-tight ${isElite ? 'text-white' : 'text-charcoal'}`}>
+                      {offer.title}
+                    </h3>
+                  </div>
+
+                  <ul className="space-y-4 mb-8 flex-grow">
+                    {offer.points.map((p, j) => (
+                      <li key={j} className={`flex items-start gap-3 text-sm font-medium leading-relaxed ${isElite ? 'text-white/80' : 'text-gray-500'}`}>
+                        <span className="text-brand mt-1 flex-shrink-0">✓</span>
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <button className={`w-full py-4 rounded-xl font-bold text-sm uppercase tracking-widest transition-all
+                    ${isElite 
+                      ? 'bg-brand text-white hover:bg-brand-hover' 
+                      : 'bg-gray-50 text-charcoal hover:bg-gray-100'}`}
+                  >
+                    Inquire Now
+                  </button>
                 </div>
-                <ul className="space-y-4 text-sm text-charcoal font-bold uppercase tracking-widest">
-                  {offer.points.map((p, j) => (
-                    <li key={j}>• {p}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <Footer />
+
 
       {selectedProperty && (
         <CampaignPropertyModal 
