@@ -8,7 +8,7 @@ import { sendContactEmail } from '@/app/actions/contact';
 const contactInfo = [
   { icon: '📍', label: 'Visit Us', value: '21 Alexander court, Osapa London Lekki' },
   { icon: '📞', label: 'Call Us', value: '09153869750 / +2348146259729' },
-  { icon: '✉️', label: 'Email Us', value: 'PROPERTYJARREALTYLTD@gmail.com' },
+  { icon: '✉️', label: 'Email Us', value: 'sales@propertyjarrealty.com' },
   { icon: '🕐', label: 'Office Hours', value: 'Mon – Sat, 9AM – 6PM' },
 ];
 
@@ -72,8 +72,18 @@ export default function ContactPage() {
                 </div>
               ))}
             </div>
-            <div className="h-56 rounded-2xl overflow-hidden bg-gray-100 flex items-center justify-center border border-gray-200">
-              <p className="text-gray-400 text-sm font-medium">📍 Map — Beverly Hills, CA</p>
+            <div className="h-72 md:h-96 rounded-2xl overflow-hidden bg-gray-100 border border-gray-200 shadow-inner group">
+              <iframe
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.724623199859!2d3.504283!3d6.435834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf4281f62b881%3A0xc4a193699c279a0!2sOsapa%20London%2C%20Lekki!5e0!3m2!1sen!2sng!4v1715678000000!5m2!1sen!2sng"
+                title="PropertyJar Realty Location"
+                className="grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
+              ></iframe>
             </div>
           </div>
 
