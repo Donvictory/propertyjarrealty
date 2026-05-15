@@ -14,12 +14,18 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase (Client Side)
-const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+const isConfigured = !!firebaseConfig.apiKey;
+const app = isConfigured 
+  ? (getApps().length > 0 ? getApp() : initializeApp(firebaseConfig)) 
+  : null;
 
 // Initialize Analytics conditionally (only in browser)
-export const analytics = typeof window !== 'undefined' ? isSupported().then(yes => yes ? getAnalytics(app) : null) : null;
+export const analytics = (typeof window !== 'undefined' && app) 
+  ? isSupported().then(yes => yes ? getAnalytics(app) : null) 
+  : null;
 
-export const db = getFirestore(app);
-export const auth = getAuth(app);
+export const db = app ? getFirestore(app) : null;
+export const auth = app ? getAuth(app) : null;
 
 export default app;
+
