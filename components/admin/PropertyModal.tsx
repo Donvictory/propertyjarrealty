@@ -81,28 +81,36 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
   const labelClass = 'block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1.5';
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    // z-[90] ensures modal is above the mobile admin header (z-[60]) and sidebar (z-[80])
+    <div className="fixed inset-0 z-[90] flex items-end sm:items-center justify-center">
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
 
-      {/* Modal */}
-      <div className="relative bg-[#111111] border border-white/10 rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
+      {/* Modal — slides up from bottom on mobile, centered on desktop */}
+      <div className="relative bg-[#111111] border border-white/10 w-full sm:rounded-3xl rounded-t-3xl sm:max-w-2xl sm:mx-4 shadow-2xl flex flex-col"
+        style={{ maxHeight: 'calc(100dvh - 56px)', marginTop: 'auto' }}
+      >
+        {/* Drag handle (mobile hint) */}
+        <div className="sm:hidden flex justify-center pt-3 pb-1 flex-shrink-0">
+          <div className="w-10 h-1 rounded-full bg-white/20" />
+        </div>
+
         {/* Header */}
-        <div className="sticky top-0 bg-[#111111] border-b border-white/5 px-8 py-5 flex items-center justify-between z-10">
+        <div className="border-b border-white/5 px-6 py-4 flex items-center justify-between flex-shrink-0">
           <div>
-            <h2 className="text-xl font-bold text-white">{isEdit ? 'Edit Property' : 'Add New Property'}</h2>
+            <h2 className="text-lg font-bold text-white">{isEdit ? 'Edit Property' : 'Add New Property'}</h2>
             <p className="text-gray-500 text-xs mt-0.5">{isEdit ? `Editing: ${property!.title}` : 'Fill in the details below'}</p>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-white/10 hover:text-white transition-all text-xl leading-none"
+            className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-white/10 hover:text-white transition-all text-xl leading-none flex-shrink-0"
           >
             ×
           </button>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="p-8 space-y-5">
+        {/* Scrollable Form */}
+        <form onSubmit={handleSubmit} className="overflow-y-auto overscroll-contain p-6 space-y-5 flex-1">
           {/* Title */}
           <div>
             <label className={labelClass} htmlFor="pm-title">Property Title</label>
@@ -122,7 +130,7 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
           </div>
 
           {/* Beds / Baths / Sqft */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-3">
             <div>
               <label className={labelClass} htmlFor="pm-beds">Beds</label>
               <input id="pm-beds" name="beds" type="number" min={1} required value={form.beds} onChange={handleChange} className={inputClass} />
@@ -137,8 +145,8 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
             </div>
           </div>
 
-          {/* Type / Tag / Campaign */}
-          <div className="grid grid-cols-2 gap-4">
+          {/* Type / Tag */}
+          <div className="grid grid-cols-2 gap-3">
             <div>
               <label className={labelClass} htmlFor="pm-type">Property Type</label>
               <select id="pm-type" name="type" value={form.type} onChange={handleChange} className={inputClass}>
@@ -153,6 +161,7 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
             </div>
           </div>
 
+          {/* Campaign toggle */}
           <div className="flex items-center gap-3 bg-white/5 p-4 rounded-2xl border border-white/5">
             <input
               type="checkbox"
@@ -169,15 +178,15 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
           </div>
 
           {form.isCampaign && (
-            <div className="bg-brand/5 p-6 rounded-2xl border border-brand/10 space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
+            <div className="bg-brand/5 p-5 rounded-2xl border border-brand/10 space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
               <label className={labelClass} htmlFor="pm-brochure">Brochure PDF URL (Campaign Only)</label>
-              <input 
-                id="pm-brochure" 
-                name="brochureUrl" 
-                value={form.brochureUrl || ''} 
-                onChange={handleChange} 
-                placeholder="https://..." 
-                className={inputClass} 
+              <input
+                id="pm-brochure"
+                name="brochureUrl"
+                value={form.brochureUrl || ''}
+                onChange={handleChange}
+                placeholder="https://..."
+                className={inputClass}
               />
               <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Users must fill a form to download this PDF on the campaign page</p>
             </div>
@@ -207,7 +216,7 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
           )}
 
           {/* Actions */}
-          <div className="flex gap-3 pt-2">
+          <div className="flex gap-3 pt-2 pb-2">
             <button type="button" onClick={onClose} className="flex-1 border border-white/10 text-gray-400 py-3 rounded-xl font-bold text-sm hover:bg-white/5 transition-all">
               Cancel
             </button>

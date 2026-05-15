@@ -10,12 +10,10 @@ interface QRCodeModalProps {
 }
 
 const QRCodeModal = ({ isOpen, onClose }: QRCodeModalProps) => {
-  const [campaignUrl, setCampaignUrl] = useState('');
+  const [campaignUrl] = useState(() => 
+    process.env.NEXT_PUBLIC_CAMPAIGN_URL || 'https://propertyjarrealty.com/campaign'
+  );
   const qrRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setCampaignUrl('https://propertyjarrealty.vercel.app/campaign');
-  }, [isOpen]);
 
   const downloadQRCode = () => {
     const canvas = qrRef.current?.querySelector('canvas');

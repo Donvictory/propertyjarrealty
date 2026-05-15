@@ -3,7 +3,15 @@
 import { motion } from 'framer-motion';
 import type { Property } from '@/lib/types';
 
-const PropertyCard = ({ property }: { property: Property }) => {
+interface PropertyCardProps {
+  property: Property;
+  /** Converted price to display (e.g. "£6,715,000"). Falls back to property.price. */
+  displayPrice?: string;
+}
+
+const PropertyCard = ({ property, displayPrice }: PropertyCardProps) => {
+  const shownPrice = displayPrice ?? property.price;
+
   return (
     <motion.div
       whileHover={{ y: -10 }}
@@ -31,7 +39,7 @@ const PropertyCard = ({ property }: { property: Property }) => {
             ))
           ) : (
             <div className="bg-brand text-white px-4 py-2 rounded-xl text-lg font-bold shadow-lg">
-              {property.price}
+              {shownPrice}
             </div>
           )}
         </div>
@@ -41,9 +49,9 @@ const PropertyCard = ({ property }: { property: Property }) => {
         <h3 className="text-2xl font-serif font-bold text-charcoal mb-4 leading-tight group-hover:text-brand transition-colors">
           {property.title}
         </h3>
-        
+
         <div className="mt-auto flex flex-col gap-4">
-          <a 
+          <a
             href={`https://wa.me/2349153869750?text=I'm interested in ${property.title}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -57,7 +65,7 @@ const PropertyCard = ({ property }: { property: Property }) => {
             <a href="#" className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-charcoal hover:bg-brand hover:text-white transition-all shadow-sm">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
             </a>
-            <a href="https://www.instagram.com/propertyjarrealtyltd_?igsh=NWY5aTU1ZGFuc2hh" target="_blank" className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-charcoal hover:bg-brand hover:text-white transition-all shadow-sm">
+            <a href="https://www.instagram.com/propertyjarrealtyltd_?igsh=NWY5aTU1ZGFuc2hh" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-charcoal hover:bg-brand hover:text-white transition-all shadow-sm">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
             </a>
             <a href="#" className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-charcoal hover:bg-brand hover:text-white transition-all shadow-sm">

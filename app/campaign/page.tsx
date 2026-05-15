@@ -32,9 +32,9 @@ export default function CampaignPage() {
 
         setProperties(propData);
         setContent(contentData);
-      } catch (err: any) {
+      } catch (err) {
         console.error('Error fetching campaign data:', err);
-        setError(err.message);
+        setError(err instanceof Error ? err.message : 'An unexpected error occurred');
       } finally {
         setLoading(false);
       }
