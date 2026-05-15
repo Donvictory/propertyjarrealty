@@ -11,6 +11,9 @@ export async function GET() {
   }
 
   try {
+    if (!db) {
+      return NextResponse.json({ error: 'Database not initialized' }, { status: 500 });
+    }
     const results: any = {};
 
     // Migrate Admins

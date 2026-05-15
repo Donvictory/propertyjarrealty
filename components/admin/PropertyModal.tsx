@@ -177,18 +177,23 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
             </label>
           </div>
 
+          <div>
+            <label className={labelClass} htmlFor="pm-brochure">Brochure PDF URL</label>
+            <input
+              id="pm-brochure"
+              name="brochureUrl"
+              value={form.brochureUrl || ''}
+              onChange={handleChange}
+              placeholder="https://..."
+              className={inputClass}
+            />
+            <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest mt-1">Users can download this PDF directly from the property card</p>
+          </div>
+
           {form.isCampaign && (
-            <div className="bg-brand/5 p-5 rounded-2xl border border-brand/10 space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
-              <label className={labelClass} htmlFor="pm-brochure">Brochure PDF URL (Campaign Only)</label>
-              <input
-                id="pm-brochure"
-                name="brochureUrl"
-                value={form.brochureUrl || ''}
-                onChange={handleChange}
-                placeholder="https://..."
-                className={inputClass}
-              />
-              <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Users must fill a form to download this PDF on the campaign page</p>
+            <div className="bg-brand/5 p-4 rounded-2xl border border-brand/10">
+               <p className="text-[10px] text-brand uppercase font-bold tracking-widest">Campaign Settings Active</p>
+               <p className="text-xs text-gray-400 mt-1">This property is also featured in the specialized investor campaign.</p>
             </div>
           )}
 

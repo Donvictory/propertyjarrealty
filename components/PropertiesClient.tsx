@@ -112,19 +112,19 @@ function FilterSelect({
   icon?: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-1.5 flex-1 min-w-[200px]">
-      <label htmlFor={id} className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">
+    <div className="flex flex-col gap-1 lg:gap-1.5 flex-1 min-w-0">
+      <label htmlFor={id} className="hidden lg:block text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">
         {label}
       </label>
       <div className="relative group">
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-brand group-hover:scale-110 transition-transform">
+        <div className="hidden lg:block absolute left-4 top-1/2 -translate-y-1/2 text-brand group-hover:scale-110 transition-transform">
           {icon}
         </div>
         <select
           id={id}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="appearance-none w-full bg-white border border-gray-100 text-charcoal text-sm font-bold rounded-2xl pl-11 pr-10 py-3.5 focus:outline-none focus:border-brand focus:ring-4 focus:ring-brand/5 transition-all shadow-sm cursor-pointer hover:border-brand/50"
+          className="appearance-none w-full bg-white border border-gray-100 text-charcoal text-[10px] lg:text-sm font-bold rounded-xl lg:rounded-2xl px-2 lg:pl-11 lg:pr-10 py-2.5 lg:py-3.5 focus:outline-none focus:border-brand focus:ring-4 focus:ring-brand/5 transition-all shadow-sm cursor-pointer hover:border-brand/50 text-center lg:text-left"
         >
           {options.map((opt) => (
             <option key={opt.value} value={opt.value}>
@@ -132,7 +132,7 @@ function FilterSelect({
             </option>
           ))}
         </select>
-        <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 group-hover:text-brand transition-colors">
+        <span className="pointer-events-none absolute right-1 lg:right-4 top-1/2 -translate-y-1/2 text-gray-400 group-hover:text-brand transition-colors scale-75 lg:scale-100">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
         </span>
       </div>
@@ -186,10 +186,10 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
       </section>
 
        
-      <section className="bg-off-white/80 backdrop-blur-xl border-y border-gray-100 sticky top-[72px] z-40 py-6">
+      <section className="bg-off-white/80 border-y border-gray-100 py-4 lg:py-6">
         <div className="container mx-auto px-6">
-          <div className="bg-white/50 p-2 rounded-[2.5rem] border border-white/20 shadow-xl shadow-gray-200/50">
-            <div className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center">
+          <div className="bg-white/50 p-2 lg:rounded-[2.5rem] rounded-3xl border border-white/20 shadow-xl shadow-gray-200/50">
+            <div className="grid grid-cols-3 lg:flex lg:flex-row items-center gap-2 lg:gap-4">
 
               {/* Type dropdown */}
               <FilterSelect
@@ -235,7 +235,7 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
               {(activeType !== 'All' || activePriceIdx !== 0) && (
                 <button 
                   onClick={() => { setActiveType('All'); setActivePriceIdx(0); }}
-                  className="lg:ml-2 px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-widest text-red-500 hover:bg-red-50 transition-colors whitespace-nowrap"
+                  className="col-span-3 lg:col-auto lg:ml-2 px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest text-red-500 hover:bg-red-50 transition-colors whitespace-nowrap"
                 >
                   Reset Filters
                 </button>
