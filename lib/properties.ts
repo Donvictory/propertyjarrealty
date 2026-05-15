@@ -1,14 +1,19 @@
 import 'server-only';
 import { db } from './firebase-admin';
 import type { Property } from './types';
+import { unstable_cache } from 'next/cache';
 
 const PROPERTIES_COLLECTION = 'properties';
 
-export async function getProperties(): Promise<Property[]> {
-  console.log(`[Firestore] Fetching from project: ${process.env.FIREBASE_PROJECT_ID} | Collection: ${PROPERTIES_COLLECTION}`);
-  const snapshot = await db.collection(PROPERTIES_COLLECTION).get();
-  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Property));
-}
+export const getProperties = unstable_cache(
+  async (): Promise<Property[]> => {
+    console.log(`[Firestore] Fetching from project: ${process.env.FIREBASE_PROJECT_ID} | Collection: ${PROPERTIES_COLLECTION}`);
+    const snapshot = await db.collection(PROPERTIES_COLLECTION).get();
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Property));
+  },
+  ['properties-list'],
+  { revalidate: 3600, tags: ['properties'] }
+);
 
 export async function getPropertyById(id: string): Promise<Property | undefined> {
   const doc = await db.collection(PROPERTIES_COLLECTION).doc(id).get();

@@ -24,18 +24,28 @@
 }
 
 html {
-  font-size: 18px;
+  font-size: 20px; /* Increased from 18px */
 }
 
 @media (max-width: 768px) {
   html {
-    font-size: 16px;
+    font-size: 18px; /* Increased from 16px */
   }
 }
 
 :root {
   --background: #ffffff;
   --foreground: #121212;
+  --line-height-relaxed: 1.7;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  line-height: var(--line-height-relaxed);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @media (prefers-color-scheme: dark) {

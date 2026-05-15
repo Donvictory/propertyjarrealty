@@ -83,9 +83,9 @@ export const metadata: Metadata = {
     canonical: BASE_URL,
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/favicon.ico',
+    icon: '/Propertyjaarrealty.jpeg?v=3',
+    shortcut: '/Propertyjaarrealty.jpeg?v=3',
+    apple: '/Propertyjaarrealty.jpeg?v=3',
   },
   verification: {
     google: 'your-google-search-console-code',  

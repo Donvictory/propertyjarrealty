@@ -167,14 +167,14 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
       <section className="bg-off-white pt-16 pb-8">
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-            <div className="max-w-2xl">
-              <h1 className="text-4xl md:text-5xl font-bold text-charcoal tracking-tight">
+            <div className="max-w-3xl">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-charcoal tracking-tight leading-none">
                 Our <span className="text-brand">Exclusive</span> Properties
               </h1>
-              <p className="mt-4 text-gray-600 text-lg leading-relaxed">
+              <p className="mt-8 text-gray-700 text-xl md:text-2xl leading-relaxed font-medium">
                 Discover a curated selection of the most prestigious properties in the world&apos;s most desirable locations.
               </p>
-              </div>
+            </div>
               <Link
                 href="/campaign"
                 className="bg-brand text-white px-8 py-4 rounded-2xl font-bold text-sm hover:bg-brand-hover transition-all shadow-lg shadow-brand/20 active:scale-95 whitespace-nowrap"
@@ -259,13 +259,22 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
               {filtered.map((property) => {
-                const ngnVal      = parsePriceNGN(property.price);
+                const ngnVal       = parsePriceNGN(property.price);
                 const displayPrice = ngnVal > 0 ? formatDisplay(ngnVal, currency) : property.price;
+                
+                // Convert pricing options if they exist
+                const displayPricingOptions = property.pricingOptions?.map(opt => ({
+                  ...opt,
+                  price: formatDisplay(parsePriceNGN(opt.price), currency)
+                }));
+
                 return (
                   <PropertyCard
                     key={property.id}
                     property={property}
                     displayPrice={displayPrice}
+                    displayPricingOptions={displayPricingOptions}
+                    currency={currency}
                   />
                 );
               })}

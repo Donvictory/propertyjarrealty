@@ -7,10 +7,14 @@ interface PropertyCardProps {
   property: Property;
   /** Converted price to display (e.g. "£6,715,000"). Falls back to property.price. */
   displayPrice?: string;
+  displayPricingOptions?: { size: string; price: string }[];
+  currency?: 'NGN' | 'USD' | 'GBP';
 }
 
-const PropertyCard = ({ property, displayPrice }: PropertyCardProps) => {
+const PropertyCard = ({ property, displayPrice, displayPricingOptions, currency }: PropertyCardProps) => {
   const shownPrice = displayPrice ?? property.price;
+  const pricingOptions = displayPricingOptions ?? property.pricingOptions;
+  const isConverted = currency && currency !== 'NGN';
 
   return (
     <motion.div
@@ -20,19 +24,27 @@ const PropertyCard = ({ property, displayPrice }: PropertyCardProps) => {
     >
       {/* Property Image */}
       <div className="relative h-64 w-full overflow-hidden shrink-0">
-        {property.tag && (
-          <div className="absolute top-4 left-4 z-10 bg-brand/90 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-widest text-white">
-            {property.tag}
-          </div>
-        )}
+        <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
+          {property.tag && (
+            <div className="bg-brand/90 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-widest text-white">
+              {property.tag}
+            </div>
+          )}
+          {isConverted && (
+            <div className="bg-white/90 backdrop-blur-sm px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-brand border border-brand/20 shadow-sm animate-pulse">
+              {currency} Equivalence
+            </div>
+          )}
+        </div>
+        
         <img
           src={property.image}
           alt={property.title}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
         <div className="absolute bottom-4 right-4 z-10 flex flex-col gap-1.5 items-end">
-          {property.pricingOptions ? (
-            property.pricingOptions.slice(0, 2).map((opt, i) => (
+          {pricingOptions ? (
+            pricingOptions.slice(0, 2).map((opt, i) => (
               <div key={i} className="bg-brand text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg backdrop-blur-md border border-white/10 uppercase tracking-tight">
                 {opt.size}: {opt.price}
               </div>

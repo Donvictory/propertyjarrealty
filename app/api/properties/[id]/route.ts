@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { updateProperty, deleteProperty, getPropertyById } from '@/lib/properties';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { getSession } from '@/lib/session';
 
 type Params = { params: Promise<{ id: string }> };
@@ -30,6 +30,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
     revalidatePath('/properties');
     revalidatePath('/admin');
     revalidatePath('/');
+    revalidateTag('properties', 'max');
     return NextResponse.json(updated);
   } catch {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -50,5 +51,6 @@ export async function DELETE(_request: NextRequest, { params }: Params) {
     revalidatePath('/properties');
     revalidatePath('/admin');
     revalidatePath('/');
+    revalidateTag('properties', 'max');
     return NextResponse.json({ success: true });
 }
