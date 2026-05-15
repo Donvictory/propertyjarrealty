@@ -183,7 +183,6 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
               </Link>
             </div>
           </div>
-        </div>
       </section>
 
        
