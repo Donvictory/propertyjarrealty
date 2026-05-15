@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getProperties, addProperty } from '@/lib/properties';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { getSession } from '@/lib/session';
 import { rateLimit } from '@/lib/rate-limit';
 import { z } from 'zod';
@@ -62,6 +63,11 @@ export async function POST(request: NextRequest) {
       isCampaign:  data.isCampaign,
       brochureUrl: data.brochureUrl,
     });
+
+    revalidatePath('/properties');
+    revalidatePath('/admin');
+    revalidatePath('/');
+    revalidateTag('properties', 'max');
 
     return NextResponse.json(newProperty, { status: 201 });
   } catch {

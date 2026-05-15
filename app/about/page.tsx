@@ -36,11 +36,11 @@ export default function AboutPage() {
             </div>
 
             <div className="space-y-8 order-2 lg:order-2">
-              <h1 className="text-3xl md:text-5xl font-bold text-charcoal leading-tight">
+              <h1 className="text-4xl md:text-6xl font-bold text-charcoal leading-tight tracking-tight">
                 Hi, I'm <span className="text-brand">Jaiyesinmi MA</span>, <br />
                 founder of Property Jar Realty Ltd.
               </h1>
-              <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
+              <div className="space-y-8 text-xl text-gray-600 leading-relaxed font-medium">
                 <p>
                   At Property Jar Realty, we specialize in bridging the gap for UK-based and international investors looking to tap into the high-growth potential of the Lagos real estate market. Our firm provides a sophisticated, data-driven approach to property acquisition, ensuring that every investment is backed by a clear entry and exit strategy tailored to long-term wealth preservation.
                 </p>
@@ -85,10 +85,10 @@ export default function AboutPage() {
  
             <div className="lg:w-1/2 space-y-12">
               <div className="space-y-4">
-                <h2 className="text-3xl md:text-4xl font-bold text-charcoal tracking-tight flex items-center gap-4">
-                  ABOUT <span className="italic font-light serif">US</span>
+                <h2 className="text-4xl md:text-5xl font-bold text-charcoal tracking-tight flex items-center gap-4 uppercase">
+                  ABOUT <span className="italic font-light serif text-brand">US</span>
                 </h2>
-                <p className="text-xl text-gray-600 leading-relaxed max-w-xl font-medium">
+                <p className="text-2xl text-gray-700 leading-relaxed max-w-xl font-semibold">
                   Property Jar Realty Ltd is a Lagos-based real estate brokerage firm focused on helping local and international investors access high-growth property opportunities.
                 </p>
               </div>
@@ -124,7 +124,7 @@ export default function AboutPage() {
         <div className="mx-auto px-6 text-center max-w-4xl">
           <h2 className="text-3xl font-bold mb-8 tracking-tight text-black">Our <span className="text-brand">Commitment</span></h2>
           <p className="text-xl text-black italic leading-relaxed">
-            "At PropertyJar Realty, we bridge the gap between global investors and the vibrant Lagos real estate market. Our mission is to provide transparency, security, and exceptional returns for every client we serve."
+            &quot;At PropertyJar Realty, we bridge the gap between global investors and the vibrant Lagos real estate market. Our mission is to provide transparency, security, and exceptional returns for every client we serve.&quot;
           </p>
         </div>
       </section>

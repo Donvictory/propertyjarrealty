@@ -15,6 +15,28 @@ export default function PropertyTable({ initialProperties }: PropertyTableProps)
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [search, setSearch] = useState('');
 
+  // --- Live stats derived from client state ---
+  const stats = [
+    { label: 'Total Properties', value: properties.length, icon: '🏠', color: 'brand' },
+    { label: 'Active Listings', value: properties.filter((p) => p.tag !== 'Sold').length, icon: '✅', color: 'green' },
+    { label: 'Sold', value: properties.filter((p) => p.tag === 'Sold').length, icon: '🔑', color: 'gray' },
+    { label: 'Featured', value: properties.filter((p) => ['Exclusive', 'Featured', 'New Listing'].includes(p.tag ?? '')).length, icon: '⭐', color: 'yellow' },
+  ];
+
+  const colorMap: Record<string, string> = {
+    brand: 'text-brand',
+    green: 'text-green-500',
+    gray: 'text-gray-400',
+    yellow: 'text-yellow-500',
+  };
+
+  const bgMap: Record<string, string> = {
+    brand: 'bg-brand/5 border-brand/20',
+    green: 'bg-green-50 border-green-100',
+    gray: 'bg-gray-50 border-gray-100',
+    yellow: 'bg-yellow-50 border-yellow-100',
+  };
+
   const filtered = properties.filter(
     (p) =>
       p.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -64,7 +86,20 @@ export default function PropertyTable({ initialProperties }: PropertyTableProps)
 
   return (
     <>
-      {/* Table Header */}
+      {/* ── Live Stat Cards ─────────────────────────────── */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        {stats.map((stat) => (
+          <div key={stat.label} className={`border rounded-2xl p-5 shadow-sm transition-all ${bgMap[stat.color]}`}>
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-gray-400 text-[10px] uppercase tracking-widest font-bold">{stat.label}</p>
+              <span className="text-xl">{stat.icon}</span>
+            </div>
+            <p className={`text-4xl font-bold ${colorMap[stat.color]}`}>{stat.value}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* ── Table Header ────────────────────────────────── */}
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center mb-6">
         <div className="relative flex-1 max-w-sm">
           <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
@@ -84,7 +119,7 @@ export default function PropertyTable({ initialProperties }: PropertyTableProps)
         </button>
       </div>
 
-      {/* Table */}
+      {/* ── Table ───────────────────────────────────────── */}
       <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto scrollbar-hide">
           <table className="w-full text-sm">
@@ -162,7 +197,7 @@ export default function PropertyTable({ initialProperties }: PropertyTableProps)
         </div>
       </div>
 
-      {/* Modal */}
+      {/* ── Modal ───────────────────────────────────────── */}
       {modal && (
         <PropertyModal
           property={modal === 'edit' ? editing : null}
