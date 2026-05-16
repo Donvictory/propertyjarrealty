@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Pause } from 'lucide-react';
+import { Play, Pause, Rewind, FastForward } from 'lucide-react';
 
 const VideoSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -16,6 +16,20 @@ const VideoSection = () => {
         videoRef.current.play();
       }
       setIsPlaying(!isPlaying);
+    }
+  };
+
+  const skipForward = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      videoRef.current.currentTime += 10;
+    }
+  };
+
+  const skipBackward = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      videoRef.current.currentTime -= 10;
     }
   };
 
@@ -92,20 +106,32 @@ const VideoSection = () => {
               {/* Glassmorphism Overlay */}
               <div className={`absolute inset-0 bg-charcoal/20 backdrop-blur-[2px] transition-opacity duration-500 ${isPlaying ? 'opacity-0' : 'opacity-100'}`} />
               
-              <div className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ${isPlaying ? 'scale-150 opacity-0 pointer-events-none' : 'scale-100 opacity-100'}`}>
-                <div className="w-24 h-24 bg-white/20 backdrop-blur-xl border border-white/30 text-white rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:bg-brand transition-all duration-500">
-                  <Play fill="white" size={32} className="ml-1" />
-                </div>
-              </div>
+              <div className={`absolute inset-0 flex items-center justify-center gap-6 transition-all duration-700 ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
+                {/* Skip Backward */}
+                <button 
+                  onClick={skipBackward}
+                  className="w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full flex items-center justify-center hover:bg-brand transition-all duration-300"
+                >
+                  <Rewind size={20} fill="white" />
+                </button>
 
-              {/* Status Indicator */}
-              {!isPlaying && (
-                <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-                  <span className="text-white/70 text-[10px] font-bold uppercase tracking-[0.4em] whitespace-nowrap bg-black/20 backdrop-blur-md px-6 py-2 rounded-full border border-white/10">
-                    Click to Experience
-                  </span>
+                {/* Play/Pause Button */}
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-xl border border-white/30 text-white rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:bg-brand transition-all duration-500">
+                  {isPlaying ? (
+                    <Pause fill="white" size={24} />
+                  ) : (
+                    <Play fill="white" size={24} className="ml-1" />
+                  )}
                 </div>
-              )}
+
+                {/* Skip Forward */}
+                <button 
+                  onClick={skipForward}
+                  className="w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full flex items-center justify-center hover:bg-brand transition-all duration-300"
+                >
+                  <FastForward size={20} fill="white" />
+                </button>
+              </div>
             </motion.div>
           </div>
         </div>
