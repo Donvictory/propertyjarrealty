@@ -1,11 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-
 import { motion } from 'framer-motion';
 import type { Property } from '@/lib/types';
 import type { CampaignContent } from '@/lib/campaign';
 import CampaignPropertyModal from '@/components/CampaignPropertyModal';
+import { 
+  type Currency, 
+  CURRENCY_LABELS, 
+  formatDisplay, 
+  parsePriceNGN 
+} from '@/lib/currency';
 
 export default function CampaignPage() {
   const [properties, setProperties] = useState<Property[]>([]);
@@ -14,6 +19,7 @@ export default function CampaignPage() {
   const [filter, setFilter] = useState('All');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [currency, setCurrency] = useState<Currency>('NGN');
 
   useEffect(() => {
     async function fetchData() {
@@ -60,6 +66,21 @@ export default function CampaignPage() {
     return true;
   });
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-off-white">
+        <div className="flex flex-col items-center gap-8">
+          <div className="relative w-16 h-16">
+            <div className="absolute inset-0 border-2 border-brand/20 rounded-full" />
+            <div className="absolute inset-0 border-t-2 border-brand rounded-full animate-spin" />
+            <div className="absolute inset-4 bg-brand/10 rounded-full animate-pulse" />
+          </div>
+          <p className="text-charcoal font-bold animate-pulse uppercase tracking-[0.4em] text-[10px]">PropertyjarRealty Ltd</p>
+        </div>
+      </div>
+    );
+  }
+
   if (!content && !loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-off-white">
@@ -69,20 +90,19 @@ export default function CampaignPage() {
   }
 
   return (
-    <main className="min-h-screen pt-32 bg-off-white">
-
+    <main className="min-h-screen pt-24 bg-off-white">
 
       {/* Why Invest Section */}
-      <section className="py-4 bg-white overflow-hidden">
+      <section className="py-1 bg-white overflow-hidden">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
               
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-charcoal">
+              <h2 className="text-3xl md:text-4xl font-medium text-neutral-800 mb-6 tracking-tight text-charcoal">
                 {content?.whyInvestTitle.split(' ').map((word, i) => 
                   word === 'Lagos?' ? <span key={i} className="text-brand">{word}</span> : word + ' '
                 )}
@@ -111,7 +131,7 @@ export default function CampaignPage() {
               <div className="absolute -top-12 -right-12 w-64 h-64 bg-brand/5 rounded-full blur-3xl" />
               <div className="relative z-10">
                 <div className="w-16 h-px bg-gray-200 mb-8" />
-                <h4 className="text-3xl md:text-6xl font-bold text-charcoal leading-tight">
+                <h4 className="text-3xl md:text-4xl font-medium text-neutral-800 leading-tight">
                   Projected ROI: <br />
                   <span className="text-brand tracking-tighter">{content?.projectedRoi}</span>
                   <span className="text-base md:text-lg text-gray-400 font-bold uppercase tracking-[0.2em] mt-6 block">
@@ -125,29 +145,54 @@ export default function CampaignPage() {
       </section>
 
       {/* Property Grid Section */}
-      <section className="py-24">
+      <section className="py-4">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div className="max-w-xl">
-              <h1 className="text-4xl font-bold text-charcoal tracking-tight mb-4">The Selection</h1>
+              <h1 className="text-3xl md:text-4xl font-medium text-neutral-800 tracking-tight mb-4">The Selection</h1>
               <p className="text-gray-600 text-lg leading-relaxed">
                 Click on any property below to view its full summary, download a detailed brochure, and connect directly with our luxury realtors.
               </p>
             </div>
-            <div className="flex gap-2 md:gap-4 p-2 bg-white rounded-2xl shadow-sm border border-gray-100 flex-wrap">
-              {['All', 'Residential', 'Commercial', 'Luxury'].map((f) => (
-                <button
-                  key={f}
-                  onClick={() => setFilter(f)}
-                  className={`px-6 py-2 rounded-xl font-bold text-sm transition-all ${
-                    filter === f 
-                      ? 'bg-brand text-white shadow-md' 
-                      : 'text-gray-400 hover:text-charcoal'
-                  }`}
-                >
-                  {f === 'All' ? 'All Properties' : f}
-                </button>
-              ))}
+            
+            <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
+              {/* Category Filter */}
+              <div className="flex flex-col gap-1.5 min-w-[200px]">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 ml-1">Property Category</label>
+                <div className="relative group">
+                  <select
+                    value={filter}
+                    onChange={(e) => setFilter(e.target.value)}
+                    className="appearance-none w-full bg-white border border-gray-100 text-charcoal text-sm font-bold rounded-2xl px-6 py-3.5 focus:outline-none focus:border-brand focus:ring-4 focus:ring-brand/5 transition-all shadow-sm cursor-pointer hover:border-brand/50"
+                  >
+                    {['All', 'Residential', 'Commercial', 'Luxury'].map((f) => (
+                      <option key={f} value={f}>{f === 'All' ? 'All Categories' : f}</option>
+                    ))}
+                  </select>
+                  <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 group-hover:text-brand transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                  </span>
+                </div>
+              </div>
+
+              {/* Currency Selector */}
+              <div className="flex flex-col gap-1.5 min-w-[200px]">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 ml-1">Market Currency</label>
+                <div className="relative group">
+                  <select
+                    value={currency}
+                    onChange={(e) => setCurrency(e.target.value as Currency)}
+                    className="appearance-none w-full bg-white border border-gray-100 text-charcoal text-sm font-bold rounded-2xl px-6 py-3.5 focus:outline-none focus:border-brand focus:ring-4 focus:ring-brand/5 transition-all shadow-sm cursor-pointer hover:border-brand/50"
+                  >
+                    {(Object.keys(CURRENCY_LABELS) as Currency[]).map((c) => (
+                      <option key={c} value={c}>{CURRENCY_LABELS[c]}</option>
+                    ))}
+                  </select>
+                  <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 group-hover:text-brand transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -203,7 +248,9 @@ export default function CampaignPage() {
                       <h3 className="text-2xl font-bold text-white mb-2">{property.title}</h3>
                       <div className="flex items-center justify-between">
                         <p className="text-white/70 text-sm">{property.location}</p>
-                        <p className="text-white font-bold text-lg">{property.price}</p>
+                        <p className="text-white font-bold text-lg">
+                          {formatDisplay(parsePriceNGN(property.price), currency)}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -218,10 +265,10 @@ export default function CampaignPage() {
       </section>
 
       {/* Investment Options Section */}
-      <section className="py-24 bg-white border-t border-gray-100">
+      <section className="py-4 bg-white border-t border-gray-100">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-charcoal uppercase tracking-[0.3em] mb-2">Investment Options</h2>
+            <h2 className="text-3xl md:text-4xl font-medium text-neutral-800 uppercase tracking-[0.3em] mb-2">Investment Options</h2>
             <div className="w-16 h-0.5 bg-brand mx-auto" />
           </div>
 
@@ -243,10 +290,10 @@ export default function CampaignPage() {
       </section>
 
       {/* Offer Stack Section */}
-      <section className="py-24 bg-off-white">
+      <section className="py-4 bg-off-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
-            <h2 className="text-3xl font-bold text-charcoal uppercase tracking-[0.3em] mb-2">Offer Stack</h2>
+            <h2 className="text-3xl md:text-4xl font-medium text-neutral-800 uppercase tracking-[0.3em] mb-2">Offer Stack</h2>
             <div className="w-16 h-0.5 bg-brand mx-auto" />
           </div>
 
@@ -297,12 +344,11 @@ export default function CampaignPage() {
         </div>
       </section>
 
-
-
       {selectedProperty && (
         <CampaignPropertyModal 
           property={selectedProperty} 
           onClose={() => setSelectedProperty(null)} 
+          currency={currency}
         />
       )}
     </main>

@@ -33,11 +33,11 @@ export default function ContactPage() {
   }
 
   return (
-    <main className="min-h-screen pt-32 bg-off-white">
+    <main className="min-h-screen pt-16 bg-off-white">
 
 
-      {/* Appointment CTA */}
-      <section className="py-12 bg-brand text-white">
+     
+      <section className="py-10 bg-brand text-white">
         <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
             <h3 className="text-2xl font-bold mb-2">Ready for a private consultation?</h3>
@@ -54,12 +54,12 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-24 bg-off-white">
+      <section className="py-4 bg-off-white">
         <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Info */}
           <div>
             <span className="text-sm font-bold uppercase tracking-[0.3em] text-brand mb-4 block">Contact Information</span>
-            <h1 className="text-4xl font-bold text-charcoal mb-10">We are <span className="italic font-light">Here for You</span></h1>
+            <h1 className="text-3xl md:text-4xl font-medium text-neutral-800 mb-10">We are <span className="italic font-light">Here for You</span></h1>
             <div className="space-y-6 mb-12">
               {contactInfo.map((item) => (
                 <div key={item.label} className="flex items-start gap-4 p-5 bg-white rounded-2xl border border-gray-100 shadow-sm">
@@ -87,66 +87,71 @@ export default function ContactPage() {
           </div>
 
           {/* Form */}
-          <div className="bg-white rounded-3xl border border-gray-100 shadow-xl p-10">
-            {submitted ? (
-              <div className="text-center py-16">
-                <div className="text-5xl mb-6">✅</div>
-                <h3 className="text-2xl font-bold text-charcoal mb-3">Message Sent!</h3>
-                <p className="text-base text-gray-500">Thank you for reaching out. One of our advisors will be in touch within 24 hours.</p>
-                <button onClick={() => setSubmitted(false)} className="mt-8 bg-brand text-white px-8 py-3 rounded-full font-bold hover:bg-brand-hover transition-all">
-                  Send Another
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <h3 className="text-2xl font-bold text-charcoal mb-2">Send a Message</h3>
-                  <p className="text-gray-500 text-base">Fill out the form and we will respond within one business day.</p>
+          <div className="flex items-center justify-center">
+            <div className={`w-full max-w-lg bg-white rounded-3xl border border-gray-100 shadow-xl p-8 md:p-10 ${submitted ? 'flex items-center justify-center min-h-[500px]' : ''}`}>
+              {submitted ? (
+                <div className="text-center max-w-sm mx-auto">
+                  <div className="text-5xl mb-6">✅</div>
+                  <h3 className="text-3xl font-bold text-charcoal mb-4">Message Sent!</h3>
+                  <p className="text-lg text-gray-500 leading-relaxed">Thank you for reaching out. One of our advisors will be in touch within 24 hours.</p>
+                  <button 
+                    onClick={() => setSubmitted(false)} 
+                    className="mt-10 bg-brand text-white px-10 py-4 rounded-full font-bold hover:bg-brand-hover transition-all shadow-lg active:scale-95"
+                  >
+                    Send Another
+                  </button>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
-                    <label className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="firstName">First Name</label>
-                    <input id="firstName" name="firstName" required type="text" placeholder="Victoria" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-brand transition-colors text-black" />
+                    <h3 className="text-2xl font-bold text-charcoal mb-1">Send a Message</h3>
+                    <p className="text-gray-500 text-sm">We will respond within one business day.</p>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5 block" htmlFor="firstName">First Name</label>
+                      <input id="firstName" name="firstName" required type="text" placeholder="Victoria" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors text-black" />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5 block" htmlFor="lastName">Last Name</label>
+                      <input id="lastName" name="lastName" required type="text" placeholder="Chase" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors text-black" />
+                    </div>
                   </div>
                   <div>
-                    <label className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="lastName">Last Name</label>
-                    <input id="lastName" name="lastName" required type="text" placeholder="Chase" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-brand transition-colors text-black" />
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5 block" htmlFor="email">Email Address</label>
+                    <input id="email" name="email" required type="email" placeholder="hello@example.com" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors text-black" />
                   </div>
-                </div>
-                <div>
-                  <label className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="email">Email</label>
-                  <input id="email" name="email" required type="email" placeholder="hello@example.com" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-brand transition-colors text-black" />
-                </div>
-                <div>
-                  <label className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="phone">Phone (Optional)</label>
-                  <input id="phone" name="phone" type="tel" placeholder="+1 (310) 555-0100" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-brand transition-colors text-black" />
-                </div>
-                <div>
-                  <label className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="subject">Subject</label>
-                  <select id="subject" name="subject" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-brand transition-colors bg-white text-black py-3">
-                    <option>General Enquiry</option>
-                    <option>Property Purchase</option>
-                    <option>Property Sale / Listing</option>
-                    <option>Investment Advisory</option>
-                    <option>Property Management</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-2 block" htmlFor="message">Message</label>
-                  <textarea id="message" name="message" required rows={5} placeholder="Tell us about your requirements..." className="w-full border border-gray-200 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-brand transition-colors resize-none text-black" />
-                </div>
-
-                {error && (
-                  <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3">
-                    <p className="text-red-500 text-sm font-bold">{error}</p>
+                  <div>
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5 block" htmlFor="phone">Phone (Optional)</label>
+                    <input id="phone" name="phone" type="tel" placeholder="+1 (310) 555-0100" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors text-black" />
                   </div>
-                )}
+                  <div>
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5 block" htmlFor="subject">Subject</label>
+                    <select id="subject" name="subject" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors bg-white text-black">
+                      <option>General Enquiry</option>
+                      <option>Property Purchase</option>
+                      <option>Property Sale / Listing</option>
+                      <option>Investment Advisory</option>
+                      <option>Property Management</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5 block" htmlFor="message">Message</label>
+                    <textarea id="message" name="message" required rows={4} placeholder="Tell us about your requirements..." className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors resize-none text-black" />
+                  </div>
 
-                <button type="submit" disabled={loading} className="w-full bg-brand text-white py-4 rounded-xl font-bold text-lg hover:bg-brand-hover transition-all disabled:opacity-70 shadow-lg shadow-brand/10 active:scale-95">
-                  {loading ? 'Sending...' : 'Send Message'}
-                </button>
-              </form>
-            )}
+                  {error && (
+                    <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3">
+                      <p className="text-red-500 text-xs font-bold">{error}</p>
+                    </div>
+                  )}
+
+                  <button type="submit" disabled={loading} className="w-full bg-brand text-white py-4 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-brand-hover transition-all disabled:opacity-70 shadow-lg shadow-brand/10 active:scale-95">
+                    {loading ? 'Sending...' : 'Send Message'}
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
         </div>
       </section>

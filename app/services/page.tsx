@@ -78,7 +78,7 @@ export default function ServicesPage() {
       {/* Header Section */}
       <section className="bg-white pt-12 pb-6 text-center">
         <div className="container mx-auto px-6">
-          <h1 className="text-4xl md:text-5xl font-bold text-charcoal tracking-tight">
+          <h1 className="text-3xl md:text-4xl font-medium text-neutral-800 tracking-tight">
             Our <span className="text-brand">Bespoke</span> Services
           </h1>
           <p className="mt-4 text-gray-500 max-w-2xl mx-auto leading-relaxed">
@@ -88,7 +88,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-24 bg-off-white">
+      <section className="py-4 bg-off-white">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, i) => (
@@ -117,10 +117,10 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 bg-charcoal text-white">
+      <section className="py-4 bg-charcoal text-white">
         <div className="container mx-auto px-6 text-center">
           <span className="text-xs font-bold uppercase tracking-[0.3em] text-brand mb-4 block">Get Started</span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-3xl md:text-4xl font-medium text-white mb-6">
             Ready to Work <span className="italic font-light">Together?</span>
           </h2>
           <p className="text-white/60 text-lg max-w-xl mx-auto mb-10">

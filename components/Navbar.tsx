@@ -52,44 +52,56 @@ const Navbar = () => {
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
-                <Link
+                <motion.div
                   key={link.name}
-                  href={link.href}
-                  className={`relative px-4 py-2 text-base font-semibold transition-all duration-300 rounded-full hover:text-brand ${
-                    isActive ? 'text-brand bg-brand/5' : 'text-charcoal'
-                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  {link.name}
-                  {isActive && (
-                    <motion.div
-                      layoutId="nav-active"
-                      className="absolute bottom-0 left-4 right-4 h-0.5 bg-brand rounded-full"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </Link>
+                  <Link
+                    href={link.href}
+                    className={`relative px-4 py-2 text-base font-semibold transition-all duration-300 rounded-full hover:text-brand ${
+                      isActive ? 'text-brand bg-brand/5' : 'text-charcoal'
+                    }`}
+                  >
+                    {link.name}
+                    {isActive && (
+                      <motion.div
+                        layoutId="nav-active"
+                        className="absolute bottom-0 left-4 right-4 h-0.5 bg-brand rounded-full"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </Link>
+                </motion.div>
               );
             })}
           </div>
 
           <div className="hidden lg:flex items-center space-x-4">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
               onClick={() => setQrModalOpen(true)}
               className="p-2 text-charcoal hover:text-brand transition-colors bg-white/50 rounded-full"
               title="Share Page via QR Code"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-            </button>
-            <Link
-              href="/contact"
-              className="bg-brand text-white px-6 py-2.5 rounded-full text-base font-bold hover:bg-brand-hover transition-all shadow-md hover:shadow-brand/20 active:scale-95"
+            </motion.button>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              List Property
-            </Link>
+              <Link
+                href="/contact"
+                className="bg-brand text-white px-6 py-2.5 rounded-full text-base font-bold hover:bg-brand-hover transition-all shadow-md hover:shadow-brand/20"
+              >
+                List Property
+              </Link>
+            </motion.div>
           </div>
 
           {/* Mobile Toggle */}
-          <div className="flex items-center space-x-4 lg:hidden">
+          <div className="flex items-center space-x-2 lg:hidden">
              <button
               onClick={() => setQrModalOpen(true)}
               className="p-2 text-charcoal hover:text-brand transition-colors"
@@ -126,7 +138,7 @@ const Navbar = () => {
               exit={{ opacity: 0, height: 0 }}
               className="lg:hidden bg-white/95 backdrop-blur-xl border-t border-gray-100 overflow-hidden"
             >
-              <div className="flex flex-col p-6 space-y-2">
+              <div className="flex flex-col  space-y-2">
                 {navLinks.map((link) => {
                   const isActive = pathname === link.href;
                   return (
@@ -134,7 +146,7 @@ const Navbar = () => {
                       key={link.name}
                       href={link.href}
                       className={`text-lg font-bold p-3 rounded-2xl transition-all ${
-                        isActive ? 'text-brand bg-brand/5 pl-6' : 'text-charcoal hover:pl-6'
+                        isActive ? 'text-brand bg-brand/5 pl-2' : 'text-charcoal hover:pr-6'
                       }`}
                       onClick={() => setMobileMenuOpen(false)}
                     >

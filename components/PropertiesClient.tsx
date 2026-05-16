@@ -5,27 +5,16 @@ import type { Property } from '@/lib/types';
 import PropertyCard from '@/components/PropertyCard';
 import Link from 'next/link';
 
-// ─── Types ───────────────────────────────────────────────────────────────────
-type Currency = 'NGN' | 'USD' | 'GBP';
+import { motion } from 'framer-motion';
 
-// Approximate exchange rates relative to NGN (base currency)
-const NGN_RATES: Record<Currency, number> = {
-  NGN: 1,
-  USD: 1 / 1400,   // 1 NGN = 0.000714 USD (1 USD = 1400 NGN)
-  GBP: 1 / 1850,   // 1 NGN = 0.000540 GBP (1 GBP = 1850 NGN)
-};
-
-const SYMBOLS: Record<Currency, string> = {
-  NGN: '₦',
-  USD: '$',
-  GBP: '£',
-};
-
-const CURRENCY_LABELS: Record<Currency, string> = {
-  NGN: 'Nigerian Naira (₦)',
-  USD: 'US Dollar ($)',
-  GBP: 'British Pound (£)',
-};
+import { 
+  type Currency, 
+  CURRENCY_LABELS, 
+  SYMBOLS, 
+  NGN_RATES, 
+  parsePriceNGN, 
+  formatDisplay 
+} from '@/lib/currency';
 
 const PROPERTY_TYPES = ['All', 'Residential', 'Commercial', 'Industrial', 'Land'];
 
@@ -39,41 +28,6 @@ const PRICE_RANGES: { label: string; minNGN: number; maxNGN: number }[] = [
   { label: '₦1B – ₦5B',           minNGN: 1_000_000_000,  maxNGN: 5_000_000_000 },
   { label: 'Above ₦5B',           minNGN: 5_000_000_000,  maxNGN: Infinity },
 ];
-
-// ─── Helpers ─────────────────────────────────────────────────────────────────
-/** Detect which currency a stored price string is in */
-function detectStoredCurrency(price: string): Currency {
-  if (price.includes('£')) return 'GBP';
-  if (price.includes('$')) return 'USD';
-  return 'NGN'; // default assumption
-}
-
-/** Parse any price string into NGN */
-function parsePriceNGN(price: string): number {
-  const stored = detectStoredCurrency(price);
-  const cleaned = price.replace(/[^0-9.]/g, '');
-  if (!cleaned) return 0;
-  let val = parseFloat(cleaned);
-  // Handle "M" shorthand
-  if (/\d\s*[Mm]/.test(price) && val < 100_000) val *= 1_000_000;
-  // Convert to NGN
-  return val / NGN_RATES[stored]; // stored → NGN
-}
-
-/** Format an NGN amount into the target display currency */
-function formatDisplay(ngn: number, currency: Currency): string {
-  const val = ngn * NGN_RATES[currency];
-  const sym = SYMBOLS[currency];
-
-  if (currency === 'NGN') {
-    if (val >= 1_000_000_000) return `${sym}${(val / 1_000_000_000).toFixed(2)}B`;
-    if (val >= 1_000_000)     return `${sym}${(val / 1_000_000).toFixed(1)}M`;
-    return `${sym}${val.toLocaleString('en-NG', { maximumFractionDigits: 0 })}`;
-  }
-  if (val >= 1_000_000) return `${sym}${(val / 1_000_000).toFixed(2)}M`;
-  if (val >= 1_000)     return `${sym}${(val / 1_000).toFixed(1)}K`;
-  return `${sym}${val.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
-}
 
 /** Build a human-readable range label for the current currency */
 function rangeLabelInCurrency(range: typeof PRICE_RANGES[number], cur: Currency): string {
@@ -168,7 +122,7 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
             <div className="max-w-3xl">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-charcoal tracking-tight leading-none">
+              <h1 className="text-3xl md:text-4xl font-medium text-neutral-800 tracking-tight leading-none">
                 Our <span className="text-brand">Exclusive</span> Properties
               </h1>
               <p className="mt-8 text-gray-700 text-xl md:text-2xl leading-relaxed font-medium">
@@ -258,7 +212,7 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
-              {filtered.map((property) => {
+              {filtered.map((property, index) => {
                 const ngnVal       = parsePriceNGN(property.price);
                 const displayPrice = ngnVal > 0 ? formatDisplay(ngnVal, currency) : property.price;
                 
@@ -269,13 +223,20 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
                 }));
 
                 return (
-                  <PropertyCard
+                  <motion.div
                     key={property.id}
-                    property={property}
-                    displayPrice={displayPrice}
-                    displayPricingOptions={displayPricingOptions}
-                    currency={currency}
-                  />
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: (index % 3) * 0.1 }}
+                  >
+                    <PropertyCard
+                      property={property}
+                      displayPrice={displayPrice}
+                      displayPricingOptions={displayPricingOptions}
+                      currency={currency}
+                    />
+                  </motion.div>
                 );
               })}
             </div>

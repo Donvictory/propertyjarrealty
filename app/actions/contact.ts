@@ -15,7 +15,7 @@ export async function sendContactEmail(formData: FormData) {
   try {
     const { data, error } = await resend.emails.send({
       from: 'PropertyJar Realty <sales@propertyjarrealty.com>',
-      to: ['sales@propertyjarrealty.com'],
+      to: ['sales@propertyjarrealty.com', 'donvictoryadewumi4@gmail.com'],
       replyTo: email,
       subject: `New Inquiry: ${subject}`,
       html: `
@@ -37,7 +37,7 @@ export async function sendContactEmail(formData: FormData) {
     });
 
     if (error) {
-      console.error('Email error:', error);
+      console.error('RESEND ERROR (Contact):', JSON.stringify(error, null, 2));
       return { success: false, error: 'Failed to send email.' };
     }
 

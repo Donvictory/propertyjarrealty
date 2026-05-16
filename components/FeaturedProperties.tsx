@@ -20,7 +20,7 @@ const FeaturedProperties = () => {
             viewport={{ once: true }}
           >
             <span className="text-sm font-bold uppercase tracking-[0.3em] text-gray-400 mb-4 block">Our Portfolio</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-charcoal">Featured <span className="italic font-light">Properties</span></h2>
+            <h2 className="text-3xl md:text-4xl font-medium text-neutral-800">Featured <span className="italic font-light">Properties</span></h2>
           </motion.div>
 
           <motion.div

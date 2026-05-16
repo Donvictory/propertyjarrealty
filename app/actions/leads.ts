@@ -36,7 +36,7 @@ export async function sendPropertyInquiry(formData: FormData) {
     });
 
     if (error) {
-      console.error('Email error:', error);
+      console.error('RESEND ERROR (Leads):', JSON.stringify(error, null, 2));
       return { success: false, error: 'Failed to send lead notification.' };
     }
 
