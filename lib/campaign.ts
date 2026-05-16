@@ -45,6 +45,7 @@ const defaultContent: CampaignContent = {
 };
 
 export async function getCampaignContent(): Promise<CampaignContent> {
+  if (!db) return defaultContent;
   try {
     const doc = await db.collection(CONTENT_COLLECTION).doc(CAMPAIGN_CONTENT_DOC).get();
     if (!doc.exists) return defaultContent;
@@ -55,6 +56,7 @@ export async function getCampaignContent(): Promise<CampaignContent> {
 }
 
 export async function updateCampaignContent(content: Partial<CampaignContent>): Promise<boolean> {
+  if (!db) return false;
   try {
     await db.collection(CONTENT_COLLECTION).doc(CAMPAIGN_CONTENT_DOC).set(content, { merge: true });
     return true;
