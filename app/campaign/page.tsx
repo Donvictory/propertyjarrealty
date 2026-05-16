@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { CheckCircle2 } from 'lucide-react';
 import type { Property } from '@/lib/types';
 import type { CampaignContent } from '@/lib/campaign';
-import CampaignPropertyModal from '@/components/CampaignPropertyModal';
 import { 
   type Currency, 
   CURRENCY_LABELS, 
@@ -13,9 +14,9 @@ import {
 } from '@/lib/currency';
 
 export default function CampaignPage() {
+  const router = useRouter();
   const [properties, setProperties] = useState<Property[]>([]);
   const [content, setContent] = useState<CampaignContent | null>(null);
-  const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const [filter, setFilter] = useState('All');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -151,14 +152,14 @@ export default function CampaignPage() {
             <div className="max-w-xl">
               <h1 className="text-3xl md:text-4xl font-medium text-neutral-800 tracking-tight mb-4">The Selection</h1>
               <p className="text-gray-600 text-lg leading-relaxed">
-                Click on any property below to view its full summary, download a detailed brochure, and connect directly with our luxury realtors.
+                Explore our curated selection of high-yield assets. Select a property to view its full investment summary and request the confidential brochure.
               </p>
             </div>
             
             <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
               {/* Category Filter */}
               <div className="flex flex-col gap-1.5 min-w-[200px]">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 ml-1">Property Category</label>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 ml-1">Category Filter</label>
                 <div className="relative group">
                   <select
                     value={filter}
@@ -169,7 +170,7 @@ export default function CampaignPage() {
                       <option key={f} value={f}>{f === 'All' ? 'All Categories' : f}</option>
                     ))}
                   </select>
-                  <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 group-hover:text-brand transition-colors">
+                  <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                   </span>
                 </div>
@@ -188,7 +189,7 @@ export default function CampaignPage() {
                       <option key={c} value={c}>{CURRENCY_LABELS[c]}</option>
                     ))}
                   </select>
-                  <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 group-hover:text-brand transition-colors">
+                  <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                   </span>
                 </div>
@@ -199,20 +200,8 @@ export default function CampaignPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {error ? (
               <div className="col-span-full py-20 text-center">
-                <div className="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">!</div>
                 <p className="text-red-600 font-bold mb-2">Unable to load selection</p>
-                <p className="text-gray-400 text-sm max-w-xs mx-auto">{error}</p>
-                <button 
-                  onClick={() => window.location.reload()}
-                  className="mt-6 text-brand font-bold hover:underline"
-                >
-                  Try Again
-                </button>
-              </div>
-            ) : loading ? (
-              <div className="col-span-full py-20 text-center">
-                <div className="w-10 h-10 border-4 border-brand border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                <p className="text-gray-400 font-medium">Loading selection...</p>
+                <button onClick={() => window.location.reload()} className="text-brand font-bold hover:underline">Try Again</button>
               </div>
             ) : filteredProperties.length === 0 ? (
               <div className="col-span-full py-20 text-center">
@@ -226,7 +215,7 @@ export default function CampaignPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  onClick={() => setSelectedProperty(property as Property)}
+                  onClick={() => router.push(`/campaign/${property.id}?curr=${currency}`)}
                   className="group cursor-pointer"
                 >
                   <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden mb-6 shadow-xl transition-transform duration-500 group-hover:-translate-y-2">
@@ -243,9 +232,8 @@ export default function CampaignPage() {
                       </span>
                     </div>
 
-                    <div className="absolute bottom-8 left-8 right-8">
-                      <p className="text-brand font-bold text-xs uppercase tracking-widest mb-1">{property.tag ?? 'Exclusive'}</p>
-                      <h3 className="text-2xl font-bold text-white mb-2">{property.title}</h3>
+                    <div className="absolute bottom-8 left-8 right-8 text-white">
+                      <h3 className="text-2xl font-bold mb-2">{property.title}</h3>
                       <div className="flex items-center justify-between">
                         <p className="text-white/70 text-sm">{property.location}</p>
                         <p className="text-white font-bold text-lg">
@@ -254,8 +242,8 @@ export default function CampaignPage() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 text-brand font-bold text-sm group-hover:gap-4 transition-all px-4">
-                    View Property Summary <span>→</span>
+                  <div className="flex items-center gap-2 text-brand font-bold text-[10px] uppercase tracking-widest group-hover:gap-4 transition-all px-4">
+                    Secure Private Summary <span>→</span>
                   </div>
                 </motion.div>
               ))
@@ -272,68 +260,80 @@ export default function CampaignPage() {
             <div className="w-16 h-0.5 bg-brand mx-auto" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {content?.investmentOptions.map((opt, i) => (
-              <div key={i} className="space-y-4">
-                <h3 className="font-bold text-charcoal text-base uppercase tracking-widest">{opt.title}</h3>
-                <ul className="space-y-2 text-base text-gray-500 uppercase font-medium tracking-wide">
+              <div key={i} className="bg-off-white p-8 rounded-[2.5rem] border border-gray-100 hover:border-brand/20 transition-all group">
+                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-brand mb-6 shadow-sm group-hover:scale-110 transition-transform font-bold">
+                  {i === 0 ? '01' : i === 1 ? '02' : '03'}
+                </div>
+                <h3 className="font-bold text-charcoal text-lg uppercase tracking-tight mb-4">{opt.title}</h3>
+                <ul className="space-y-3">
                   {opt.points.map((p, j) => (
-                    <li key={j}>• {p}</li>
+                    <li key={j} className="flex items-start gap-3 text-sm text-gray-500 font-medium leading-relaxed">
+                      <span className="w-1.5 h-1.5 rounded-full bg-brand mt-1.5 flex-shrink-0" />
+                      {p}
+                    </li>
                   ))}
                 </ul>
               </div>
             ))}
-
-           
           </div>
         </div>
       </section>
 
       {/* Offer Stack Section */}
-      <section className="py-4 bg-off-white">
+      <section id="offer-stack" className="py-4 bg-off-white">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-20">
+          <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-medium text-neutral-800 uppercase tracking-[0.3em] mb-2">Offer Stack</h2>
             <div className="w-16 h-0.5 bg-brand mx-auto" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {content?.offerStack.map((offer, i) => {
               const isElite = offer.title.includes('Elite');
+              const isSmart = offer.title.includes('Smart');
               return (
                 <div 
                   key={i} 
-                  className={`relative p-8 rounded-3xl border transition-all duration-300 flex flex-col h-full
+                  className={`relative p-10 rounded-[3rem] border transition-all duration-500 flex flex-col h-full group
                     ${isElite 
-                      ? 'bg-charcoal border-brand shadow-2xl lg:-mt-4 lg:mb-4 z-10' 
-                      : 'bg-white border-gray-100 hover:border-gray-200'}`}
+                      ? 'bg-charcoal border-brand shadow-2xl lg:-mt-6 lg:mb-6 z-10' 
+                      : 'bg-white border-gray-100 hover:border-brand/30 shadow-sm'}`}
                 >
                   {isElite && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand text-white text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1 rounded-full whitespace-nowrap">
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand text-white text-[10px] font-bold uppercase tracking-[0.2em] px-6 py-2 rounded-full whitespace-nowrap shadow-xl">
                       Most Exclusive
                     </div>
                   )}
                   
-                  <div className="flex items-center gap-4 mb-8">
-                    {offer.color && <div className="w-3 h-3 rounded-full" style={{ backgroundColor: offer.color }} />}
-                    <h3 className={`text-2xl font-bold uppercase tracking-tight ${isElite ? 'text-white' : 'text-charcoal'}`}>
+                  <div className="mb-8">
+                    <h3 className={`text-3xl font-bold uppercase tracking-tighter ${isElite ? 'text-white' : 'text-charcoal'}`}>
                       {offer.title}
                     </h3>
+                    <div className="w-10 h-1 bg-brand mt-2" />
                   </div>
 
-                  <ul className="space-y-4 mb-8 flex-grow">
+                  <ul className="space-y-5 mb-10 flex-grow">
                     {offer.points.map((p, j) => (
-                      <li key={j} className={`flex items-start gap-3 text-sm font-medium leading-relaxed ${isElite ? 'text-white/80' : 'text-gray-500'}`}>
-                        <span className="text-brand mt-1 flex-shrink-0">✓</span>
+                      <li key={j} className={`flex items-start gap-3 text-sm font-medium leading-relaxed ${isElite ? 'text-white/70' : 'text-gray-500'}`}>
+                        <CheckCircle2 size={18} className="text-brand flex-shrink-0 mt-0.5" />
                         {p}
                       </li>
                     ))}
                   </ul>
 
-                  <button className={`w-full py-4 rounded-xl font-bold text-sm uppercase tracking-widest transition-all
+                  <button 
+                    onClick={() => {
+                      const contactSection = document.getElementById('consultation');
+                      contactSection?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className={`w-full py-5 rounded-2xl font-bold text-[10px] uppercase tracking-widest transition-all shadow-xl active:scale-95
                     ${isElite 
                       ? 'bg-brand text-white hover:bg-brand-hover' 
-                      : 'bg-gray-50 text-charcoal hover:bg-gray-100'}`}
+                      : isSmart
+                        ? 'bg-charcoal text-white hover:bg-black'
+                        : 'bg-off-white text-charcoal hover:bg-gray-100'}`}
                   >
                     Inquire Now
                   </button>
@@ -344,13 +344,53 @@ export default function CampaignPage() {
         </div>
       </section>
 
-      {selectedProperty && (
-        <CampaignPropertyModal 
-          property={selectedProperty} 
-          onClose={() => setSelectedProperty(null)} 
-          currency={currency}
-        />
-      )}
+      {/* Direct Consultation Section */}
+      <section id="consultation" className="py-4 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="bg-brand rounded-[4rem] p-12 md:p-20 text-white relative overflow-hidden shadow-2xl">
+            <div className="absolute -top-20 -right-20 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
+            <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-black/10 rounded-full blur-3xl" />
+            
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="text-4xl md:text-6xl font-medium tracking-tight mb-8 leading-tight">
+                  Direct <span className="italic font-light serif text-white/80">Private</span> <br />
+                  Consultation.
+                </h2>
+                <p className="text-white/70 text-xl font-light mb-12 max-w-lg leading-relaxed">
+                  Connect directly with our luxury real estate specialists to discuss your investment strategy and secure the best entry terms.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-6">
+                  <a 
+                    href="https://wa.me/2349153869750?text=Hello%20PropertyJar%20Realty%2C%20I'm%20interested%20in%20the%20investment%20campaign."
+                    target="_blank"
+                    className="bg-white text-brand px-12 py-5 rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-gray-50 transition-all shadow-xl active:scale-95 text-center"
+                  >
+                    Direct WhatsApp
+                  </a>
+                  <a 
+                    href="/contact"
+                    className="bg-brand-hover border border-white/20 text-white px-12 py-5 rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-white hover:text-brand transition-all shadow-xl active:scale-95 text-center"
+                  >
+                    Book Appointment
+                  </a>
+                </div>
+              </div>
+              <div className="hidden lg:block">
+                <div className="aspect-square bg-white/10 backdrop-blur-xl rounded-[3rem] border border-white/10 flex flex-col items-center justify-center text-center p-12">
+                  <div className="w-24 h-24 bg-brand text-white rounded-full flex items-center justify-center mb-8 shadow-2xl">
+                    <CheckCircle2 size={48} />
+                  </div>
+                  <h4 className="text-3xl font-bold mb-4 uppercase tracking-tighter">Verified Assets</h4>
+                  <p className="text-white/60 font-light italic leading-relaxed">
+                    Every property in our selection has undergone rigorous 100% verification for title, compliance, and growth potential.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

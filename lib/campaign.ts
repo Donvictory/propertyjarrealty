@@ -34,8 +34,8 @@ const defaultContent: CampaignContent = {
   roiSubtext: "Depending on investment type",
   investmentOptions: [
     { title: "Option 1: Shortlet Apartments", points: ["Entry: ₦XXM", "ROI: 20-30%", "Target: Airbnb / Business Travelers"] },
+    { title: "Option 2: Land Banking", points: ["Entry: ₦XM", "Appreciation: 2x-5x in 2-4 years"] },
     { title: "Option 3: Off-plan Developments", points: ["Flexible Payment Plan", "Capital Appreciation before completion"] },
-    { title: "Option 2: Land Banking", points: ["Entry: ₦XM", "Appreciation: 2x-5x in 2-4 years"] }
   ],
   offerStack: [
     { title: "Entry Investor", points: ["1 Plot / 1 Unit", "6-12 Months Payment", "Clear Appreciation Angle"], color: "#00FF85" },
