@@ -148,7 +148,10 @@ const Navbar = () => {
                       className={`text-lg font-bold p-3 rounded-2xl transition-all ${
                         isActive ? 'text-brand bg-brand/5 pl-2' : 'text-charcoal hover:pr-6'
                       }`}
-                      onClick={() => setMobileMenuOpen(false)}
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        window.scrollTo(0, 0);
+                      }}
                     >
                       {link.name}
                     </Link>

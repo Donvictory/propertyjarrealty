@@ -1,10 +1,10 @@
 [
   {
     "id": "de-avocado-2",
-    "title": "DE AVOCADO SMART & LUXURY HOMES 2.0",
+    "title": "De Avocado Smart & Luxury Homes 2.0",
     "location": "Lekki, Lagos",
-    "price": "₦18M",
-    "image": "https://images.unsplash.com/photo-1545324418-f1d3ac59749c?q=80&w=2070&auto=format&fit=crop",
+    "price": "₦70M",
+    "image": "/De-Avocado_pic.jpeg",
     "tag": "Featured",
     "type": "Residential",
     "description": "Modern luxury apartments with premium finishing.",
@@ -20,18 +20,21 @@
       "Pan Atlantic University axis"
     ],
     "pricingOptions": [
-      { "size": "300sqm", "price": "₦18M" },
-      { "size": "500sqm", "price": "₦30M" }
+      { "size": "1 Bedroom Apartment", "price": "₦70M" },
+      { "size": "2 Bedrooms Apartment", "price": "₦85M" },
+      { "size": "3 Bedrooms Apartment", "price": "₦100M" }
     ],
     "installmentPlan": "up to 24 months",
-    "bestFor": "early investors & eco-conscious developments"
+    "bestFor": "early investors & eco-conscious developments",
+    "brochureUrl": "/De-Avocado-Smart-and-Luxury-Homes-20.pdf",
+    "isCampaign": true
   },
   {
     "id": "fairmont-green",
-    "title": "FAIRMONT GREEN & SMART ESTATE",
+    "title": "Fairmont Green & Smart Estate",
     "location": "Lekki, Lagos",
     "price": "₦18M",
-    "image": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2070&auto=format&fit=crop",
+    "image": "/fairmont-pic.jpeg",
     "tag": "Eco-Friendly",
     "type": "Residential",
     "description": "A 100% eco-friendly, tech-enabled estate built for future living",
@@ -47,18 +50,20 @@
       "Pan Atlantic University axis"
     ],
     "pricingOptions": [
-      { "size": "300sqm", "price": "₦18M" },
-      { "size": "500sqm", "price": "₦30M" }
+      { "size": "300sqm (Outright)", "price": "₦18M" },
+      { "size": "500sqm (Outright)", "price": "₦30M" }
     ],
     "installmentPlan": "up to 24 months",
-    "bestFor": "early investors & eco-conscious developments"
+    "bestFor": "early investors & eco-conscious developments",
+    "brochureUrl": "/FAIRMONT%20BROCHURE.pdf",
+    "isCampaign": true
   },
   {
     "id": "marbella-smart",
     "title": "Marbella Smart Estate",
     "location": "Lekki Free Trade Zone, Lagos",
     "price": "₦86.5M",
-    "image": "https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=2070&auto=format&fit=crop",
+    "image": "/Marbella_pic.jpeg",
     "tag": "Investment",
     "type": "Commercial/Residential",
     "description": "Prime commercial & residential investment",
@@ -74,8 +79,56 @@
     "pricingOptions": [
       { "size": "300sqm", "price": "₦86.5M" },
       { "size": "500sqm", "price": "₦109.5M" },
-      { "size": "1000sqm (Commercial)", "price": "₦250M" }
+      { "size": "1,000sqm (Commercial)", "price": "₦250M" }
     ],
-    "bestFor": "long-term capital growth & commercial investors"
+    "bestFor": "long-term capital growth & commercial investors",
+    "brochureUrl": "/MARBELLA%20BROCHURE.pdf",
+    "isCampaign": true
+  },
+  {
+    "id": "ambiance-estate",
+    "title": "The Ambiance",
+    "location": "Lekki, Lagos",
+    "price": "₦220M",
+    "image": "/Ambiance_pic.jpeg",
+    "tag": "Luxury",
+    "type": "Residential",
+    "description": "Exquisite luxury living in the heart of Lekki.",
+    "highlights": [
+      "24/7 Security",
+      "Smart Home Features",
+      "Swimming Pool",
+      "Fully Equipped Gym"
+    ],
+    "pricingOptions": [
+      { "size": "2 Bedroom Apartment", "price": "₦220M" },
+      { "size": "Initial Deposit", "price": "₦40M" }
+    ],
+    "bestFor": "Luxury lifestyle and high ROI",
+    "brochureUrl": "/AMBIANCE%20BROCHURE.pdf",
+    "isCampaign": true
+  },
+  {
+    "id": "micasa-estate",
+    "title": "Micasa Estate",
+    "location": "Lekki, Lagos",
+    "price": "₦19.4M",
+    "image": "/Micasa_pic.jpeg",
+    "tag": "Modern",
+    "type": "Residential",
+    "description": "A beautiful blend of modern architecture and serene environment.",
+    "highlights": [
+      "Secure Estate",
+      "Modern Architecture",
+      "Proximity to major landmarks"
+    ],
+    "pricingOptions": [
+      { "size": "300sqm", "price": "₦19.4M" },
+      { "size": "500sqm", "price": "₦32M" },
+      { "size": "1000sqm", "price": "₦80M" }
+    ],
+    "bestFor": "Family living",
+    "brochureUrl": "/MICASA%20BROCHURE.pdf",
+    "isCampaign": true
   }
 ]

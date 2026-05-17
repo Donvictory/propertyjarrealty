@@ -27,7 +27,15 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
   }
 
-  const properties = await getProperties();
+  const { searchParams } = new URL(request.url);
+  const isCampaignOnly = searchParams.get('campaign') === 'true';
+
+  let properties = await getProperties();
+  
+  if (isCampaignOnly) {
+    properties = properties.filter(p => p.isCampaign === true);
+  }
+
   return NextResponse.json(properties);
 }
 

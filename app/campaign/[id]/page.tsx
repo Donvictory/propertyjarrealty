@@ -23,21 +23,13 @@ export default function CampaignPropertyPage() {
   const { id } = useParams();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const initialCurrency = (searchParams.get('curr') as Currency) || 'NGN';
 
   const [property, setProperty] = useState<Property | null>(null);
   const [loading, setLoading] = useState(true);
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [currency, setCurrency] = useState<Currency>(initialCurrency);
-
-  useEffect(() => {
-    const currParam = searchParams.get('curr') as Currency;
-    if (currParam && currParam !== currency) {
-      setCurrency(currParam);
-    }
-  }, [searchParams, currency]);
+  const currency = (searchParams.get('curr') as Currency) || 'NGN';
 
   useEffect(() => {
     async function fetchProperty() {
@@ -71,7 +63,13 @@ export default function CampaignPropertyPage() {
       setIsSuccess(true);
       if (property.brochureUrl) {
         setTimeout(() => {
-          window.open(property.brochureUrl, '_blank');
+          const link = document.createElement('a');
+          link.href = property.brochureUrl!;
+          link.target = '_blank';
+          link.download = '';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
         }, 500);
       }
     } else {
@@ -123,30 +121,34 @@ export default function CampaignPropertyPage() {
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="relative aspect-[16/10] rounded-[3rem] overflow-hidden shadow-2xl"
+              className="relative aspect-[16/10] rounded-[3rem] overflow-hidden shadow-2xl mb-8"
             >
               <img 
                 src={property.image} 
                 alt={property.title} 
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-              
-              <div className="absolute bottom-8 md:bottom-12 left-8 md:left-12 right-8 md:right-12">
-                <div className="flex items-center gap-3 mb-4 md:mb-6">
-                  <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-[10px] font-bold uppercase tracking-[0.2em] text-white border border-white/20">
-                    {property.type}
-                  </span>
+              <div className="absolute top-8 md:top-12 right-8 md:right-12">
+                <span className="px-4 py-1.5 rounded-full bg-charcoal/50 backdrop-blur-md text-[10px] font-bold uppercase tracking-[0.2em] text-white border border-white/20">
+                  {property.type}
+                </span>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="px-2 md:px-6"
+            >
+              <h1 className="text-4xl md:text-6xl font-bold text-charcoal mb-4 tracking-tighter leading-none">
+                {property.title}
+              </h1>
+              <div className="flex items-center gap-3 text-gray-500 text-lg md:text-xl font-light mb-12">
+                <div className="w-10 h-10 rounded-full bg-brand/10 flex items-center justify-center text-brand">
+                  <MapPin size={20} />
                 </div>
-                <h1 className="text-3xl md:text-6xl font-bold text-white mb-3 md:mb-4 tracking-tighter leading-none">
-                  {property.title}
-                </h1>
-                <div className="flex items-center gap-3 text-white/70 text-base md:text-xl font-light">
-                  <div className="w-10 h-10 rounded-full bg-brand/20 backdrop-blur-md flex items-center justify-center text-brand">
-                    <MapPin size={20} />
-                  </div>
-                  {property.location}
-                </div>
+                {property.location}
               </div>
             </motion.div>
 

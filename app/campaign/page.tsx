@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
 import type { Property } from '@/lib/types';
@@ -26,7 +27,7 @@ export default function CampaignPage() {
     async function fetchData() {
       try {
         const [propRes, contentRes] = await Promise.all([
-          fetch('/api/properties'),
+          fetch('/api/properties?campaign=true'),
           fetch('/api/campaign')
         ]);
 
@@ -49,11 +50,7 @@ export default function CampaignPage() {
     fetchData();
   }, []);
 
-  const campaignProperties = Array.isArray(properties) 
-    ? (properties.some(p => p.isCampaign === true) 
-        ? properties.filter(p => p.isCampaign === true) 
-        : properties) // Fallback to all if none are marked yet
-    : [];
+  const campaignProperties = Array.isArray(properties) ? properties : [];
 
   const filteredProperties = campaignProperties.filter(p => {
     if (filter === 'All') return true;
@@ -218,32 +215,32 @@ export default function CampaignPage() {
                   onClick={() => router.push(`/campaign/${property.id}?curr=${currency}`)}
                   className="group cursor-pointer"
                 >
-                  <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden mb-6 shadow-xl transition-transform duration-500 group-hover:-translate-y-2">
-                    <img 
+                  <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden mb-6 shadow-xl transition-transform duration-500 group-hover:-translate-y-2">
+                    <Image 
                       src={property.image} 
                       alt={property.title} 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      fill
+                      priority={index < 3}
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
                     
                     <div className="absolute top-6 right-6">
                       <span className="bg-white/20 backdrop-blur-md text-white px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest border border-white/20">
                         {property.type}
                       </span>
                     </div>
-
-                    <div className="absolute bottom-8 left-8 right-8 text-white">
-                      <h3 className="text-2xl font-bold mb-2">{property.title}</h3>
-                      <div className="flex items-center justify-between">
-                        <p className="text-white/70 text-sm">{property.location}</p>
-                        <p className="text-white font-bold text-lg">
-                          {formatDisplay(parsePriceNGN(property.price), currency)}
-                        </p>
-                      </div>
+                  </div>
+                  <div className="px-2 mb-6">
+                    <h3 className="text-2xl font-bold text-charcoal mb-2">{property.title}</h3>
+                    <div className="flex items-center justify-between">
+                      <p className="text-gray-500 text-sm">{property.location}</p>
+                      <p className="text-brand font-bold text-lg">
+                        {formatDisplay(parsePriceNGN(property.price), currency)}
+                      </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 text-brand font-bold text-[10px] uppercase tracking-widest group-hover:gap-4 transition-all px-4">
-                    Secure Private Summary <span>→</span>
+                  <div className="flex items-center gap-2 text-brand font-bold text-[10px] uppercase tracking-widest group-hover:gap-4 transition-all px-2">
+                    View Summary <span>→</span>
                   </div>
                 </motion.div>
               ))
@@ -325,8 +322,7 @@ export default function CampaignPage() {
 
                   <button 
                     onClick={() => {
-                      const contactSection = document.getElementById('consultation');
-                      contactSection?.scrollIntoView({ behavior: 'smooth' });
+                      router.push('/contact');
                     }}
                     className={`w-full py-5 rounded-2xl font-bold text-[10px] uppercase tracking-widest transition-all shadow-xl active:scale-95
                     ${isElite 
@@ -344,53 +340,6 @@ export default function CampaignPage() {
         </div>
       </section>
 
-      {/* Direct Consultation Section */}
-      <section id="consultation" className="py-4 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="bg-brand rounded-[4rem] p-12 md:p-20 text-white relative overflow-hidden shadow-2xl">
-            <div className="absolute -top-20 -right-20 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
-            <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-black/10 rounded-full blur-3xl" />
-            
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-4xl md:text-6xl font-medium tracking-tight mb-8 leading-tight">
-                  Direct <span className="italic font-light serif text-white/80">Private</span> <br />
-                  Consultation.
-                </h2>
-                <p className="text-white/70 text-xl font-light mb-12 max-w-lg leading-relaxed">
-                  Connect directly with our luxury real estate specialists to discuss your investment strategy and secure the best entry terms.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-6">
-                  <a 
-                    href="https://wa.me/2349153869750?text=Hello%20PropertyJar%20Realty%2C%20I'm%20interested%20in%20the%20investment%20campaign."
-                    target="_blank"
-                    className="bg-white text-brand px-12 py-5 rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-gray-50 transition-all shadow-xl active:scale-95 text-center"
-                  >
-                    Direct WhatsApp
-                  </a>
-                  <a 
-                    href="/contact"
-                    className="bg-brand-hover border border-white/20 text-white px-12 py-5 rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-white hover:text-brand transition-all shadow-xl active:scale-95 text-center"
-                  >
-                    Book Appointment
-                  </a>
-                </div>
-              </div>
-              <div className="hidden lg:block">
-                <div className="aspect-square bg-white/10 backdrop-blur-xl rounded-[3rem] border border-white/10 flex flex-col items-center justify-center text-center p-12">
-                  <div className="w-24 h-24 bg-brand text-white rounded-full flex items-center justify-center mb-8 shadow-2xl">
-                    <CheckCircle2 size={48} />
-                  </div>
-                  <h4 className="text-3xl font-bold mb-4 uppercase tracking-tighter">Verified Assets</h4>
-                  <p className="text-white/60 font-light italic leading-relaxed">
-                    Every property in our selection has undergone rigorous 100% verification for title, compliance, and growth potential.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }
