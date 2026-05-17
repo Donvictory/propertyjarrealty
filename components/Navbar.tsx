@@ -22,12 +22,12 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Properties', href: '/properties' },
-    { name: 'Services', href: '/services' },
-    { name: 'Our Campaign', href: '/campaign' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Home', href: '/', icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> },
+    { name: 'Properties', href: '/properties', icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> },
+    { name: 'Services', href: '/services', icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg> },
+    { name: 'Our Campaign', href: '/campaign', icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> },
+    { name: 'About', href: '/about', icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg> },
+    { name: 'Contact', href: '/contact', icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6.29 6.29l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> },
   ];
 
   return (
@@ -138,21 +138,22 @@ const Navbar = () => {
               exit={{ opacity: 0, height: 0 }}
               className="lg:hidden bg-white/95 backdrop-blur-xl border-t border-gray-100 overflow-hidden"
             >
-              <div className="flex flex-col  space-y-2">
-                {navLinks.map((link) => {
+              <div className="flex flex-col space-y-2 px-2 py-2">
+                {navLinks.map((link, i) => {
                   const isActive = pathname === link.href;
                   return (
                     <Link
                       key={link.name}
                       href={link.href}
-                      className={`text-lg font-bold p-3 rounded-2xl transition-all ${
-                        isActive ? 'text-brand bg-brand/5 pl-2' : 'text-charcoal hover:pr-6'
+                      className={`flex items-center gap-3 text-base font-bold px-4 py-3 rounded-2xl transition-all ${i === 0 ? 'mt-2' : ''} ${
+                        isActive ? 'text-brand bg-brand/5' : 'text-charcoal hover:bg-gray-50 hover:text-brand'
                       }`}
                       onClick={() => {
                         setMobileMenuOpen(false);
                         window.scrollTo(0, 0);
                       }}
                     >
+                      <span className={isActive ? 'text-brand' : 'text-gray-400'}>{link.icon}</span>
                       {link.name}
                     </Link>
                   );
