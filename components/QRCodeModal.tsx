@@ -1,8 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { QRCodeCanvas } from 'qrcode.react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 interface QRCodeModalProps {
   isOpen: boolean;
@@ -10,22 +9,16 @@ interface QRCodeModalProps {
 }
 
 const QRCodeModal = ({ isOpen, onClose }: QRCodeModalProps) => {
-  const [campaignUrl] = useState(() => 
-    process.env.NEXT_PUBLIC_CAMPAIGN_URL || 'https://propertyjarrealty.com/campaign'
-  );
+  const campaignUrl = 'https://propertyjarrealty.com/campaign';
   const qrRef = useRef<HTMLDivElement>(null);
 
   const downloadQRCode = () => {
-    const canvas = qrRef.current?.querySelector('canvas');
-    if (canvas) {
-      const url = canvas.toDataURL('image/png');
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'propertyjar-campaign-qr.png';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
+    const link = document.createElement('a');
+    link.href = '/qr_code.jpeg';
+    link.download = 'propertyjar-campaign-qr.jpeg';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -55,23 +48,14 @@ const QRCodeModal = ({ isOpen, onClose }: QRCodeModalProps) => {
             <h3 className="text-2xl font-bold text-charcoal mb-2">Campaign QR</h3>
             <p className="text-gray-500 mb-8 text-sm">Scan or download this code to access our exclusive campaign.</p>
             
-            <div ref={qrRef} className="bg-off-white p-6 rounded-2xl inline-block mb-8 shadow-inner">
-              {campaignUrl && (
-                <QRCodeCanvas
-                  value={campaignUrl}
-                  size={200}
-                  level="H"
-                  includeMargin={false}
-                  imageSettings={{
-                    src: "/favicon.ico",
-                    x: undefined,
-                    y: undefined,
-                    height: 40,
-                    width: 40,
-                    excavate: true,
-                  }}
-                />
-              )}
+            <div ref={qrRef} className="bg-off-white p-4 rounded-2xl inline-block mb-8 shadow-inner">
+              <img
+                src="/qr_code.jpeg"
+                alt="PropertyJar Campaign QR Code"
+                width={200}
+                height={200}
+                className="rounded-xl object-contain"
+              />
             </div>
 
             <div className="space-y-4">

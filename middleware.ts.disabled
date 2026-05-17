@@ -1,0 +1,22 @@
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  const host = request.headers.get('host') || '';
+
+  // If the request is coming from the .vercel.app domain, redirect to the .com
+  if (host.includes('vercel.app')) {
+    const url = request.nextUrl.clone();
+    url.host = 'propertyjarrealty.com';
+    url.protocol = 'https';
+    url.port = '';
+    return NextResponse.redirect(url, { status: 301 });
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  // Run on all routes except static files and API internals
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+};
