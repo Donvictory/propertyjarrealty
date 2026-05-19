@@ -1,9 +1,10 @@
 import type { MetadataRoute } from 'next';
+import { getProperties } from '@/lib/properties';
 
 const BASE_URL = 'https://propertyjarrealty.com';
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  return [
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: BASE_URL,
       lastModified: new Date(),
@@ -41,4 +42,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
   ];
+
+  try {
+    const properties = await getProperties();
+    const campaignRoutes = properties.map((property) => ({
+      url: `${BASE_URL}/campaign/${property.id}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    }));
+    return [...staticRoutes, ...campaignRoutes];
+  } catch (error) {
+    console.error('[Sitemap] Error fetching properties for sitemap:', error);
+    return staticRoutes;
+  }
 }
