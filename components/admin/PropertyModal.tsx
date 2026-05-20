@@ -118,19 +118,14 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
   const labelClass = 'block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5';
 
   return (
-    // z-[90] ensures modal is above the mobile admin header (z-[60]) and sidebar (z-[80])
-    <div className="fixed inset-0 z-[90] flex items-end sm:items-center justify-center">
+    <div className="fixed inset-0 z-[90] flex items-center justify-center p-4">
       {/* Backdrop */}
       <div className="absolute inset-0 bg-charcoal/40 backdrop-blur-sm" onClick={onClose} />
 
-      {/* Modal — slides up from bottom on mobile, centered on desktop */}
-      <div className="relative bg-white border border-gray-100 w-full sm:rounded-3xl rounded-t-3xl sm:max-w-2xl sm:mx-4 shadow-[0_24px_48px_-12px_rgba(0,0,0,0.15)] flex flex-col"
-        style={{ maxHeight: 'calc(100dvh - 56px)', marginTop: 'auto' }}
+      {/* Modal — centered on all devices */}
+      <div className="relative bg-white border border-gray-100 w-full rounded-2xl sm:rounded-3xl sm:max-w-2xl shadow-[0_24px_48px_-12px_rgba(0,0,0,0.15)] flex flex-col"
+        style={{ maxHeight: 'calc(100dvh - 56px)' }}
       >
-        {/* Drag handle (mobile hint) */}
-        <div className="sm:hidden flex justify-center pt-3 pb-1 flex-shrink-0">
-          <div className="w-10 h-1 rounded-full bg-gray-200" />
-        </div>
 
         {/* Header */}
         <div className="border-b border-gray-50 px-6 py-4 flex items-center justify-between flex-shrink-0">
