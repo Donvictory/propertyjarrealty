@@ -38,12 +38,12 @@ const Navbar = () => {
         <div className="w-full max-w-7xl mx-auto nav-container flex justify-between items-center">
           <Link href="/" className="flex items-center group" aria-label="PropertyJar Realty Home">
             <Image
-              src="/propertyjar-logo-v3.png"
+              src="/newlogo.JPEG"
               alt="PropertyJar Realty Ltd"
               width={240}
               height={120}
               priority
-              className="h-14 w-auto object-contain"
+              className="h-14 w-auto object-contain scale-[1.35] origin-left"
             />
           </Link>
 

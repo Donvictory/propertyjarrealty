@@ -103,14 +103,14 @@ export default function AdminUsersClient({ session }: { session: SessionPayload 
       {/* Header */}
       <div className="flex items-start justify-between mb-8">
         <div>
-          <p className="text-gray-400 text-xs uppercase tracking-widest font-bold mb-1">Admin Console</p>
+        
           <h1 className="text-3xl font-bold text-charcoal">Admin Users</h1>
           <p className="text-gray-500 text-sm mt-1">Manage who has access to this dashboard.</p>
         </div>
         {isSuperAdmin && (
           <button
             onClick={() => { setShowForm(true); setError(''); setSuccess(''); }}
-            className="flex items-center gap-2 bg-brand text-white px-6 py-3 rounded-xl font-bold text-sm hover:bg-brand-hover transition-all shadow-lg shadow-brand/20 active:scale-95"
+            className="flex items-center gap-2 bg-brand text-white px-4 sm:px-6 py-2 sm:py-3 rounded-[3px] font-bold text-xs sm:text-sm hover:bg-brand-hover transition-all whitespace-nowrap shadow-lg shadow-brand/20 active:scale-95"
           >
             <span className="text-lg leading-none">+</span> Add Admin
           </button>
@@ -173,10 +173,10 @@ export default function AdminUsersClient({ session }: { session: SessionPayload 
               </select>
             </div>
             <div className="md:col-span-2 flex gap-4 mt-2">
-              <button type="button" onClick={() => setShowForm(false)} className="flex-1 border border-gray-200 text-gray-500 py-3 rounded-xl font-bold text-sm hover:bg-gray-50 transition-all">
+              <button type="button" onClick={() => setShowForm(false)} className="flex-1 border border-gray-200 text-gray-500 py-2 sm:py-2.5 rounded-[3px] font-bold text-xs sm:text-sm whitespace-nowrap hover:bg-gray-50 transition-all">
                 Cancel
               </button>
-              <button type="submit" disabled={saving} className="flex-1 bg-brand text-white py-3 rounded-xl font-bold text-sm hover:bg-brand-hover transition-all disabled:opacity-60 shadow-lg shadow-brand/10">
+              <button type="submit" disabled={saving} className="flex-1 bg-brand text-white py-2 sm:py-2.5 rounded-[3px] font-bold text-xs sm:text-sm whitespace-nowrap hover:bg-brand-hover transition-all disabled:opacity-60 shadow-lg shadow-brand/10">
                 {saving ? 'Adding...' : 'Add Admin'}
               </button>
             </div>
@@ -215,7 +215,7 @@ export default function AdminUsersClient({ session }: { session: SessionPayload 
                   </td>
                   <td className="px-6 py-4 text-gray-500 hidden md:table-cell">{admin.email}</td>
                   <td className="px-6 py-4">
-                    <span className={`inline-block px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border ${
+                    <span className={`inline-block px-2.5 py-1 rounded-[3px] text-[10px] font-bold uppercase tracking-widest border ${
                       admin.role === 'super_admin'
                         ? 'bg-brand/10 text-brand border-brand/20'
                         : 'bg-gray-100 text-gray-500 border-gray-200'
@@ -232,7 +232,7 @@ export default function AdminUsersClient({ session }: { session: SessionPayload 
                         <button
                           onClick={() => handleDelete(admin.id, admin.name)}
                           disabled={deletingId === admin.id}
-                          className="px-3 py-1.5 rounded-lg text-xs font-bold text-red-500 hover:text-white hover:bg-red-600 transition-all border border-red-100 disabled:opacity-50"
+                          className="px-3 py-1.5 rounded-[3px] text-xs font-bold text-red-500 hover:text-white hover:bg-red-600 transition-all border border-red-100 disabled:opacity-50"
                         >
                           {deletingId === admin.id ? '...' : 'Remove'}
                         </button>

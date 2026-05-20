@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
 import type { Property } from '@/lib/types';
@@ -159,12 +158,10 @@ export default function CampaignClient({ properties, initialContent }: CampaignC
                   className="group cursor-pointer"
                 >
                   <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden mb-6 shadow-xl transition-transform duration-500 group-hover:-translate-y-2">
-                    <Image 
+                    <img 
                       src={property.image} 
                       alt={property.title} 
-                      fill
-                      priority={index < 3}
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute top-6 right-6">
                       <span className="bg-white/20 backdrop-blur-md text-white px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest border border-white/20">

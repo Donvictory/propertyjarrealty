@@ -127,7 +127,7 @@ export default function AdminSettingsClient() {
             <button 
               type="submit" 
               disabled={loading}
-              className="bg-brand text-white px-8 py-3.5 rounded-xl font-bold text-sm hover:bg-brand-hover transition-all shadow-lg shadow-brand/20 disabled:opacity-60 active:scale-95"
+              className="bg-brand text-white px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-[3px] font-bold text-xs sm:text-sm whitespace-nowrap hover:bg-brand-hover transition-all shadow-lg shadow-brand/20 disabled:opacity-60 active:scale-95"
             >
               {loading ? 'Updating...' : 'Update Password'}
             </button>

@@ -51,7 +51,8 @@ const AdminCampaignClient = () => {
     if (section === 'whyInvestPoints') {
       newContent.whyInvestPoints[index] = value;
     } else {
-      (newContent[section] as any)[index].points[pointIndex] = value;
+      const optionsOrStack = newContent[section] as { title: string; points: string[]; }[];
+      optionsOrStack[index].points[pointIndex] = value;
     }
     setContent(newContent);
   };
@@ -82,7 +83,7 @@ const AdminCampaignClient = () => {
       <form onSubmit={handleSave} className="space-y-8 pb-20">
         {/* Why Invest Section */}
         <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-          <h2 className="text-xl font-bold text-charcoal mb-6 border-b pb-4">"Why Invest" Section</h2>
+          <h2 className="text-xl font-bold text-charcoal mb-6 border-b pb-4">&quot; Why Invest&quot; Section</h2>
           <div className="space-y-4">
             <div>
               <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Section Title</label>
@@ -176,11 +177,11 @@ const AdminCampaignClient = () => {
           </div>
         </div>
 
-        <div className="fixed bottom-8 right-8">
+        <div className="fixed bottom-8 right-8 z-[50]">
           <button
             type="submit"
             disabled={saving}
-            className="bg-brand text-white px-10 py-4 rounded-2xl font-bold shadow-2xl hover:bg-brand-hover transition-all active:scale-95 disabled:opacity-50"
+            className="bg-brand text-white px-6 sm:px-10 py-2.5 sm:py-4 rounded-[3px] font-bold text-xs sm:text-sm whitespace-nowrap shadow-2xl hover:bg-brand-hover transition-all active:scale-95 disabled:opacity-50"
           >
             {saving ? 'Saving...' : 'Save All Changes'}
           </button>

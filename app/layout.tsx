@@ -64,7 +64,7 @@ export const metadata: Metadata = {
       'Discover the most exclusive luxury properties worldwide. Buy, sell, and invest with PropertyJar Realty Ltd.',
     images: [
       {
-        url: `${BASE_URL}/Propertyjaarrealty.jpeg`,
+        url: `${BASE_URL}/newlogo.JPEG`,
         width: 1200,
         height: 630,
         alt: 'PropertyJar Realty Ltd — Luxury Real Estate',
@@ -76,16 +76,16 @@ export const metadata: Metadata = {
     title: 'PropertyJar Realty Ltd — Luxury Real Estate',
     description:
       'Discover the most exclusive luxury properties worldwide with PropertyJar Realty Ltd.',
-    images: [`${BASE_URL}/Propertyjaarrealty.jpeg`],
+    images: [`${BASE_URL}/newlogo.JPEG`],
     creator: '@propertyjarrealty',
   },
   alternates: {
     canonical: BASE_URL,
   },
   icons: {
-    icon: '/Propertyjaarrealty.jpeg?v=3',
-    shortcut: '/Propertyjaarrealty.jpeg?v=3',
-    apple: '/Propertyjaarrealty.jpeg?v=3',
+    icon: '/newlogo.JPEG?v=3',
+    shortcut: '/newlogo.JPEG?v=3',
+    apple: '/newlogo.JPEG?v=3',
   },
   verification: {
     google: 'your-google-search-console-code',  

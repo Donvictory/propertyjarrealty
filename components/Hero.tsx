@@ -20,21 +20,7 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-20" />
       </div>
 
-      {/* Floating Badges */}
-      <div className="absolute top-1/4 right-10 z-30 hidden lg:block">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="glass p-4 rounded-3xl border border-white/20 shadow-2xl flex items-center gap-4"
-        >
-          <div className="w-10 h-10 rounded-full bg-brand flex items-center justify-center text-white font-bold">✓</div>
-          <div>
-            <p className="text-[10px] uppercase tracking-widest text-brand font-bold">Verified Asset</p>
-            <p className="text-sm font-bold text-charcoal">Certified Luxury</p>
-          </div>
-        </motion.div>
-      </div>
+    
 
       {/* Content */}
       <div className="container mx-auto px-6 relative z-30">

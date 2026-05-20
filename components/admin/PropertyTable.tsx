@@ -113,7 +113,7 @@ export default function PropertyTable({ initialProperties }: PropertyTableProps)
         </div>
         <button
           onClick={openAdd}
-          className="flex items-center gap-2 bg-brand text-white px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-brand-hover transition-all whitespace-nowrap shadow-md active:scale-95"
+          className="flex items-center gap-2 bg-brand text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-[3px] font-bold text-xs sm:text-sm hover:bg-brand-hover transition-all whitespace-nowrap shadow-md active:scale-95"
         >
           <span className="text-base leading-none">+</span> Add Property
         </button>
@@ -161,7 +161,7 @@ export default function PropertyTable({ initialProperties }: PropertyTableProps)
                   </td>
                   <td className="px-6 py-4">
                     {p.tag ? (
-                      <span className={`inline-block px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border ${TAG_COLORS[p.tag] ?? 'bg-gray-100 text-gray-600 border-gray-200'}`}>
+                      <span className={`inline-block px-2.5 py-1 rounded-[3px] text-[10px] font-bold uppercase tracking-widest border ${TAG_COLORS[p.tag] ?? 'bg-gray-100 text-gray-600 border-gray-200'}`}>
                         {p.tag}
                       </span>
                     ) : (
@@ -172,14 +172,14 @@ export default function PropertyTable({ initialProperties }: PropertyTableProps)
                     <div className="flex items-center justify-end gap-2">
                       <button
                         onClick={() => openEdit(p)}
-                        className="px-3 py-1.5 rounded-lg text-xs font-bold text-gray-500 hover:text-charcoal hover:bg-gray-100 transition-all border border-gray-100"
+                        className="px-3 py-1.5 rounded-[3px] text-xs font-bold text-gray-500 hover:text-charcoal hover:bg-gray-100 transition-all border border-gray-100"
                       >
                         Edit
                       </button>
                       <button
                         onClick={() => handleDelete(p.id)}
                         disabled={deletingId === p.id}
-                        className="px-3 py-1.5 rounded-lg text-xs font-bold text-red-500 hover:text-white hover:bg-red-600 transition-all border border-red-100 disabled:opacity-50"
+                        className="px-3 py-1.5 rounded-[3px] text-xs font-bold text-red-500 hover:text-white hover:bg-red-600 transition-all border border-red-100 disabled:opacity-50"
                       >
                         {deletingId === p.id ? '...' : 'Delete'}
                       </button>

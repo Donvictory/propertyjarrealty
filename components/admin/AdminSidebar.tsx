@@ -35,13 +35,13 @@ export default function AdminSidebar({
       <div className="p-6 border-b border-gray-500">
         <Link href="/" className="block">
           <Image
-            src="/Propertyjaarrealty.jpeg"
+            src="/newlogo.JPEG"
             alt="PropertyJar Realty Ltd"
             width={180}
             height={50}
             className="h-10 w-auto object-contain rounded-md"
           />
-          <p className="text-[10px] uppercase font-bold tracking-widest text-gray-400 mt-2">Admin Console</p>
+          
         </Link>
       </div>
 
@@ -54,7 +54,7 @@ export default function AdminSidebar({
               key={item.href}
               href={item.href}
               onClick={onClose}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
+              className={`flex items-center gap-3 px-4 py-3 rounded-[3px] text-sm font-semibold transition-all ${
                 isActive
                   ? 'bg-brand text-white shadow-md'
                   : 'text-gray-500 hover:text-charcoal hover:bg-gray-50'
@@ -70,7 +70,7 @@ export default function AdminSidebar({
           <Link
             href="/"
             target="_blank"
-            className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-500 hover:text-charcoal hover:bg-gray-50 transition-all"
+            className="flex items-center gap-3 px-4 py-3 rounded-[3px] text-sm font-semibold text-gray-500 hover:text-charcoal hover:bg-gray-50 transition-all"
           >
             <span className="text-base">🌐</span>
             View Website
@@ -80,7 +80,7 @@ export default function AdminSidebar({
 
       {/* User Info + Logout */}
       <div className="p-4 border-t border-gray-100">
-        <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-gray-50 mb-2">
+        <div className="flex items-center gap-3 px-4 py-3 rounded-[3px] bg-gray-50 mb-2">
           <div className="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
             {session.adminName.charAt(0).toUpperCase()}
           </div>
@@ -92,7 +92,7 @@ export default function AdminSidebar({
         <button
           onClick={handleLogout}
           disabled={pending}
-          className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-500 hover:text-red-600 hover:bg-red-50 transition-all disabled:opacity-50"
+          className="w-full flex items-center gap-3 px-4 py-2.5 rounded-[3px] text-sm font-semibold text-gray-500 hover:text-red-600 hover:bg-red-50 transition-all disabled:opacity-50"
         >
           <span>→</span>
           {pending ? 'Signing out...' : 'Sign Out'}
