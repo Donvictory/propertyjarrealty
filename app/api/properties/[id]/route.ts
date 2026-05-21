@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { updateProperty, deleteProperty, getPropertyById } from '@/lib/properties';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { getSession } from '@/lib/session';
+import fs from 'fs';
+import path from 'path';
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -44,13 +46,49 @@ export async function DELETE(_request: NextRequest, { params }: Params) {
   }
 
   const { id } = await params;
+  
+  // Fetch property details to check for associated local files before deleting
+  const property = await getPropertyById(id);
+
   const deleted = await deleteProperty(id);
-    if (!deleted) {
-      return NextResponse.json({ error: 'Property not found' }, { status: 404 });
+  if (!deleted) {
+    return NextResponse.json({ error: 'Property not found' }, { status: 404 });
+  }
+
+  // Clean up associated local uploaded files (image and brochure) if they exist
+  if (property) {
+    const localUploadsDir = path.join(process.cwd(), 'public');
+    
+    // Check & delete image
+    if (property.image && property.image.startsWith('/uploads/')) {
+      const filePath = path.join(localUploadsDir, property.image);
+      try {
+        if (fs.existsSync(filePath)) {
+          fs.unlinkSync(filePath);
+          console.log(`[Delete] Cleaned up local image file: ${filePath}`);
+        }
+      } catch (err) {
+        console.error(`[Delete] Failed to delete local image file: ${filePath}`, err);
+      }
     }
-    revalidatePath('/properties');
-    revalidatePath('/admin');
-    revalidatePath('/');
-    revalidateTag('properties', 'max');
-    return NextResponse.json({ success: true });
+
+    // Check & delete brochure
+    if (property.brochureUrl && property.brochureUrl.startsWith('/uploads/')) {
+      const filePath = path.join(localUploadsDir, property.brochureUrl);
+      try {
+        if (fs.existsSync(filePath)) {
+          fs.unlinkSync(filePath);
+          console.log(`[Delete] Cleaned up local brochure PDF: ${filePath}`);
+        }
+      } catch (err) {
+        console.error(`[Delete] Failed to delete local brochure PDF: ${filePath}`, err);
+      }
+    }
+  }
+
+  revalidatePath('/properties');
+  revalidatePath('/admin');
+  revalidatePath('/');
+  revalidateTag('properties', 'max');
+  return NextResponse.json({ success: true });
 }

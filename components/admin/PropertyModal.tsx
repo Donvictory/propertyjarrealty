@@ -218,76 +218,84 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
 
           {/* Brochure PDF */}
           <div>
-            <label className={labelClass} htmlFor="pm-brochure">Brochure PDF (Upload or Paste URL)</label>
-            <div className="flex gap-2">
-              <input
-                id="pm-brochure"
-                name="brochureUrl"
-                value={form.brochureUrl || ''}
-                onChange={handleChange}
-                placeholder="Paste PDF URL (https://...)"
-                className={inputClass}
-              />
-              <label className="shrink-0 bg-gray-100 hover:bg-gray-200 text-charcoal border border-gray-200 rounded-[3px] px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-bold cursor-pointer transition-all flex items-center justify-center whitespace-nowrap">
-                <span>Upload</span>
+            <label className={labelClass}>Brochure PDF</label>
+            {!form.brochureUrl ? (
+              <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-200 hover:border-brand rounded-2xl p-6 cursor-pointer bg-gray-50/50 hover:bg-brand/[0.02] transition-all group">
+                <svg className="w-8 h-8 text-gray-400 group-hover:text-brand transition-colors mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                <span className="text-xs font-bold text-charcoal group-hover:text-brand transition-colors">
+                  {uploadingBrochure ? 'Uploading PDF...' : 'Click to upload Brochure PDF'}
+                </span>
+                <span className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold mt-1">PDF up to 20MB</span>
                 <input 
                   type="file" 
                   accept="application/pdf" 
                   className="hidden" 
+                  disabled={uploadingBrochure}
                   onChange={(e) => handleFileUpload(e, 'brochure')} 
                 />
               </label>
-            </div>
-            {uploadingBrochure && <p className="text-[10px] text-brand uppercase font-bold tracking-widest mt-1.5 animate-pulse">Uploading PDF...</p>}
-            {form.brochureUrl && (
-              <div className="mt-2 p-3 bg-gray-50 border border-gray-100 rounded-xl flex items-center justify-between">
-                <span className="text-xs text-charcoal font-medium truncate max-w-[80%]">{form.brochureUrl}</span>
+            ) : (
+              <div className="p-4 bg-gray-50 border border-gray-200/60 rounded-2xl flex items-center justify-between shadow-sm">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center text-red-600 flex-shrink-0">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold text-charcoal truncate">{form.brochureUrl.split('/').pop()}</p>
+                    <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold mt-0.5">Brochure Attached</p>
+                  </div>
+                </div>
                 <button 
                   type="button" 
                   onClick={() => setForm(prev => ({ ...prev, brochureUrl: '' }))}
-                  className="text-red-600 hover:text-red-800 text-xs font-bold px-2 py-1"
+                  className="text-xs font-bold text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100/60 px-3 py-1.5 rounded-xl transition-all"
                 >
-                  Remove
+                  Delete
                 </button>
               </div>
             )}
-            <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest mt-1">Users can download this PDF directly from the property card</p>
+            <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest mt-2">Users can download this PDF directly from the property card</p>
           </div>
 
           {/* Image */}
           <div>
-            <label className={labelClass} htmlFor="pm-image">Property Image (Upload or Paste URL)</label>
-            <div className="flex gap-2">
-              <input 
-                id="pm-image" 
-                name="image" 
-                required 
-                value={form.image} 
-                onChange={handleChange} 
-                placeholder="Paste Image URL (https://...)" 
-                className={inputClass} 
-              />
-              <label className="shrink-0 bg-gray-100 hover:bg-gray-200 text-charcoal border border-gray-200 rounded-[3px] px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-bold cursor-pointer transition-all flex items-center justify-center whitespace-nowrap">
-                <span>Upload</span>
+            <label className={labelClass}>Property Image</label>
+            {!form.image ? (
+              <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-200 hover:border-brand rounded-2xl p-8 cursor-pointer bg-gray-50/50 hover:bg-brand/[0.02] transition-all group">
+                <svg className="w-8 h-8 text-gray-400 group-hover:text-brand transition-colors mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span className="text-xs font-bold text-charcoal group-hover:text-brand transition-colors">
+                  {uploadingImage ? 'Uploading Image...' : 'Click to upload Property Image'}
+                </span>
+                <span className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold mt-1">PNG, JPG, WEBP up to 10MB</span>
                 <input 
                   type="file" 
                   accept="image/*" 
                   className="hidden" 
+                  disabled={uploadingImage}
                   onChange={(e) => handleFileUpload(e, 'image')} 
                 />
               </label>
-            </div>
-            {uploadingImage && <p className="text-[10px] text-brand uppercase font-bold tracking-widest mt-1.5 animate-pulse">Uploading Image...</p>}
-            {form.image && (
-              <div className="mt-2 h-32 rounded-xl overflow-hidden border border-gray-100 relative group">
+            ) : (
+              <div className="relative rounded-2xl overflow-hidden border border-gray-200/60 shadow-sm group aspect-video sm:h-48 w-full">
                 <img src={form.image} alt="Preview" className="w-full h-full object-cover" />
-                <button 
-                  type="button" 
-                  onClick={() => setForm(prev => ({ ...prev, image: '' }))}
-                  className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
-                >
-                  ×
-                </button>
+                <div className="absolute inset-0 bg-charcoal/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                  <button 
+                    type="button" 
+                    onClick={() => setForm(prev => ({ ...prev, image: '' }))}
+                    className="bg-red-600 hover:bg-red-700 text-white rounded-xl px-4 py-2 text-xs font-bold shadow-lg transition-all flex items-center gap-1.5 hover:scale-105 active:scale-95"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    Delete Image
+                  </button>
+                </div>
               </div>
             )}
           </div>

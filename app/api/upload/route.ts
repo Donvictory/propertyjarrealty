@@ -18,6 +18,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 });
     }
 
+    const isImage = file.type.startsWith('image/');
+    const isPdf = file.type === 'application/pdf';
+
+    if (!isImage && !isPdf) {
+      return NextResponse.json({ error: 'Only image files and PDF documents are allowed' }, { status: 400 });
+    }
+
     const buffer = Buffer.from(await file.arrayBuffer());
     const uniqueFilename = `${Date.now()}-${file.name.replace(/\s+/g, '_')}`;
 
@@ -41,11 +48,16 @@ export async function POST(request: NextRequest) {
             },
           });
 
-          // Generate far-future signed URL valid for 75 years (until 2100)
-          const [url] = await gcsFile.getSignedUrl({
-            action: 'read',
-            expires: '01-01-2100', 
-          });
+          // Try to make the file public (might fail if uniform bucket-level access is enforced, but that's okay)
+          try {
+            await gcsFile.makePublic();
+          } catch (aclError) {
+            console.warn(`[Upload] Could not set ACL to public for bucket ${bucketName}. Using alt=media URL anyway.`, aclError);
+          }
+
+          // Generate public media URL
+          const filePath = `uploads/${uniqueFilename}`;
+          const url = `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o/${encodeURIComponent(filePath)}?alt=media`;
 
           console.log(`[Upload] SUCCESS: Successfully uploaded file to bucket ${bucketName}`);
           return NextResponse.json({ url });
@@ -55,24 +67,20 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 3. Fallback: Save to Local Storage in public/uploads/ (Only works in local dev environments)
-    try {
-      const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
-      if (!fs.existsSync(uploadsDir)) {
-        fs.mkdirSync(uploadsDir, { recursive: true });
-      }
-
-      const filePath = path.join(uploadsDir, uniqueFilename);
-      fs.writeFileSync(filePath, buffer);
-
-      const origin = request.headers.get('origin') || new URL(request.url).origin;
-      const localUrl = `${origin}/uploads/${uniqueFilename}`;
-      console.log(`[Upload] Local disk fallback successful: ${localUrl}`);
-      return NextResponse.json({ url: localUrl });
-    } catch (fsError) {
-      console.error('[Upload] Local disk storage failed (expected on serverless read-only platforms):', fsError);
-      throw new Error('Cloud storage unconfigured and read-only local storage fallback failed.');
+    // 3. Fallback to Local Public Uploads Directory if Firebase fails or is not configured
+    console.warn('[Upload] Firebase Storage not available or failed. Falling back to local disk storage in public/uploads/...');
+    
+    const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
+    if (!fs.existsSync(uploadsDir)) {
+      fs.mkdirSync(uploadsDir, { recursive: true });
     }
+
+    const filePath = path.join(uploadsDir, uniqueFilename);
+    await fs.promises.writeFile(filePath, buffer);
+
+    console.log(`[Upload] SUCCESS: Saved file locally as /uploads/${uniqueFilename}`);
+    const localUrl = `/uploads/${uniqueFilename}`;
+    return NextResponse.json({ url: localUrl });
 
   } catch (error) {
     console.error('[Upload] Root upload handler error:', error);

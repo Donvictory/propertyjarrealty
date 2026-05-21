@@ -12,7 +12,7 @@ const PropertySchema = z.object({
   beds:        z.coerce.number().int().nonnegative(),
   baths:       z.coerce.number().int().nonnegative(),
   sqft:        z.string().min(1, 'sqft is required'),
-  image:       z.string().url('Image must be a valid URL'),
+  image:       z.string().min(1, 'Image is required'),
   type:        z.string().min(1, 'Type is required'),
   tag:         z.string().nullable().optional(),
   description: z.string().optional().default(''),
