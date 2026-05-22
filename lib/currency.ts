@@ -1,4 +1,4 @@
-// lib/currency.ts
+ 
 
 export type Currency = 'NGN' | 'USD' | 'GBP';
 

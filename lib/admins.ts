@@ -10,7 +10,7 @@ import fs from 'fs';
 import path from 'path';
 
 export async function getAdminByEmail(email: string): Promise<Admin | undefined> {
-  // 1. Try Firestore first if available
+  
   if (db) {
     const snapshot = await db.collection(ADMINS_COLLECTION)
       .where('email', '==', email.toLowerCase())

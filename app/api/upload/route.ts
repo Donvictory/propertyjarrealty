@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/session';
-import fs from 'fs';
-import path from 'path';
+import { put } from '@vercel/blob';
 import * as admin from 'firebase-admin';
+
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
   // 1. Authorize session
@@ -21,14 +23,15 @@ export async function POST(request: NextRequest) {
     const isImage = file.type.startsWith('image/');
     const isPdf = file.type === 'application/pdf';
 
-    if (!isImage && !isPdf) {
+    if (!isImage &&!isPdf) {
       return NextResponse.json({ error: 'Only image files and PDF documents are allowed' }, { status: 400 });
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
     const uniqueFilename = `${Date.now()}-${file.name.replace(/\s+/g, '_')}`;
+    const storagePath = `uploads/${uniqueFilename}`;
 
-    // 2. Try uploading to Firebase Storage (checks dynamic candidate buckets)
+    // 2. Try uploading to Firebase Storage
     if (admin.apps.length && process.env.FIREBASE_PROJECT_ID) {
       const bucketCandidates = [
         process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
@@ -40,25 +43,19 @@ export async function POST(request: NextRequest) {
         try {
           console.log(`[Upload] Attempting Firebase Storage upload to bucket: ${bucketName}`);
           const bucket = admin.storage().bucket(bucketName);
-          const gcsFile = bucket.file(`uploads/${uniqueFilename}`);
-          
+          const gcsFile = bucket.file(storagePath);
+
           await gcsFile.save(buffer, {
-            metadata: {
-              contentType: file.type,
-            },
+            metadata: { contentType: file.type },
           });
 
-          // Try to make the file public (might fail if uniform bucket-level access is enforced, but that's okay)
           try {
             await gcsFile.makePublic();
           } catch (aclError) {
             console.warn(`[Upload] Could not set ACL to public for bucket ${bucketName}. Using alt=media URL anyway.`, aclError);
           }
 
-          // Generate public media URL
-          const filePath = `uploads/${uniqueFilename}`;
-          const url = `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o/${encodeURIComponent(filePath)}?alt=media`;
-
+          const url = `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o/${encodeURIComponent(storagePath)}?alt=media`;
           console.log(`[Upload] SUCCESS: Successfully uploaded file to bucket ${bucketName}`);
           return NextResponse.json({ url });
         } catch (storageError) {
@@ -67,25 +64,21 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 3. Fallback to Local Public Uploads Directory if Firebase fails or is not configured
-    console.warn('[Upload] Firebase Storage not available or failed. Falling back to local disk storage in public/uploads/...');
-    
-    const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
-    if (!fs.existsSync(uploadsDir)) {
-      fs.mkdirSync(uploadsDir, { recursive: true });
-    }
+    // 3. Fallback to Vercel Blob instead of local disk
+    console.warn('[Upload] Firebase Storage not available or failed. Falling back to Vercel Blob...');
 
-    const filePath = path.join(uploadsDir, uniqueFilename);
-    await fs.promises.writeFile(filePath, buffer);
+    const blob = await put(storagePath, buffer, {
+      access: 'public',
+      contentType: file.type,
+    });
 
-    console.log(`[Upload] SUCCESS: Saved file locally as /uploads/${uniqueFilename}`);
-    const localUrl = `/uploads/${uniqueFilename}`;
-    return NextResponse.json({ url: localUrl });
+    console.log(`[Upload] SUCCESS: Saved file to Vercel Blob at ${blob.url}`);
+    return NextResponse.json({ url: blob.url });
 
   } catch (error) {
     console.error('[Upload] Root upload handler error:', error);
-    return NextResponse.json({ 
-      error: error instanceof Error ? error.message : 'Failed to upload file' 
+    return NextResponse.json({
+      error: error instanceof Error? error.message : 'Failed to upload file'
     }, { status: 500 });
   }
 }
