@@ -12,14 +12,18 @@ import path from 'path';
 export async function getAdminByEmail(email: string): Promise<Admin | undefined> {
   
   if (db) {
-    const snapshot = await db.collection(ADMINS_COLLECTION)
-      .where('email', '==', email.toLowerCase())
-      .limit(1)
-      .get();
-    
-    if (!snapshot.empty) {
-      const doc = snapshot.docs[0];
-      return { id: doc.id, ...doc.data() } as Admin;
+    try {
+      const snapshot = await db.collection(ADMINS_COLLECTION)
+        .where('email', '==', email.toLowerCase())
+        .limit(1)
+        .get();
+
+      if (!snapshot.empty) {
+        const doc = snapshot.docs[0];
+        return { id: doc.id, ...doc.data() } as Admin;
+      }
+    } catch (err) {
+      console.error('[Firestore] getAdminByEmail failed:', err);
     }
   }
 
@@ -42,9 +46,14 @@ export async function getAdminById(id: string): Promise<Admin | undefined> {
     }
     return undefined;
   }
-  const doc = await db.collection(ADMINS_COLLECTION).doc(id).get();
-  if (!doc.exists) return undefined;
-  return { id: doc.id, ...doc.data() } as Admin;
+  try {
+    const doc = await db.collection(ADMINS_COLLECTION).doc(id).get();
+    if (!doc.exists) return undefined;
+    return { id: doc.id, ...doc.data() } as Admin;
+  } catch (err) {
+    console.error('[Firestore] getAdminById failed:', err);
+    return undefined;
+  }
 }
 
 export async function getAllAdmins(): Promise<Omit<Admin, 'passwordHash'>[]> {
