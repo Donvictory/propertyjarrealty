@@ -56,28 +56,81 @@ export async function getPropertyById(id: string): Promise<Property | undefined>
 
 
 export async function addProperty(data: Omit<Property, 'id'>): Promise<Property> {
-  if (!db) throw new Error('Database not initialized');
-  const docRef = await db.collection(PROPERTIES_COLLECTION).add(data);
-  return { id: docRef.id, ...data } as Property;
+  if (db) {
+    try {
+      const docRef = await db.collection(PROPERTIES_COLLECTION).add(data);
+      return { id: docRef.id, ...data } as Property;
+    } catch (err) {
+      console.error('[Firestore] addProperty failed, falling back to local file:', err);
+    }
+  }
+
+  // Resilient fallback to local properties.json
+  const propertiesPath = path.join(process.cwd(), 'data', 'properties.json');
+  let properties: Property[] = [];
+  if (fs.existsSync(propertiesPath)) {
+    properties = JSON.parse(fs.readFileSync(propertiesPath, 'utf-8'));
+  }
+  const newProperty: Property = {
+    id: `local-${Date.now()}`,
+    ...data
+  };
+  properties.push(newProperty);
+  fs.writeFileSync(propertiesPath, JSON.stringify(properties, null, 2), 'utf-8');
+  console.log(`[Local Fallback] Successfully added property: ${newProperty.id}`);
+  return newProperty;
 }
 
 export async function updateProperty(id: string, data: Partial<Omit<Property, 'id'>>): Promise<Property | null> {
-  if (!db) return null;
-  const docRef = db.collection(PROPERTIES_COLLECTION).doc(id);
-  const doc = await docRef.get();
-  if (!doc.exists) return null;
-  
-  await docRef.update(data);
-  const updated = await docRef.get();
-  return { id: updated.id, ...updated.data() } as Property;
+  if (db) {
+    try {
+      const docRef = db.collection(PROPERTIES_COLLECTION).doc(id);
+      const doc = await docRef.get();
+      if (doc.exists) {
+        await docRef.update(data);
+        const updated = await docRef.get();
+        return { id: updated.id, ...updated.data() } as Property;
+      }
+    } catch (err) {
+      console.error('[Firestore] updateProperty failed, falling back to local file:', err);
+    }
+  }
+
+  // Resilient fallback to local properties.json
+  const propertiesPath = path.join(process.cwd(), 'data', 'properties.json');
+  if (fs.existsSync(propertiesPath)) {
+    const properties = JSON.parse(fs.readFileSync(propertiesPath, 'utf-8'));
+    const index = properties.findIndex((p: Property) => p.id === id);
+    if (index !== -1) {
+      properties[index] = { ...properties[index], ...data };
+      fs.writeFileSync(propertiesPath, JSON.stringify(properties, null, 2), 'utf-8');
+      console.log(`[Local Fallback] Successfully updated property: ${id}`);
+      return properties[index];
+    }
+  }
+  return null;
 }
 
 export async function deleteProperty(id: string): Promise<boolean> {
-  try {
-    if (!db) return false;
-    await db.collection(PROPERTIES_COLLECTION).doc(id).delete();
-    return true;
-  } catch {
-    return false;
+  if (db) {
+    try {
+      await db.collection(PROPERTIES_COLLECTION).doc(id).delete();
+      return true;
+    } catch (err) {
+      console.error('[Firestore] deleteProperty failed, falling back to local file:', err);
+    }
   }
+
+  // Resilient fallback to local properties.json
+  const propertiesPath = path.join(process.cwd(), 'data', 'properties.json');
+  if (fs.existsSync(propertiesPath)) {
+    const properties = JSON.parse(fs.readFileSync(propertiesPath, 'utf-8'));
+    const filtered = properties.filter((p: Property) => p.id !== id);
+    if (filtered.length !== properties.length) {
+      fs.writeFileSync(propertiesPath, JSON.stringify(filtered, null, 2), 'utf-8');
+      console.log(`[Local Fallback] Successfully deleted property: ${id}`);
+      return true;
+    }
+  }
+  return false;
 }
