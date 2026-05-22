@@ -13,6 +13,7 @@ export default function PropertyTable({ initialProperties }: PropertyTableProps)
   const [modal, setModal] = useState<'add' | 'edit' | null>(null);
   const [editing, setEditing] = useState<Property | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [deletingProperty, setDeletingProperty] = useState<Property | null>(null);
   const [search, setSearch] = useState('');
 
   // --- Live stats derived from client state ---
@@ -62,8 +63,10 @@ export default function PropertyTable({ initialProperties }: PropertyTableProps)
     setModal(null);
   }
 
-  async function handleDelete(id: string) {
-    if (!confirm('Are you sure you want to delete this property?')) return;
+  async function confirmDelete() {
+    if (!deletingProperty) return;
+    const id = deletingProperty.id;
+    setDeletingProperty(null);
     setDeletingId(id);
     try {
       const res = await fetch(`/api/properties/${id}`, { method: 'DELETE' });
@@ -177,7 +180,7 @@ export default function PropertyTable({ initialProperties }: PropertyTableProps)
                         Edit
                       </button>
                       <button
-                        onClick={() => handleDelete(p.id)}
+                        onClick={() => setDeletingProperty(p)}
                         disabled={deletingId === p.id}
                         className="px-3 py-1.5 rounded-[3px] text-xs font-bold text-red-500 hover:text-white hover:bg-red-600 transition-all border border-red-100 disabled:opacity-50"
                       >
@@ -204,6 +207,70 @@ export default function PropertyTable({ initialProperties }: PropertyTableProps)
           onClose={() => setModal(null)}
           onSaved={handleSaved}
         />
+      )}
+
+      {/* ── Custom Deletion Confirmation Modal ──────────────── */}
+      {deletingProperty && (
+        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 overflow-y-auto">
+          <style>{`
+            @keyframes fadeIn {
+              from { opacity: 0; }
+              to { opacity: 1; }
+            }
+            @keyframes slideUp {
+              from { transform: translateY(16px); opacity: 0; }
+              to { transform: translateY(0); opacity: 1; }
+            }
+            .animate-fade-in {
+              animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            }
+            .animate-slide-up {
+              animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            }
+          `}</style>
+
+          {/* Backdrop */}
+          <div 
+            onClick={() => setDeletingProperty(null)}
+            className="fixed inset-0 bg-charcoal/40 backdrop-blur-sm transition-opacity duration-300 animate-fade-in"
+          />
+          
+          {/* Modal Card */}
+          <div className="relative bg-white rounded-3xl overflow-hidden max-w-md w-full p-6 sm:p-8 shadow-2xl border border-gray-100 animate-slide-up transition-all z-10">
+            {/* Warning Icon Banner */}
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-red-500 mb-6">
+              <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </div>
+
+            {/* Content */}
+            <div className="text-center mb-8">
+              <h3 className="text-xl font-bold text-charcoal mb-2">Delete Property?</h3>
+              <p className="text-gray-500 text-sm leading-relaxed">
+                Are you sure you want to permanently delete <span className="font-bold text-charcoal">"{deletingProperty.title}"</span>? This action is permanent and cannot be undone.
+              </p>
+            </div>
+
+            {/* Actions */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button
+                type="button"
+                onClick={() => setDeletingProperty(null)}
+                className="flex-1 px-5 py-3 border border-gray-200 text-charcoal hover:bg-gray-50 rounded-xl text-sm font-bold transition-all text-center"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={confirmDelete}
+                className="flex-1 px-5 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-bold shadow-lg shadow-red-200 transition-all text-center"
+              >
+                Confirm Delete
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );
