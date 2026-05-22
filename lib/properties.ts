@@ -10,24 +10,23 @@ const PROPERTIES_COLLECTION = 'properties';
 
 export const getProperties = unstable_cache(
   async (): Promise<Property[]> => {
-    // Fallback to local JSON if Firestore is not initialized
-    if (!db) {
-      console.warn('[Firestore] DB not initialized, falling back to local data/properties.json');
-      const propertiesPath = path.join(process.cwd(), 'data', 'properties.json');
-      if (fs.existsSync(propertiesPath)) {
-        return JSON.parse(fs.readFileSync(propertiesPath, 'utf-8'));
+    if (db) {
+      try {
+        console.log(`[Firestore] Fetching from project: ${process.env.FIREBASE_PROJECT_ID} | Collection: ${PROPERTIES_COLLECTION}`);
+        const snapshot = await db.collection(PROPERTIES_COLLECTION).get();
+        return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Property));
+      } catch (err) {
+        console.error('[Firestore] Failed to fetch properties from DB, falling back to local:', err);
       }
-      return [];
     }
 
-    console.log(`[Firestore] Fetching from project: ${process.env.FIREBASE_PROJECT_ID} | Collection: ${PROPERTIES_COLLECTION}`);
-    try {
-      const snapshot = await db.collection(PROPERTIES_COLLECTION).get();
-      return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Property));
-    } catch (err) {
-      console.error('[Firestore] Failed to fetch properties:', err);
-      return [];
+    // Fallback to local JSON
+    console.warn('[Firestore] Falling back to local data/properties.json');
+    const propertiesPath = path.join(process.cwd(), 'data', 'properties.json');
+    if (fs.existsSync(propertiesPath)) {
+      return JSON.parse(fs.readFileSync(propertiesPath, 'utf-8'));
     }
+    return [];
   },
   ['properties-list'],
   { revalidate: 3600, tags: ['properties'] }
@@ -35,22 +34,24 @@ export const getProperties = unstable_cache(
 
 
 export async function getPropertyById(id: string): Promise<Property | undefined> {
-  if (!db) {
-    const propertiesPath = path.join(process.cwd(), 'data', 'properties.json');
-    if (fs.existsSync(propertiesPath)) {
-      const properties = JSON.parse(fs.readFileSync(propertiesPath, 'utf-8'));
-      return properties.find((p: Property) => p.id === id);
+  if (db) {
+    try {
+      const doc = await db.collection(PROPERTIES_COLLECTION).doc(id).get();
+      if (doc.exists) {
+        return { id: doc.id, ...doc.data() } as Property;
+      }
+    } catch (err) {
+      console.error('[Firestore] Failed to fetch property by id from DB, falling back to local:', err);
     }
-    return undefined;
   }
-  try {
-    const doc = await db.collection(PROPERTIES_COLLECTION).doc(id).get();
-    if (!doc.exists) return undefined;
-    return { id: doc.id, ...doc.data() } as Property;
-  } catch (err) {
-    console.error('[Firestore] Failed to fetch property by id:', err);
-    return undefined;
+
+  // Fallback to local JSON
+  const propertiesPath = path.join(process.cwd(), 'data', 'properties.json');
+  if (fs.existsSync(propertiesPath)) {
+    const properties = JSON.parse(fs.readFileSync(propertiesPath, 'utf-8'));
+    return properties.find((p: Property) => p.id === id);
   }
+  return undefined;
 }
 
 

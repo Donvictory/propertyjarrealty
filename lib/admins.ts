@@ -38,36 +38,43 @@ export async function getAdminByEmail(email: string): Promise<Admin | undefined>
 }
 
 export async function getAdminById(id: string): Promise<Admin | undefined> {
-  if (!db) {
-    const adminsPath = path.join(process.cwd(), 'data', 'admins.json');
-    if (fs.existsSync(adminsPath)) {
-      const admins = JSON.parse(fs.readFileSync(adminsPath, 'utf-8'));
-      return admins.find((a: Admin) => a.id === id);
+  if (db) {
+    try {
+      const doc = await db.collection(ADMINS_COLLECTION).doc(id).get();
+      if (doc.exists) {
+        return { id: doc.id, ...doc.data() } as Admin;
+      }
+    } catch (err) {
+      console.error('[Firestore] getAdminById failed:', err);
     }
-    return undefined;
   }
-  try {
-    const doc = await db.collection(ADMINS_COLLECTION).doc(id).get();
-    if (!doc.exists) return undefined;
-    return { id: doc.id, ...doc.data() } as Admin;
-  } catch (err) {
-    console.error('[Firestore] getAdminById failed:', err);
-    return undefined;
+
+  // Fallback to local JSON
+  const adminsPath = path.join(process.cwd(), 'data', 'admins.json');
+  if (fs.existsSync(adminsPath)) {
+    const admins = JSON.parse(fs.readFileSync(adminsPath, 'utf-8'));
+    return admins.find((a: Admin) => a.id === id);
   }
+  return undefined;
 }
 
 export async function getAllAdmins(): Promise<Omit<Admin, 'passwordHash'>[]> {
   if (db) {
-    console.log(`[Firestore] Fetching admins from project: ${process.env.FIREBASE_PROJECT_ID} | Collection: ${ADMINS_COLLECTION}`);
-    const snapshot = await db.collection(ADMINS_COLLECTION).get();
-    if (!snapshot.empty) {
-      return snapshot.docs.map(doc => {
-        const { passwordHash: _, ...rest } = doc.data();
-        return { id: doc.id, ...rest } as Omit<Admin, 'passwordHash'>;
-      });
+    try {
+      console.log(`[Firestore] Fetching admins from project: ${process.env.FIREBASE_PROJECT_ID} | Collection: ${ADMINS_COLLECTION}`);
+      const snapshot = await db.collection(ADMINS_COLLECTION).get();
+      if (!snapshot.empty) {
+        return snapshot.docs.map(doc => {
+          const { passwordHash: _, ...rest } = doc.data();
+          return { id: doc.id, ...rest } as Omit<Admin, 'passwordHash'>;
+        });
+      }
+    } catch (err) {
+      console.error('[Firestore] getAllAdmins failed:', err);
     }
   }
 
+  // Fallback to local JSON
   const adminsPath = path.join(process.cwd(), 'data', 'admins.json');
   if (fs.existsSync(adminsPath)) {
     const admins = JSON.parse(fs.readFileSync(adminsPath, 'utf-8'));
