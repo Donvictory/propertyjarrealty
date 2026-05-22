@@ -4,6 +4,8 @@ import { getProperties } from '@/lib/properties';
 import { getCampaignContent } from '@/lib/campaign';
 import CampaignClient from './CampaignClient';
 
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: 'Investment Campaigns',
   description: 'Explore exclusive high-yield luxury real estate investment campaigns in Lagos with PropertyJar Realty Ltd.',

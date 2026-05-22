@@ -21,8 +21,13 @@ export const getProperties = unstable_cache(
     }
 
     console.log(`[Firestore] Fetching from project: ${process.env.FIREBASE_PROJECT_ID} | Collection: ${PROPERTIES_COLLECTION}`);
-    const snapshot = await db.collection(PROPERTIES_COLLECTION).get();
-    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Property));
+    try {
+      const snapshot = await db.collection(PROPERTIES_COLLECTION).get();
+      return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Property));
+    } catch (err) {
+      console.error('[Firestore] Failed to fetch properties:', err);
+      return [];
+    }
   },
   ['properties-list'],
   { revalidate: 3600, tags: ['properties'] }
@@ -38,9 +43,14 @@ export async function getPropertyById(id: string): Promise<Property | undefined>
     }
     return undefined;
   }
-  const doc = await db.collection(PROPERTIES_COLLECTION).doc(id).get();
-  if (!doc.exists) return undefined;
-  return { id: doc.id, ...doc.data() } as Property;
+  try {
+    const doc = await db.collection(PROPERTIES_COLLECTION).doc(id).get();
+    if (!doc.exists) return undefined;
+    return { id: doc.id, ...doc.data() } as Property;
+  } catch (err) {
+    console.error('[Firestore] Failed to fetch property by id:', err);
+    return undefined;
+  }
 }
 
 
