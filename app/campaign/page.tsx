@@ -21,8 +21,8 @@ export const metadata: Metadata = {
 
 export default async function CampaignPage() {
   const [properties, campaignContent] = await Promise.all([
-    getProperties(),
-    getCampaignContent()
+    getProperties().catch(() => []),
+    getCampaignContent(),
   ]);
 
   const campaignProperties = properties.filter(p => p.isCampaign === true);
