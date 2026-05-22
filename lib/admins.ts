@@ -6,92 +6,47 @@ import type { Admin } from './types';
 
 const ADMINS_COLLECTION = 'admins';
 
-import fs from 'fs';
-import path from 'path';
+function requireDb() {
+  if (!db) throw new Error('[Firestore] Not initialized — check FIREBASE_* environment variables on Vercel.');
+  return db;
+}
 
 export async function getAdminByEmail(email: string): Promise<Admin | undefined> {
-  
-  if (db) {
-    try {
-      const snapshot = await db.collection(ADMINS_COLLECTION)
-        .where('email', '==', email.toLowerCase())
-        .limit(1)
-        .get();
-
-      if (!snapshot.empty) {
-        const doc = snapshot.docs[0];
-        return { id: doc.id, ...doc.data() } as Admin;
-      }
-    } catch (err) {
-      console.error('[Firestore] getAdminByEmail failed:', err);
-    }
-  }
-
-  // 2. Fallback to local JSON
-  const adminsPath = path.join(process.cwd(), 'data', 'admins.json');
-  if (fs.existsSync(adminsPath)) {
-    const admins = JSON.parse(fs.readFileSync(adminsPath, 'utf-8'));
-    return admins.find((a: Admin) => a.email.toLowerCase() === email.toLowerCase());
-  }
-  
-  return undefined;
+  const firestore = requireDb();
+  const snapshot = await firestore
+    .collection(ADMINS_COLLECTION)
+    .where('email', '==', email.toLowerCase())
+    .limit(1)
+    .get();
+  if (snapshot.empty) return undefined;
+  const doc = snapshot.docs[0];
+  return { id: doc.id, ...doc.data() } as Admin;
 }
 
 export async function getAdminById(id: string): Promise<Admin | undefined> {
-  if (db) {
-    try {
-      const doc = await db.collection(ADMINS_COLLECTION).doc(id).get();
-      if (doc.exists) {
-        return { id: doc.id, ...doc.data() } as Admin;
-      }
-    } catch (err) {
-      console.error('[Firestore] getAdminById failed:', err);
-    }
-  }
-
-  // Fallback to local JSON
-  const adminsPath = path.join(process.cwd(), 'data', 'admins.json');
-  if (fs.existsSync(adminsPath)) {
-    const admins = JSON.parse(fs.readFileSync(adminsPath, 'utf-8'));
-    return admins.find((a: Admin) => a.id === id);
-  }
-  return undefined;
+  const firestore = requireDb();
+  const doc = await firestore.collection(ADMINS_COLLECTION).doc(id).get();
+  if (!doc.exists) return undefined;
+  return { id: doc.id, ...doc.data() } as Admin;
 }
 
 export async function getAllAdmins(): Promise<Omit<Admin, 'passwordHash'>[]> {
-  if (db) {
-    try {
-      console.log(`[Firestore] Fetching admins from project: ${process.env.FIREBASE_PROJECT_ID} | Collection: ${ADMINS_COLLECTION}`);
-      const snapshot = await db.collection(ADMINS_COLLECTION).get();
-      if (!snapshot.empty) {
-        return snapshot.docs.map(doc => {
-          const { passwordHash: _, ...rest } = doc.data();
-          return { id: doc.id, ...rest } as Omit<Admin, 'passwordHash'>;
-        });
-      }
-    } catch (err) {
-      console.error('[Firestore] getAllAdmins failed:', err);
-    }
-  }
-
-  // Fallback to local JSON
-  const adminsPath = path.join(process.cwd(), 'data', 'admins.json');
-  if (fs.existsSync(adminsPath)) {
-    const admins = JSON.parse(fs.readFileSync(adminsPath, 'utf-8'));
-    return admins.map((a: Admin) => {
-      const { passwordHash: _, ...rest } = a;
-      return rest;
-    });
-  }
-
-  return [];
+  const firestore = requireDb();
+  const snapshot = await firestore.collection(ADMINS_COLLECTION).get();
+  return snapshot.docs.map(doc => {
+    const d = doc.data() as Admin;
+    return {
+      id:             doc.id,
+      name:           d.name,
+      email:          d.email,
+      role:           d.role,
+      createdAt:      d.createdAt,
+      sessionVersion: d.sessionVersion,
+    } as Omit<Admin, 'passwordHash'>;
+  });
 }
 
-
-export async function verifyAdminPassword(
-  email: string,
-  password: string
-): Promise<Admin | null> {
+export async function verifyAdminPassword(email: string, password: string): Promise<Admin | null> {
   const admin = await getAdminByEmail(email);
   if (!admin) return null;
   const valid = await bcrypt.compare(password, admin.passwordHash);
@@ -109,43 +64,36 @@ export async function createAdmin(data: {
 
   const passwordHash = await bcrypt.hash(data.password, 12);
   const newAdminData = {
-    name: data.name,
-    email: data.email.toLowerCase(),
+    name:           data.name,
+    email:          data.email.toLowerCase(),
     passwordHash,
-    role: data.role ?? 'admin',
-    createdAt: new Date().toISOString(),
-    sessionVersion: 1, // incremented on every password change to invalidate old sessions
+    role:           data.role ?? 'admin',
+    createdAt:      new Date().toISOString(),
+    sessionVersion: 1,
   };
 
-  if (!db) throw new Error('Database not initialized. Please check your environment variables.');
-  const docRef = await db.collection(ADMINS_COLLECTION).add(newAdminData);
-  console.log(`[Firestore] SUCCESS: Added new admin with ID: ${docRef.id} to project: ${process.env.FIREBASE_PROJECT_ID}`);
+  const firestore = requireDb();
+  const docRef = await firestore.collection(ADMINS_COLLECTION).add(newAdminData);
   return {
-    id: docRef.id,
-    name: newAdminData.name,
-    email: newAdminData.email,
-    role: newAdminData.role,
-    createdAt: newAdminData.createdAt,
+    id:             docRef.id,
+    name:           newAdminData.name,
+    email:          newAdminData.email,
+    role:           newAdminData.role,
+    createdAt:      newAdminData.createdAt,
     sessionVersion: newAdminData.sessionVersion,
   };
 }
 
 export async function deleteAdmin(id: string): Promise<boolean> {
-  try {
-    if (!db) return false;
-    await db.collection(ADMINS_COLLECTION).doc(id).delete();
-    return true;
-  } catch {
-    return false;
-  }
+  const firestore = requireDb();
+  await firestore.collection(ADMINS_COLLECTION).doc(id).delete();
+  return true;
 }
 
 export async function updateAdminPassword(id: string, newPassword: string): Promise<void> {
+  const firestore = requireDb();
   const passwordHash = await bcrypt.hash(newPassword, 12);
-  if (!db) throw new Error('Database not initialized.');
-  // FieldValue.increment(1) is atomic — safely bumps the version even under concurrent writes.
-  // Any JWT session that embeds an older sessionVersion will be rejected by getSession().
-  await db.collection(ADMINS_COLLECTION).doc(id).update({
+  await firestore.collection(ADMINS_COLLECTION).doc(id).update({
     passwordHash,
     sessionVersion: FieldValue.increment(1),
   });
