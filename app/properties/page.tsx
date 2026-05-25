@@ -18,7 +18,7 @@ export default async function PropertiesPage() {
   const properties = await getProperties();
 
   return (
-    <main className="min-h-screen pt-32 bg-off-white">
+    <main className="min-h-screen bg-off-white">
       <PropertiesClient properties={properties} />
     </main>
   );

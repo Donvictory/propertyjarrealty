@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@source "..";
+
 @theme {
   --color-brand: #800020;
   --color-brand-hover: #600018;
@@ -10,7 +12,7 @@
   --color-gold: #d4af37;
   --color-gold-light: #f9f295;
 
-  --font-sans: var(--font-spartan), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-notosans), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-playfair), serif;
 
   --radius-sm: 5px;
@@ -24,14 +26,7 @@
 }
 
 html {
-  font-size: 20px; /* Increased from 18px */
   scroll-behavior: smooth;
-}
-
-@media (max-width: 768px) {
-  html {
-    font-size: 18px; /* Increased from 16px */
-  }
 }
 
 :root {
@@ -61,23 +56,10 @@ body {
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Global Border Radius Policy: 5px for all images and cards */
-img {
-  border-radius: 5px !important;
-}
-
-/* Apply 5px to all rounded utilities except 'full' (circles/pills) */
-[class*="rounded-"]:not([class*="rounded-full"]),
-.card {
-  border-radius: 5px !important;
+@layer base {
+  img {
+    border-radius: 5px;
+  }
 }
 
 .glass {

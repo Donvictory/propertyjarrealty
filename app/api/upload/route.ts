@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     const isImage = file.type.startsWith('image/');
     const isPdf = file.type === 'application/pdf';
 
-    if (!isImage &&!isPdf) {
+    if (!isImage && !isPdf) {
       return NextResponse.json({ error: 'Only image files and PDF documents are allowed' }, { status: 400 });
     }
 
@@ -41,7 +41,6 @@ export async function POST(request: NextRequest) {
 
       for (const bucketName of bucketCandidates) {
         try {
-          console.log(`[Upload] Attempting Firebase Storage upload to bucket: ${bucketName}`);
           const bucket = admin.storage().bucket(bucketName);
           const gcsFile = bucket.file(storagePath);
 
@@ -56,7 +55,6 @@ export async function POST(request: NextRequest) {
           }
 
           const url = `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o/${encodeURIComponent(storagePath)}?alt=media`;
-          console.log(`[Upload] SUCCESS: Successfully uploaded file to bucket ${bucketName}`);
           return NextResponse.json({ url });
         } catch (storageError) {
           console.warn(`[Upload] Firebase storage failed for bucket ${bucketName}. Details:`, storageError);
@@ -72,13 +70,12 @@ export async function POST(request: NextRequest) {
       contentType: file.type,
     });
 
-    console.log(`[Upload] SUCCESS: Saved file to Vercel Blob at ${blob.url}`);
     return NextResponse.json({ url: blob.url });
 
   } catch (error) {
     console.error('[Upload] Root upload handler error:', error);
     return NextResponse.json({
-      error: error instanceof Error? error.message : 'Failed to upload file'
+      error: error instanceof Error ? error.message : 'Failed to upload file'
     }, { status: 500 });
   }
 }

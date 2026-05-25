@@ -103,7 +103,7 @@ export default function AdminUsersClient({ session }: { session: SessionPayload 
       {/* Header */}
       <div className="flex items-start justify-between mb-8">
         <div>
-        
+
           <h1 className="text-3xl font-bold text-charcoal">Admin Users</h1>
           <p className="text-gray-500 text-sm mt-1">Manage who has access to this dashboard.</p>
         </div>
@@ -145,16 +145,16 @@ export default function AdminUsersClient({ session }: { session: SessionPayload 
             <div>
               <label className={labelClass} htmlFor="au-password">Initial Password</label>
               <div className="relative">
-                <input 
-                  id="au-password" 
-                  name="password" 
-                  type={showPassword ? "text" : "password"} 
-                  required 
-                  minLength={8} 
-                  value={form.password} 
-                  onChange={handleChange} 
-                  placeholder="Min 8 characters" 
-                  className={`${inputClass} pr-12`} 
+                <input
+                  id="au-password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  required
+                  minLength={8}
+                  value={form.password}
+                  onChange={handleChange}
+                  placeholder="Min 8 characters"
+                  className={`${inputClass} pr-12`}
                 />
                 <button
                   type="button"
@@ -194,7 +194,7 @@ export default function AdminUsersClient({ session }: { session: SessionPayload 
               <tr className="border-b border-gray-50 bg-gray-50/50">
                 <th className="text-left px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Admin</th>
                 <th className="text-left px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400 hidden md:table-cell">Email</th>
-                <th className="text-left px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Role</th>
+                {/* <th className="text-left px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Role</th> */}
                 <th className="text-left px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400 hidden lg:table-cell">Added</th>
                 {isSuperAdmin && <th className="text-right px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Actions</th>}
               </tr>
@@ -204,25 +204,24 @@ export default function AdminUsersClient({ session }: { session: SessionPayload 
                 <tr key={admin.id} className="hover:bg-gray-50/30 transition-colors">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full bg-brand/10 border border-brand/10 flex items-center justify-center text-brand text-sm font-bold flex-shrink-0">
+                      <div className="w-9 h-9 rounded-full bg-brand/10 flex items-center justify-center text-brand text-sm font-bold shrink-0">
                         {admin.name.charAt(0).toUpperCase()}
                       </div>
                       <div>
                         <p className="font-bold text-charcoal">{admin.name}</p>
-                        {admin.id === session.adminId && <p className="text-[10px] text-brand font-bold uppercase tracking-widest">Current User</p>}
+                        {admin.id === session.adminId && <p className="text-[10px] text-brand font-normal uppercase tracking-widest">Current User</p>}
                       </div>
                     </div>
                   </td>
                   <td className="px-6 py-4 text-gray-500 hidden md:table-cell">{admin.email}</td>
-                  <td className="px-6 py-4">
-                    <span className={`inline-block px-2.5 py-1 rounded-[3px] text-[10px] font-bold uppercase tracking-widest border ${
-                      admin.role === 'super_admin'
-                        ? 'bg-brand/10 text-brand border-brand/20'
-                        : 'bg-gray-100 text-gray-500 border-gray-200'
-                    }`}>
-                      {admin.role.replace('_', ' ')}
+                  {/* <td className="px-6 py-4">
+                    <span className={`inline-block px-2.5 py-1 rounded-full text-[10px] font-semibold capitalize tracking-widest ${admin.role === 'super_admin'
+                      ? 'bg-brand/10 text-brand'
+                      : 'bg-gray-100 text-gray-600'
+                      }`}>
+                      {admin.role.replace('_', ' ').split(' ').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                     </span>
-                  </td>
+                  </td> */}
                   <td className="px-6 py-4 text-gray-400 text-xs hidden lg:table-cell">
                     {new Date(admin.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                   </td>

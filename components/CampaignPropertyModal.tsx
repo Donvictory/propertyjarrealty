@@ -6,6 +6,7 @@ import { Bed, Bath, Maximize, X, Mail, User, CheckCircle2, ChevronRight } from '
 import type { Property } from '@/lib/types';
 import { sendPropertyInquiry } from '@/app/actions/leads';
 import { type Currency, formatDisplay, parsePriceNGN } from '@/lib/currency';
+import Link from 'next/link';
 
 interface CampaignPropertyModalProps {
   property: Property;
@@ -21,18 +22,18 @@ const CampaignPropertyModal = ({ property, onClose, currency }: CampaignProperty
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     const formData = new FormData(e.currentTarget);
     formData.append('propertyTitle', property.title);
     formData.append('propertyLocation', property.location);
 
     const result = await sendPropertyInquiry(formData);
-    
+
     setIsSubmitting(false);
 
     if (result.success) {
       setIsSuccess(true);
-      
+
       if (property.brochureUrl) {
         setTimeout(() => {
           window.open(property.brochureUrl, '_blank');
@@ -53,7 +54,7 @@ const CampaignPropertyModal = ({ property, onClose, currency }: CampaignProperty
           onClick={onClose}
           className="absolute inset-0 bg-charcoal/90 backdrop-blur-sm"
         />
-        
+
         <motion.div
           initial={{ scale: 0.95, opacity: 0, y: 30 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -71,16 +72,16 @@ const CampaignPropertyModal = ({ property, onClose, currency }: CampaignProperty
 
           {/* Left: Visual Side */}
           <div className="w-full md:w-1/2 h-80 md:h-auto relative overflow-hidden group">
-            <motion.img 
+            <motion.img
               initial={{ scale: 1.1 }}
               animate={{ scale: 1 }}
               transition={{ duration: 1.5 }}
-              src={property.image} 
-              alt={property.title} 
+              src={property.image}
+              alt={property.title}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/20 to-transparent" />
-            
+
             <div className="absolute bottom-12 left-12 right-12 text-white">
               <div className="flex items-center gap-3 mb-4">
                 <span className="px-4 py-1.5 rounded-full bg-brand/90 backdrop-blur-md text-[10px] font-bold uppercase tracking-[0.2em] shadow-lg">
@@ -108,7 +109,7 @@ const CampaignPropertyModal = ({ property, onClose, currency }: CampaignProperty
                       {formatDisplay(parsePriceNGN(property.price), currency)}
                     </p>
                   </div>
-                  
+
                   <div className="grid grid-cols-3 gap-6 mb-12">
                     <div className="flex flex-col gap-2">
                       <div className="w-12 h-12 rounded-2xl bg-off-white flex items-center justify-center text-brand">
@@ -152,36 +153,36 @@ const CampaignPropertyModal = ({ property, onClose, currency }: CampaignProperty
                       <CheckCircle2 size={16} className="text-brand" />
                       Get the full property portfolio & floor plans
                     </p>
-                    <button 
+                    <button
                       onClick={() => setShowLeadForm(true)}
                       className="w-full bg-charcoal text-white py-5 rounded-2xl font-bold hover:bg-black transition-all shadow-xl active:scale-95 flex items-center justify-center gap-3 uppercase tracking-widest text-xs"
                     >
                       Request Full Brochure <ChevronRight size={16} />
                     </button>
                   </div>
-                  
+
                   <div className="flex gap-4">
-                    <a 
+                    <Link
                       href={`https://wa.me/2349153869750?text=Hello%20PropertyJar%20Realty%2C%20I'm%20interested%20in%20${property.title}`}
                       target="_blank"
                       className="flex-1 flex items-center justify-center gap-3 bg-[#25D366] text-white py-4 rounded-2xl text-xs font-bold hover:opacity-90 transition-all uppercase tracking-widest"
                     >
                       WhatsApp
-                    </a>
-                    <a 
-                      href="https://www.instagram.com/propertyjarrealtyltd_?igsh=NWY5aTU1ZGFuc2hh" 
+                    </Link>
+                    <Link
+                      href="https://www.instagram.com/propertyjarrealtyltd_?igsh=NWY5aTU1ZGFuc2hh"
                       target="_blank"
                       className="flex-1 flex items-center justify-center gap-3 bg-white border border-gray-100 text-charcoal py-4 rounded-2xl text-xs font-bold hover:bg-gray-50 transition-all uppercase tracking-widest"
                     >
                       Instagram
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </>
             ) : (
               <div className="h-full flex flex-col">
                 {isSuccess ? (
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     className="flex-grow flex flex-col items-center justify-center text-center"
@@ -193,7 +194,7 @@ const CampaignPropertyModal = ({ property, onClose, currency }: CampaignProperty
                     <p className="text-gray-500 text-lg mb-10 max-w-xs mx-auto font-light leading-relaxed">
                       Our elite concierge team has been notified. Your brochure is downloading now.
                     </p>
-                    <button 
+                    <button
                       onClick={onClose}
                       className="text-brand font-bold uppercase tracking-widest text-xs hover:underline"
                     >
@@ -202,28 +203,28 @@ const CampaignPropertyModal = ({ property, onClose, currency }: CampaignProperty
                   </motion.div>
                 ) : (
                   <>
-                    <button 
+                    <button
                       onClick={() => setShowLeadForm(false)}
                       className="text-gray-400 hover:text-charcoal mb-12 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] group transition-all"
                     >
                       <span className="group-hover:-translate-x-2 transition-transform">←</span> Return to Summary
                     </button>
-                    
+
                     <div className="mb-10">
                       <h4 className="text-4xl font-bold text-charcoal mb-4 tracking-tight">Secure Private Access</h4>
                       <p className="text-gray-500 text-lg font-light leading-relaxed">Please provide your coordinates to receive the confidential property portfolio.</p>
                     </div>
-                    
+
                     <form onSubmit={handleSubmit} className="space-y-8">
                       <div className="space-y-2">
                         <label className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.3em] ml-1">Full Identity</label>
                         <div className="relative">
                           <User size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400" />
-                          <input 
+                          <input
                             required
                             name="fullName"
-                            type="text" 
-                            placeholder="Full Name" 
+                            type="text"
+                            placeholder="Full Name"
                             className="w-full bg-off-white border-none rounded-2xl pl-14 pr-6 py-5 text-charcoal focus:ring-2 focus:ring-brand/20 transition-all text-base placeholder:text-gray-300"
                           />
                         </div>
@@ -232,16 +233,16 @@ const CampaignPropertyModal = ({ property, onClose, currency }: CampaignProperty
                         <label className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.3em] ml-1">Digital Address</label>
                         <div className="relative">
                           <Mail size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400" />
-                          <input 
+                          <input
                             required
                             name="email"
-                            type="email" 
-                            placeholder="Email Address" 
+                            type="email"
+                            placeholder="Email Address"
                             className="w-full bg-off-white border-none rounded-2xl pl-14 pr-6 py-5 text-charcoal focus:ring-2 focus:ring-brand/20 transition-all text-base placeholder:text-gray-300"
                           />
                         </div>
                       </div>
-                      <button 
+                      <button
                         type="submit"
                         disabled={isSubmitting}
                         className="w-full bg-brand text-white py-6 rounded-2xl font-bold hover:bg-brand-hover transition-all shadow-2xl shadow-brand/20 active:scale-95 disabled:opacity-50 mt-4 uppercase tracking-[0.2em] text-xs"

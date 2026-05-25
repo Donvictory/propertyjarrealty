@@ -17,9 +17,9 @@ if (fs.existsSync(envLocalPath)) {
 }
 
 
-const isConfigured = 
-  process.env.FIREBASE_PROJECT_ID && 
-  process.env.FIREBASE_CLIENT_EMAIL && 
+const isConfigured =
+  process.env.FIREBASE_PROJECT_ID &&
+  process.env.FIREBASE_CLIENT_EMAIL &&
   process.env.FIREBASE_PRIVATE_KEY;
 
 if (!admin.apps.length && isConfigured) {
@@ -41,9 +41,7 @@ async function sync() {
   for (const prop of properties) {
     const { id, ...data } = prop;
     await db.collection('properties').doc(id).set(data, { merge: true });
-    console.log(`Synced ${id}`);
   }
-  console.log('Done!');
 }
 
 sync().catch(console.error);
