@@ -3,13 +3,13 @@
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Bed, 
-  Bath, 
-  Maximize, 
-  Mail, 
-  User, 
-  CheckCircle2, 
+import {
+  Bed,
+  Bath,
+  Maximize,
+  Mail,
+  User,
+  CheckCircle2,
   ArrowLeft,
   MapPin,
   Download,
@@ -18,6 +18,7 @@ import {
 import type { Property } from '@/lib/types';
 import { sendPropertyInquiry } from '@/app/actions/leads';
 import { type Currency, formatDisplay, parsePriceNGN } from '@/lib/currency';
+import Link from 'next/link';
 
 interface CampaignPropertyClientProps {
   property: Property;
@@ -34,7 +35,7 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     setIsSubmitting(true);
     const formData = new FormData(e.currentTarget);
     formData.append('propertyTitle', property.title);
@@ -64,9 +65,9 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
   return (
     <main className="min-h-screen pt-24 bg-off-white selection:bg-brand selection:text-white relative">
       <div className="container mx-auto px-6 pb-20">
-        
+
         {/* Back Button */}
-        <button 
+        <button
           onClick={() => {
             router.push('/campaign');
             window.scrollTo(0, 0);
@@ -78,19 +79,19 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          
+
           {/* Left: Content Area */}
           <div className="lg:col-span-7 space-y-12">
-            
+
             {/* Main Visual */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="relative aspect-[16/10] rounded-[3rem] overflow-hidden shadow-2xl mb-8"
             >
-              <img 
-                src={property.image} 
-                alt={property.title} 
+              <img
+                src={property.image}
+                alt={property.title}
                 className="w-full h-full object-cover"
               />
               <div className="absolute top-8 md:top-12 right-8 md:right-12">
@@ -100,7 +101,7 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
               </div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
@@ -161,14 +162,14 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
           {/* Right: Lead & Conversion Sidebar */}
           <div className="lg:col-span-5">
             <div className="sticky top-32 space-y-8">
-              
+
               {/* Financial Box */}
               <div className="bg-white p-10 rounded-[3rem] shadow-xl border border-gray-100">
                 <p className="text-[10px] text-gray-400 uppercase tracking-[0.4em] font-black mb-3">Investment Value</p>
                 <p className="text-5xl font-bold text-charcoal tracking-tighter mb-8">
                   {formatDisplay(parsePriceNGN(property.price), currency)}
                 </p>
-                
+
                 <div className="space-y-4">
                   <div className="flex items-center gap-3 p-4 bg-brand/5 rounded-2xl border border-brand/10">
                     <CheckCircle2 size={18} className="text-brand" />
@@ -183,11 +184,11 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
 
               {/* Primary Call to Action */}
               <div className="space-y-4">
-                <button 
+                <button
                   onClick={() => setShowLeadForm(true)}
                   className="w-full bg-charcoal text-white py-6 rounded-[2rem] font-bold hover:bg-black transition-all shadow-2xl active:scale-95 flex items-center justify-center gap-3 uppercase tracking-widest text-[10px] group"
                 >
-                  Download Full Brochure 
+                  Download Full Brochure
                   <Download size={18} className="group-hover:translate-y-1 transition-transform" />
                 </button>
                 <p className="text-center text-[10px] text-gray-400 font-medium tracking-widest uppercase">
@@ -197,20 +198,20 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
 
               {/* Direct Support */}
               <div className="flex gap-4">
-                <a 
+                <Link
                   href={`https://wa.me/2349153869750?text=Hello%20PropertyJar%20Realty%2C%20I'm%20interested%20in%20${property.title}`}
                   target="_blank"
                   className="flex-1 flex items-center justify-center gap-3 bg-[#25D366] text-white py-4 rounded-2xl text-[10px] font-bold hover:opacity-90 transition-all uppercase tracking-widest shadow-lg text-center"
                 >
                   WhatsApp
-                </a>
-                <a 
-                  href="https://www.instagram.com/propertyjarrealtyltd_?igsh=NWY5aTU1ZGFuc2hh" 
+                </Link>
+                <Link
+                  href="https://www.instagram.com/propertyjarrealtyltd_?igsh=NWY5aTU1ZGFuc2hh"
                   target="_blank"
                   className="flex-1 flex items-center justify-center gap-3 bg-white border border-gray-100 text-charcoal py-4 rounded-2xl text-[10px] font-bold hover:bg-gray-50 transition-all uppercase tracking-widest shadow-lg text-center"
                 >
                   Instagram
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -228,14 +229,14 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
               onClick={() => !isSubmitting && setShowLeadForm(false)}
               className="absolute inset-0 bg-charcoal/90 backdrop-blur-md"
             />
-            
+
             <motion.div
               initial={{ scale: 0.95, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
               className="relative bg-white rounded-[3rem] overflow-hidden max-w-lg w-full shadow-[0_32px_64px_-12px_rgba(0,0,0,0.5)] p-10 md:p-14"
             >
-              <button 
+              <button
                 onClick={() => setShowLeadForm(false)}
                 className="absolute top-8 right-8 text-gray-400 hover:text-charcoal transition-colors"
                 disabled={isSubmitting}
@@ -252,7 +253,7 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
                   <p className="text-gray-500 text-lg mb-10 font-light leading-relaxed">
                     Your download is processing
                   </p>
-                  <button 
+                  <button
                     onClick={() => setShowLeadForm(false)}
                     className="bg-charcoal text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-[10px] hover:bg-black transition-all"
                   >
@@ -273,11 +274,11 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
                       <label className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.3em] ml-1">Full Name</label>
                       <div className="relative">
                         <User size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400" />
-                        <input 
+                        <input
                           required
                           name="fullName"
-                          type="text" 
-                          placeholder="e.g. John Doe" 
+                          type="text"
+                          placeholder="e.g. John Doe"
                           className="w-full bg-off-white border-none rounded-2xl pl-14 pr-6 py-4 text-charcoal focus:ring-2 focus:ring-brand/20 transition-all text-sm placeholder:text-gray-300"
                         />
                       </div>
@@ -286,16 +287,16 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
                       <label className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.3em] ml-1">Email Address</label>
                       <div className="relative">
                         <Mail size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400" />
-                        <input 
+                        <input
                           required
                           name="email"
-                          type="email" 
-                          placeholder="e.g. john@example.com" 
+                          type="email"
+                          placeholder="e.g. john@example.com"
                           className="w-full bg-off-white border-none rounded-2xl pl-14 pr-6 py-4 text-charcoal focus:ring-2 focus:ring-brand/20 transition-all text-sm placeholder:text-gray-300"
                         />
                       </div>
                     </div>
-                    <button 
+                    <button
                       type="submit"
                       disabled={isSubmitting}
                       className="w-full bg-brand text-white py-5 rounded-2xl font-bold hover:bg-brand-hover transition-all shadow-xl active:scale-95 disabled:opacity-50 mt-4 uppercase tracking-widest text-[10px]"

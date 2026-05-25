@@ -34,7 +34,7 @@ const VideoSection = () => {
   };
 
   return (
-    <section className="py-4 bg-white overflow-hidden">
+    <section className="py-16 bg-white overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           <div className="flex-1">
@@ -45,7 +45,7 @@ const VideoSection = () => {
               transition={{ duration: 0.8 }}
             >
               <div className="flex items-center gap-3 mb-6">
- 
+
               </div>
               <h2 className="text-3xl md:text-4xl font-medium text-neutral-800 mb-8 tracking-tight">
                 &ldquo;Watch <span className="text-brand">How It Works&rdquo;</span>
@@ -53,15 +53,15 @@ const VideoSection = () => {
               <p className="text-lg text-gray-500 mb-10 leading-relaxed max-w-xl">
                 We&rsquo;ve revolutionized the way you discover and acquire premium properties. Watch our short film to understand our bespoke process, from initial discovery to the moment you step into your new home.
               </p>
-              
+
               <div className="space-y-6">
                 {[
                   { step: "01", title: "Curated Selection", desc: "We handpick only the most exceptional properties." },
                   { step: "02", title: "Bespoke Tours", desc: "Experience properties through immersive private viewings." },
                   { step: "03", title: "Seamless Acquisition", desc: "White-glove service from offer to handover." }
                 ].map((item, idx) => (
-                  <motion.div 
-                    key={idx} 
+                  <motion.div
+                    key={idx}
                     whileHover={{ x: 10 }}
                     className="flex gap-6 group cursor-default"
                   >
@@ -105,10 +105,10 @@ const VideoSection = () => {
 
               {/* Glassmorphism Overlay */}
               <div className={`absolute inset-0 bg-charcoal/20 backdrop-blur-[2px] transition-opacity duration-500 ${isPlaying ? 'opacity-0' : 'opacity-100'}`} />
-              
+
               <div className={`absolute inset-0 flex items-center justify-center gap-6 transition-all duration-700 ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
                 {/* Skip Backward */}
-                <button 
+                <button
                   onClick={skipBackward}
                   className="w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full flex items-center justify-center hover:bg-brand transition-all duration-300"
                 >
@@ -125,7 +125,7 @@ const VideoSection = () => {
                 </div>
 
                 {/* Skip Forward */}
-                <button 
+                <button
                   onClick={skipForward}
                   className="w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full flex items-center justify-center hover:bg-brand transition-all duration-300"
                 >

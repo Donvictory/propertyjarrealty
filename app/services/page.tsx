@@ -1,4 +1,6 @@
+import { Handshake, House, Building2, TrendingUp, Landmark, BarChart3 } from 'lucide-react';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 
 
 export const metadata: Metadata = {
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
 
 const services = [
   {
-    icon: '🏛️',
+    icon: <House className='size-6 text-brand' />,
     title: 'Brokerage',
     subtitle: 'Expert Transaction Support',
     description:
@@ -24,7 +26,7 @@ const services = [
     accent: '#800020',
   },
   {
-    icon: '🤝',
+    icon: <Handshake className='size-6 text-brand' />,
     title: 'Real Estate Consulting',
     subtitle: 'Strategic Market Insights',
     description:
@@ -33,7 +35,7 @@ const services = [
     accent: '#800020',
   },
   {
-    icon: '💼',
+    icon: <BarChart3 className='size-6 text-brand' />,
     title: 'Investment Portfolio Management',
     subtitle: 'Wealth Building Strategies',
     description:
@@ -42,7 +44,7 @@ const services = [
     accent: '#800020',
   },
   {
-    icon: '🌱',
+    icon: <Landmark className='size-6 text-brand' />,
     title: 'Land Banking',
     subtitle: 'High-Growth Asset Growth',
     description:
@@ -51,7 +53,7 @@ const services = [
     accent: '#800020',
   },
   {
-    icon: '💎',
+    icon: <TrendingUp className='size-6 text-brand' />,
     title: 'Luxury Property Sales',
     subtitle: 'Exclusive Lifestyle Assets',
     description:
@@ -60,7 +62,7 @@ const services = [
     accent: '#800020',
   },
   {
-    icon: '📊',
+    icon: <Building2 className='size-6 text-brand' />,
     title: 'Investment Advisory Services',
     subtitle: 'Data-Driven Decisions',
     description:
@@ -72,11 +74,11 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <main className="min-h-screen pt-32 bg-white">
+    <main className="min-h-screen bg-white">
 
 
       {/* Header Section */}
-      <section className="bg-white pt-12 pb-6 text-center">
+      <section className="bg-white py-16 text-center">
         <div className="container mx-auto px-6">
           <h1 className="text-3xl md:text-4xl font-medium text-neutral-800 tracking-tight">
             Our <span className="text-brand">Bespoke</span> Services
@@ -88,7 +90,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-4 bg-off-white">
+      <section className="py-16 bg-off-white">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, i) => (
@@ -96,7 +98,7 @@ export default function ServicesPage() {
                 key={i}
                 className="group bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
               >
-                <div className="w-14 h-14 rounded-2xl bg-brand/10 flex items-center justify-center text-2xl mb-6 group-hover:bg-brand group-hover:scale-110 transition-all duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-brand/10 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-all duration-300">
                   {service.icon}
                 </div>
                 <p className="text-xs font-bold uppercase tracking-widest text-brand mb-2">{service.subtitle}</p>
@@ -117,21 +119,21 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-4 bg-charcoal text-white">
+      <section className="py-16 bg-neutral-100 text-neutral-700">
         <div className="container mx-auto px-6 text-center">
           <span className="text-xs font-bold uppercase tracking-[0.3em] text-brand mb-4 block">Get Started</span>
-          <h2 className="text-3xl md:text-4xl font-medium text-white mb-6">
+          <h2 className="text-3xl md:text-4xl font-medium mb-6 text-neutral-800">
             Ready to Work <span className="italic font-light">Together?</span>
           </h2>
-          <p className="text-white/60 text-lg max-w-xl mx-auto mb-10">
+          <p className="max-w-xl mx-auto mb-10">
             Schedule a complimentary consultation with one of our luxury property specialists.
           </p>
-          <a
+          <Link
             href="/contact"
-            className="inline-block bg-brand text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-brand-hover transition-all"
+            className="inline-block bg-brand text-white px-10 py-4 rounded-sm font-bold hover:bg-brand-hover transition-all"
           >
             Book a Consultation
-          </a>
+          </Link>
         </div>
       </section>
 

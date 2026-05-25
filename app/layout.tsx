@@ -1,20 +1,13 @@
 import type { Metadata } from 'next';
-import { League_Spartan, Playfair_Display } from 'next/font/google';
+import { Noto_Sans } from 'next/font/google';
 import './globals.css';
 import Script from 'next/script';
 import AppLayout from '@/components/AppLayout';
 
-const leagueSpartan = League_Spartan({
-  variable: '--font-spartan',
+const notoSans = Noto_Sans({
+  variable: '--font-notosans',
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800', '900'],
-  display: 'swap',
-});
-
-const playfairDisplay = Playfair_Display({
-  variable: '--font-playfair',
-  subsets: ['latin'],
-  weight: ['700'],
   display: 'swap',
 });
 
@@ -88,7 +81,7 @@ export const metadata: Metadata = {
     apple: '/newlogo.JPEG?v=3',
   },
   verification: {
-    google: 'your-google-search-console-code',  
+    google: 'your-google-search-console-code',
   },
 };
 
@@ -124,7 +117,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${leagueSpartan.variable} ${playfairDisplay.variable} h-full antialiased`}>
+    <html data-scroll-behavior="smooth" lang="en" className={`${notoSans.className} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <Script
           id="org-schema"

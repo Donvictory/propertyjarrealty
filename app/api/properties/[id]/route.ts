@@ -46,7 +46,7 @@ export async function DELETE(_request: NextRequest, { params }: Params) {
   }
 
   const { id } = await params;
-  
+
   // Fetch property details to check for associated local files before deleting
   const property = await getPropertyById(id);
 
@@ -58,14 +58,13 @@ export async function DELETE(_request: NextRequest, { params }: Params) {
   // Clean up associated local uploaded files (image and brochure) if they exist
   if (property) {
     const localUploadsDir = path.join(process.cwd(), 'public');
-    
+
     // Check & delete image
     if (property.image && property.image.startsWith('/uploads/')) {
       const filePath = path.join(localUploadsDir, property.image);
       try {
         if (fs.existsSync(filePath)) {
           fs.unlinkSync(filePath);
-          console.log(`[Delete] Cleaned up local image file: ${filePath}`);
         }
       } catch (err) {
         console.error(`[Delete] Failed to delete local image file: ${filePath}`, err);
@@ -78,7 +77,6 @@ export async function DELETE(_request: NextRequest, { params }: Params) {
       try {
         if (fs.existsSync(filePath)) {
           fs.unlinkSync(filePath);
-          console.log(`[Delete] Cleaned up local brochure PDF: ${filePath}`);
         }
       } catch (err) {
         console.error(`[Delete] Failed to delete local brochure PDF: ${filePath}`, err);

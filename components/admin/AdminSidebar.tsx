@@ -6,17 +6,18 @@ import { usePathname } from 'next/navigation';
 import { useTransition } from 'react';
 import { logoutAction } from '@/app/actions/auth';
 import type { SessionPayload } from '@/lib/types';
+import { Users, LayoutGrid, Settings, Globe } from 'lucide-react';
 
 const navItems = [
-  { href: '/admin', label: 'Dashboard', icon: '▦' },
-  { href: '/admin/admins', label: 'Admin Users', icon: '👤' },
-  { href: '/admin/settings', label: 'Settings', icon: '⚙️' },
+  { href: '/admin', label: 'Dashboard', icon: <LayoutGrid className='size-5' /> },
+  { href: '/admin/admins', label: 'Admin Users', icon: <Users className='size-5' /> },
+  { href: '/admin/settings', label: 'Settings', icon: <Settings className='size-5' /> },
 ];
 
-export default function AdminSidebar({ 
-  session, 
-  onClose 
-}: { 
+export default function AdminSidebar({
+  session,
+  onClose
+}: {
   session: SessionPayload,
   onClose?: () => void
 }) {
@@ -32,7 +33,7 @@ export default function AdminSidebar({
   return (
     <aside className="fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-100 flex flex-col z-50 shadow-sm">
       {/* Logo */}
-      <div className="p-6 border-b border-gray-500">
+      <div className="p-5">
         <Link href="/" className="block">
           <Image
             src="/newlogo.JPEG"
@@ -41,7 +42,7 @@ export default function AdminSidebar({
             height={50}
             className="h-10 w-auto object-contain rounded-md"
           />
-          
+
         </Link>
       </div>
 
@@ -54,11 +55,10 @@ export default function AdminSidebar({
               key={item.href}
               href={item.href}
               onClick={onClose}
-              className={`flex items-center gap-3 px-4 py-3 rounded-[3px] text-sm font-semibold transition-all ${
-                isActive
-                  ? 'bg-brand text-white shadow-md'
-                  : 'text-gray-500 hover:text-charcoal hover:bg-gray-50'
-              }`}
+              className={`flex items-center gap-3 px-4 py-3 rounded-[3px] text-sm font-semibold transition-all ${isActive
+                ? 'bg-brand text-white shadow-md'
+                : 'text-gray-500 hover:text-charcoal hover:bg-gray-50'
+                }`}
             >
               <span className="text-base">{item.icon}</span>
               {item.label}
@@ -72,7 +72,7 @@ export default function AdminSidebar({
             target="_blank"
             className="flex items-center gap-3 px-4 py-3 rounded-[3px] text-sm font-semibold text-gray-500 hover:text-charcoal hover:bg-gray-50 transition-all"
           >
-            <span className="text-base">🌐</span>
+            <span className="text-base"><Globe className='size-5' /></span>
             View Website
           </Link>
         </div>

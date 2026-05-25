@@ -3,6 +3,7 @@
 import { useActionState, useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { loginAction, type LoginState } from '@/app/actions/auth';
+import Link from 'next/link';
 
 export default function AdminLoginPage() {
   const [state, formAction, pending] = useActionState<LoginState, FormData>(loginAction, {});
@@ -10,7 +11,7 @@ export default function AdminLoginPage() {
 
   return (
     <div className="min-h-screen bg-off-white flex items-center justify-center p-4 relative overflow-hidden">
-       
+
       <div
         className="absolute inset-0 opacity-[0.03]"
         style={{
@@ -22,9 +23,9 @@ export default function AdminLoginPage() {
       <div className="relative w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-10">
-          <p className="text-3xl font-bold text-charcoal tracking-tighter">
+          <Link href="/" className="text-3xl font-bold text-charcoal tracking-tighter">
             PROPERTYJAR<span className="text-brand">REALTY</span>
-          </p>
+          </Link>
           <p className="text-gray-400 text-sm mt-2 font-bold uppercase tracking-widest">Admin Portal</p>
         </div>
 
