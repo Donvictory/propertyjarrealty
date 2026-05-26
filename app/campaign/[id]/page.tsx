@@ -27,6 +27,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!property) {
     return {
       title: 'Property Not Found',
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 
