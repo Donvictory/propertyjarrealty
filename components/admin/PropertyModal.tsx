@@ -226,7 +226,7 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
           <div className="border-t border-gray-100 pt-5 space-y-4">
             <div>
               <h4 className="text-xs font-bold text-charcoal uppercase tracking-widest mb-1">Pricing & Sizing Options (optional)</h4>
-              <p className="text-gray-400 text-xs">Add up to 2 custom size/price variations (e.g. "500 SQM" and "₦150,000,000") to display as pill tags on the property card.</p>
+              <p className="text-gray-400 text-xs">Add up to 2 custom size/price variations (e.g. &quot;500 SQM&quot; and &quot;₦150,000,000&quot;) to display as pill tags on the property card.</p>
             </div>
             
             <div className="space-y-3">
