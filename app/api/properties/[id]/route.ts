@@ -32,6 +32,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
     revalidatePath('/properties');
     revalidatePath('/admin');
     revalidatePath('/');
+    revalidatePath(`/campaign/${id}`);
     revalidateTag('properties', 'max');
     return NextResponse.json(updated);
   } catch {
