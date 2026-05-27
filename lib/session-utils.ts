@@ -1,5 +1,5 @@
-// Edge-compatible session utilities (no Node.js or Next.js server APIs)
-// Safe to import from middleware
+
+
 import { SignJWT, jwtVerify } from 'jose';
 import type { SessionPayload } from './types';
 

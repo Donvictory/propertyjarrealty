@@ -1,8 +1,4 @@
-/**
- * Lightweight in-memory rate limiter.
- * Works on Next.js Node.js runtime without external services.
- * State resets on server restart / cold start — acceptable for edge protection.
- */
+
 
 interface RateLimitRecord {
   count: number;
@@ -11,7 +7,7 @@ interface RateLimitRecord {
 
 const store = new Map<string, RateLimitRecord>();
 
-/** Remove stale entries every 5 minutes to prevent memory leaks */
+
 setInterval(() => {
   const now = Date.now();
   for (const [key, record] of store.entries()) {
@@ -21,12 +17,7 @@ setInterval(() => {
   }
 }, 5 * 60 * 1000);
 
-/**
- * @param ip      - The requester's IP address
- * @param limit   - Max requests allowed in the window
- * @param windowMs - Window duration in milliseconds
- * @returns { allowed: boolean, remaining: number }
- */
+
 export function rateLimit(
   ip: string,
   limit: number,

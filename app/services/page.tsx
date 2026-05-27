@@ -77,7 +77,7 @@ export default function ServicesPage() {
     <main className="min-h-screen bg-white">
 
 
-      {/* Header Section */}
+      {}
       <section className="bg-white py-16 text-center">
         <div className="container mx-auto px-6">
           <h1 className="text-3xl md:text-4xl font-medium text-neutral-800 tracking-tight">
@@ -89,7 +89,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Services Grid */}
+      {}
       <section className="py-16 bg-off-white">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -118,7 +118,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {}
       <section className="py-16 bg-neutral-100 text-neutral-700">
         <div className="container mx-auto px-6 text-center">
           <span className="text-xs font-bold uppercase tracking-[0.3em] text-brand mb-4 block">Get Started</span>

@@ -9,20 +9,24 @@ const PropertySchema = z.object({
   title:       z.string().min(1, 'Title is required'),
   location:    z.string().min(1, 'Location is required'),
   price:       z.string().min(1, 'Price is required'),
-  beds:        z.coerce.number().int().nonnegative(),
-  baths:       z.coerce.number().int().nonnegative(),
-  sqft:        z.string().min(1, 'sqft is required'),
+  beds:        z.coerce.number().int().nonnegative().nullable().optional(),
+  baths:       z.coerce.number().int().nonnegative().nullable().optional(),
+  sqft:        z.string().nullable().optional(),
   image:       z.string().min(1, 'Image is required'),
   type:        z.string().min(1, 'Type is required'),
   tag:         z.string().nullable().optional(),
   description: z.string().optional().default(''),
   isCampaign:  z.boolean().optional().default(false),
   brochureUrl: z.string().optional().default(''),
+  pricingOptions: z.array(z.object({
+    size: z.string(),
+    price: z.string()
+  })).optional().default([]),
 });
 
 export async function GET(request: NextRequest) {
   const ip = request.headers.get('x-forwarded-for') ?? 'anonymous';
-  const { allowed } = rateLimit(ip, 60, 60_000); // 60 requests / minute
+  const { allowed } = rateLimit(ip, 60, 60_000); 
   if (!allowed) {
     return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
   }
@@ -57,20 +61,32 @@ export async function POST(request: NextRequest) {
     }
 
     const data = parsed.data;
-    const newProperty = await addProperty({
+
+    // Build the property payload dynamically to prevent Firestore from receiving unsupported 'undefined' values
+    const propertyData: any = {
       title:       data.title,
       location:    data.location,
       price:       data.price,
-      beds:        data.beds,
-      baths:       data.baths,
-      sqft:        data.sqft,
       image:       data.image,
       tag:         data.tag ?? null,
       type:        data.type,
       description: data.description,
       isCampaign:  data.isCampaign,
       brochureUrl: data.brochureUrl,
-    });
+      pricingOptions: data.pricingOptions,
+    };
+
+    if (data.beds !== undefined && data.beds !== null) {
+      propertyData.beds = data.beds;
+    }
+    if (data.baths !== undefined && data.baths !== null) {
+      propertyData.baths = data.baths;
+    }
+    if (data.sqft !== undefined && data.sqft !== null) {
+      propertyData.sqft = data.sqft;
+    }
+
+    const newProperty = await addProperty(propertyData);
 
     revalidatePath('/properties');
     revalidatePath('/admin');
@@ -78,7 +94,11 @@ export async function POST(request: NextRequest) {
     revalidateTag('properties', 'max');
 
     return NextResponse.json(newProperty, { status: 201 });
-  } catch {
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  } catch (error) {
+    console.error('[Properties POST] Failed to add property:', error);
+    return NextResponse.json({ 
+      error: 'Internal server error',
+      details: error instanceof Error ? error.message : String(error)
+    }, { status: 500 });
   }
 }

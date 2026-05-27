@@ -21,7 +21,7 @@ export default function AdminLoginPage() {
       />
 
       <div className="relative w-full max-w-md">
-        {/* Logo */}
+        {}
         <div className="text-center mb-10">
           <Link href="/" className="text-3xl font-bold text-charcoal tracking-tighter">
             PROPERTYJAR<span className="text-brand">REALTY</span>
@@ -29,7 +29,7 @@ export default function AdminLoginPage() {
           <p className="text-gray-400 text-sm mt-2 font-bold uppercase tracking-widest">Admin Portal</p>
         </div>
 
-        {/* Card */}
+        {}
         <div className="bg-white border border-gray-100 rounded-3xl p-10 shadow-xl">
           <h1 className="text-2xl font-bold text-charcoal mb-2 tracking-tight">Welcome back</h1>
           <p className="text-gray-400 text-sm mb-8">Sign in to manage PropertyJar Realty.</p>

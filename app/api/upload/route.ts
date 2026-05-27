@@ -7,7 +7,7 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
-  // 1. Authorize session
+  
   const session = await getSession();
   if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
     const uniqueFilename = `${Date.now()}-${file.name.replace(/\s+/g, '_')}`;
     const storagePath = `uploads/${uniqueFilename}`;
 
-    // 2. Try uploading to Firebase Storage
+    
     if (admin.apps.length && process.env.FIREBASE_PROJECT_ID) {
       const bucketCandidates = [
         process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
@@ -62,12 +62,18 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 3. Fallback to Vercel Blob instead of local disk
-    console.warn('[Upload] Firebase Storage not available or failed. Falling back to Vercel Blob...');
+    
+    console.warn('[Upload] Firebase Storage not available or failed. Uploading to Vercel Blob...');
+
+    const token = process.env.BLOB_READ_WRITE_TOKEN;
+    if (!token) {
+      throw new Error('BLOB_READ_WRITE_TOKEN is not defined in environment variables.');
+    }
 
     const blob = await put(storagePath, buffer, {
       access: 'public',
       contentType: file.type,
+      token: token,
     });
 
     return NextResponse.json({ url: blob.url });

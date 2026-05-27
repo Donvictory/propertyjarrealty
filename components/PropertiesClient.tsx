@@ -18,7 +18,7 @@ import {
 
 const PROPERTY_TYPES = ['All', 'Residential', 'Commercial', 'Industrial', 'Land'];
 
-// Price ranges defined in NGN (tens of millions / billions)
+
 const PRICE_RANGES: { label: string; minNGN: number; maxNGN: number }[] = [
   { label: 'All Prices', minNGN: 0, maxNGN: Infinity },
   { label: 'Under ₦50M', minNGN: 0, maxNGN: 50_000_000 },
@@ -29,7 +29,7 @@ const PRICE_RANGES: { label: string; minNGN: number; maxNGN: number }[] = [
   { label: 'Above ₦5B', minNGN: 5_000_000_000, maxNGN: Infinity },
 ];
 
-/** Build a human-readable range label for the current currency */
+
 function rangeLabelInCurrency(range: typeof PRICE_RANGES[number], cur: Currency): string {
   if (range.minNGN === 0 && range.maxNGN === Infinity) return 'All Prices';
 
@@ -49,7 +49,7 @@ function rangeLabelInCurrency(range: typeof PRICE_RANGES[number], cur: Currency)
   return `${fmtNGN(range.minNGN)} – ${fmtNGN(range.maxNGN)}`;
 }
 
-// ─── Dropdown component ───────────────────────────────────────────────────────
+
 function FilterSelect({
   id,
   label,
@@ -94,7 +94,7 @@ function FilterSelect({
   );
 }
 
-// ─── Main Component ───────────────────────────────────────────────────────────
+
 interface PropertiesClientProps {
   properties: Property[];
 }
@@ -104,7 +104,7 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
   const [activePriceIdx, setActivePriceIdx] = useState(0);
   const [currency, setCurrency] = useState<Currency>('NGN');
 
-  // Filtered list
+  
   const filtered = useMemo(() => {
     const range = PRICE_RANGES[activePriceIdx];
     return properties.filter((p) => {
@@ -117,7 +117,7 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
 
   return (
     <>
-      {/* ── Header ─────────────────────────────────────── */}
+      {}
       <section className="bg-off-white pt-16 pb-8">
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
@@ -145,7 +145,7 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
           <div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 items-center gap-4 gap-y-6">
 
-              {/* Type dropdown */}
+              {}
               <FilterSelect
                 id="filter-type"
                 label="Property Category"
@@ -155,7 +155,7 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
                 icon={<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>}
               />
 
-              {/* Price range dropdown */}
+              {}
               <FilterSelect
                 id="filter-price"
                 label="Price Range"
@@ -168,7 +168,7 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
                 icon={<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>}
               />
 
-              {/* Currency dropdown */}
+              {}
               <FilterSelect
                 id="filter-currency"
                 label="Market Currency"
@@ -181,7 +181,7 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
                 icon={<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="16" /><line x1="8" y1="12" x2="16" y2="12" /></svg>}
               />
 
-              {/* Clear button - only show if filters are applied */}
+              {}
               {(activeType !== 'All' || activePriceIdx !== 0) && (
                 <button
                   onClick={() => { setActiveType('All'); setActivePriceIdx(0); }}
@@ -195,11 +195,11 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
         </div>
       </section>
 
-      {/* ── Grid ───────────────────────────────────────── */}
+      {}
       <section className="py-20 bg-off-white">
         <div className="container mx-auto px-6">
           {filtered.length === 0 ? (
-            <div className="text-center py-32 bg-white rounded-[3rem] border border-gray-100 shadow-sm">
+            <div className="text-center py-32 bg-white rounded-lg border border-gray-100 shadow-sm">
               <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-gray-300"><circle cx="12" cy="12" r="10" /><line x1="8" y1="12" x2="16" y2="12" /></svg>
               </div>
@@ -212,7 +212,7 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
                 const ngnVal = parsePriceNGN(property.price);
                 const displayPrice = ngnVal > 0 ? formatDisplay(ngnVal, currency) : property.price;
 
-                // Convert pricing options if they exist
+                
                 const displayPricingOptions = property.pricingOptions?.map(opt => ({
                   ...opt,
                   price: formatDisplay(parsePriceNGN(opt.price), currency)

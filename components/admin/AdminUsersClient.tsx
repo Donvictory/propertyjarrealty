@@ -100,7 +100,7 @@ export default function AdminUsersClient({ session }: { session: SessionPayload 
 
   return (
     <div>
-      {/* Header */}
+      {}
       <div className="flex items-start justify-between mb-8">
         <div>
 
@@ -117,7 +117,7 @@ export default function AdminUsersClient({ session }: { session: SessionPayload 
         )}
       </div>
 
-      {/* Alerts */}
+      {}
       {error && (
         <div className="mb-6 bg-red-50 border border-red-100 rounded-xl px-4 py-3">
           <p className="text-red-500 text-sm font-bold">{error}</p>
@@ -129,7 +129,7 @@ export default function AdminUsersClient({ session }: { session: SessionPayload 
         </div>
       )}
 
-      {/* Invite Form */}
+      {}
       {showForm && isSuperAdmin && (
         <div className="bg-white border border-brand/20 rounded-2xl p-8 mb-8 shadow-xl">
           <h2 className="text-charcoal font-bold mb-6 text-lg">Add New Admin</h2>
@@ -184,7 +184,7 @@ export default function AdminUsersClient({ session }: { session: SessionPayload 
         </div>
       )}
 
-      {/* Admins List */}
+      {}
       <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
         {loading ? (
           <div className="text-center py-20 text-gray-400 text-sm italic">Loading personnel data...</div>
@@ -194,7 +194,7 @@ export default function AdminUsersClient({ session }: { session: SessionPayload 
               <tr className="border-b border-gray-50 bg-gray-50/50">
                 <th className="text-left px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Admin</th>
                 <th className="text-left px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400 hidden md:table-cell">Email</th>
-                {/* <th className="text-left px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Role</th> */}
+                {}
                 <th className="text-left px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400 hidden lg:table-cell">Added</th>
                 {isSuperAdmin && <th className="text-right px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Actions</th>}
               </tr>
@@ -214,14 +214,7 @@ export default function AdminUsersClient({ session }: { session: SessionPayload 
                     </div>
                   </td>
                   <td className="px-6 py-4 text-gray-500 hidden md:table-cell">{admin.email}</td>
-                  {/* <td className="px-6 py-4">
-                    <span className={`inline-block px-2.5 py-1 rounded-full text-[10px] font-semibold capitalize tracking-widest ${admin.role === 'super_admin'
-                      ? 'bg-brand/10 text-brand'
-                      : 'bg-gray-100 text-gray-600'
-                      }`}>
-                      {admin.role.replace('_', ' ').split(' ').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-                    </span>
-                  </td> */}
+                  {}
                   <td className="px-6 py-4 text-gray-400 text-xs hidden lg:table-cell">
                     {new Date(admin.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                   </td>

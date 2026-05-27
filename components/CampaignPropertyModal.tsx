@@ -60,9 +60,9 @@ const CampaignPropertyModal = ({ property, onClose, currency }: CampaignProperty
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.95, opacity: 0, y: 30 }}
           transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          className="relative bg-white rounded-[3rem] overflow-hidden max-w-5xl w-full shadow-[0_32px_64px_-12px_rgba(0,0,0,0.5)] flex flex-col md:flex-row max-h-[95vh]"
+          className="relative bg-white rounded-[1rem] overflow-hidden max-w-5xl w-full shadow-[0_32px_64px_-12px_rgba(0,0,0,0.5)] flex flex-col md:flex-row max-h-[95vh]"
         >
-          {/* Close Button */}
+          {}
           <button
             onClick={onClose}
             className="absolute top-8 right-8 z-50 w-12 h-12 bg-white/10 backdrop-blur-xl text-white hover:bg-white hover:text-charcoal rounded-full flex items-center justify-center transition-all duration-300 border border-white/20"
@@ -70,7 +70,7 @@ const CampaignPropertyModal = ({ property, onClose, currency }: CampaignProperty
             <X size={20} />
           </button>
 
-          {/* Left: Visual Side */}
+          {}
           <div className="w-full md:w-1/2 h-80 md:h-auto relative overflow-hidden group">
             <motion.img
               initial={{ scale: 1.1 }}
@@ -98,7 +98,7 @@ const CampaignPropertyModal = ({ property, onClose, currency }: CampaignProperty
             </div>
           </div>
 
-          {/* Right: Interaction Side */}
+          {}
           <div className="w-full md:w-1/2 p-10 md:p-16 overflow-y-auto bg-white flex flex-col">
             {!showLeadForm ? (
               <>
@@ -117,7 +117,7 @@ const CampaignPropertyModal = ({ property, onClose, currency }: CampaignProperty
                       </div>
                       <div>
                         <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest">Beds</p>
-                        <p className="text-lg font-bold text-charcoal">{property.beds}</p>
+                        <p className="text-lg font-bold text-charcoal">{property.beds ?? '—'}</p>
                       </div>
                     </div>
                     <div className="flex flex-col gap-2">
@@ -126,7 +126,7 @@ const CampaignPropertyModal = ({ property, onClose, currency }: CampaignProperty
                       </div>
                       <div>
                         <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest">Baths</p>
-                        <p className="text-lg font-bold text-charcoal">{property.baths}</p>
+                        <p className="text-lg font-bold text-charcoal">{property.baths ?? '—'}</p>
                       </div>
                     </div>
                     <div className="flex flex-col gap-2">
@@ -135,7 +135,7 @@ const CampaignPropertyModal = ({ property, onClose, currency }: CampaignProperty
                       </div>
                       <div>
                         <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest">Sqft</p>
-                        <p className="text-lg font-bold text-charcoal">{property.sqft}</p>
+                        <p className="text-lg font-bold text-charcoal">{property.sqft ?? '—'}</p>
                       </div>
                     </div>
                   </div>
@@ -155,7 +155,7 @@ const CampaignPropertyModal = ({ property, onClose, currency }: CampaignProperty
                     </p>
                     <button
                       onClick={() => setShowLeadForm(true)}
-                      className="w-full bg-charcoal text-white py-5 rounded-2xl font-bold hover:bg-black transition-all shadow-xl active:scale-95 flex items-center justify-center gap-3 uppercase tracking-widest text-xs"
+                      className="w-full bg-charcoal text-white py-5 rounded-xl font-bold hover:bg-black transition-all shadow-xl active:scale-95 flex items-center justify-center gap-3 uppercase tracking-widest text-xs"
                     >
                       Request Full Brochure <ChevronRight size={16} />
                     </button>
@@ -192,7 +192,7 @@ const CampaignPropertyModal = ({ property, onClose, currency }: CampaignProperty
                     </div>
                     <h4 className="text-3xl font-bold text-charcoal mb-4">Request Received</h4>
                     <p className="text-gray-500 text-lg mb-10 max-w-xs mx-auto font-light leading-relaxed">
-                      Our elite concierge team has been notified. Your brochure is downloading now.
+                      Our team has been notified. Your brochure is downloading now.
                     </p>
                     <button
                       onClick={onClose}

@@ -48,7 +48,7 @@ const Navbar = () => {
               className="object-contain origin-left"
             />
           </Link>
-          {/* Desktop Links */}
+          {}
           <div className="hidden lg:flex items-center space-x-">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
@@ -98,7 +98,7 @@ const Navbar = () => {
               </Link>
             </motion.div>
           </div>
-          {/* Mobile Toggle */}
+          {}
           <div className="flex items-center space-x-2 lg:hidden">
             <button
               onClick={() => setQrModalOpen(true)}
@@ -115,7 +115,7 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-        {/* Mobile Menu */}
+        {}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div

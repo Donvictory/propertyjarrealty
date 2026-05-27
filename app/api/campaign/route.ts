@@ -23,11 +23,11 @@ const CampaignContentSchema = z.object({
   roiSubtext:         z.string().optional(),
   investmentOptions:  z.array(InvestmentOptionSchema).optional(),
   offerStack:         z.array(OfferStackSchema).optional(),
-}).strict(); // rejects unknown keys — prevents arbitrary field injection into Firestore
+}).strict(); 
 
 export async function GET(request: NextRequest) {
   const ip = request.headers.get('x-forwarded-for') ?? 'anonymous';
-  const { allowed } = rateLimit(ip, 60, 60_000); // 60 requests / minute
+  const { allowed } = rateLimit(ip, 60, 60_000); 
   if (!allowed) {
     return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
   }

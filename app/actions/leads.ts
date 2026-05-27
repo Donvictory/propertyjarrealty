@@ -15,7 +15,7 @@ export async function sendPropertyInquiry(formData: FormData) {
   }
 
   try {
-    const { data, error } = await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: 'PropertyJar Leads <sales@propertyjarrealty.com>',
       to: ['sales@propertyjarrealty.com'],
       replyTo: email,

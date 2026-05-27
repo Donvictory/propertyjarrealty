@@ -1,7 +1,7 @@
 export default function PropertiesLoading() {
   return (
     <main className="min-h-screen pt-32 bg-off-white">
-      {/* Header Skeleton */}
+      {}
       <section className="bg-off-white pt-12 pb-6">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -14,7 +14,7 @@ export default function PropertiesLoading() {
         </div>
       </section>
 
-      {/* Filter Bar Skeleton */}
+      {}
       <section className="bg-off-white/80 backdrop-blur-md border-y border-gray-100 sticky top-[72px] z-40 py-6">
         <div className="container mx-auto px-6">
           <div className="bg-white/50 p-2 rounded-[2.5rem] border border-white/20 shadow-xl shadow-gray-200/50">
@@ -29,7 +29,7 @@ export default function PropertiesLoading() {
         </div>
       </section>
 
-      {/* Grid Skeleton */}
+      {}
       <section className="py-20 bg-off-white">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">

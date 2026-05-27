@@ -7,9 +7,9 @@ const isConfigured =
   process.env.FIREBASE_PRIVATE_KEY;
 
 function parsePrivateKey(raw: string): string {
-  // Strip surrounding quotes Vercel sometimes injects
+  
   let key = raw.replace(/^["']|["']$/g, '');
-  // Convert literal \n sequences to actual newlines
+  
   key = key.replace(/\\n/g, '\n');
   return key;
 }

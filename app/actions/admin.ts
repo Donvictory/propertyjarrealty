@@ -23,7 +23,7 @@ export async function changePasswordAction(formData: FormData) {
     return { error: 'New password must be at least 8 characters.' };
   }
 
-  // Verify old password
+  
   const admin = await verifyAdminPassword(session.adminEmail, currentPassword);
   if (!admin) {
     return { error: 'Incorrect current password.' };

@@ -42,7 +42,7 @@ export default function AdminSettingsClient() {
       </div>
 
       <div className="space-y-8">
-        {/* Password Section */}
+        {}
         <div className="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm">
           <h2 className="text-lg font-bold text-charcoal mb-6">Security & Password</h2>
           
@@ -134,7 +134,7 @@ export default function AdminSettingsClient() {
           </form>
         </div>
 
-        {/* Profile Info (Read Only for now) */}
+        {}
         <div className="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm">
           <h2 className="text-lg font-bold text-charcoal mb-4">Account Information</h2>
           <p className="text-gray-400 text-xs mb-6">Your profile details are managed by the System Administrator.</p>

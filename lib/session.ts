@@ -25,14 +25,14 @@ export async function getSession(): Promise<SessionPayload | null> {
   const payload = await decrypt(token);
   if (!payload) return null;
 
-  // Verify the admin still exists and hasn't changed their password
-  // (or been deleted) since this JWT was issued.
+  
+  
   const admin = await getAdminById(payload.adminId);
-  if (!admin) return null; // admin was deleted — session is dead
+  if (!admin) return null; 
 
   const storedVersion = admin.sessionVersion ?? 1;
   const tokenVersion  = payload.sessionVersion ?? 1;
-  if (tokenVersion !== storedVersion) return null; // password was changed — invalidate
+  if (tokenVersion !== storedVersion) return null; 
 
   return payload;
 }

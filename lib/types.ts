@@ -27,7 +27,7 @@ export interface Admin {
   passwordHash: string;
   role: 'super_admin' | 'admin';
   createdAt: string;
-  sessionVersion: number; // incremented on password change to invalidate sessions
+  sessionVersion: number; 
 }
 
 export interface SessionPayload {
@@ -35,6 +35,6 @@ export interface SessionPayload {
   adminEmail: string;
   adminName: string;
   role: string;
-  sessionVersion: number; // must match Admin.sessionVersion in Firestore
+  sessionVersion: number; 
   expiresAt: Date;
 }

@@ -12,12 +12,17 @@ interface PropertyModalProps {
 const PROPERTY_TYPES = ['Residential', 'Commercial', 'Industrial', 'Land'];
 const TAGS = ['', 'Exclusive', 'New Listing', 'Featured', 'Sold', 'Hot Deal'];
 
-const EMPTY: Omit<Property, 'id'> = {
+interface PropertyFormState extends Omit<Property, 'id' | 'beds' | 'baths'> {
+  beds: string;
+  baths: string;
+}
+
+const EMPTY: PropertyFormState = {
   title: '',
   location: '',
   price: '',
-  beds: 1,
-  baths: 1,
+  beds: '',
+  baths: '',
   sqft: '',
   image: '',
   tag: '',
@@ -29,9 +34,27 @@ const EMPTY: Omit<Property, 'id'> = {
 
 export default function PropertyModal({ property, onClose, onSaved }: PropertyModalProps) {
   const isEdit = !!property;
-  const [form, setForm] = useState<Omit<Property, 'id'>>(
-    property ? { ...property } : { ...EMPTY }
-  );
+  const [form, setForm] = useState<PropertyFormState>(() => {
+    if (property) {
+      return {
+        ...property,
+        beds: property.beds !== undefined && property.beds !== null ? String(property.beds) : '',
+        baths: property.baths !== undefined && property.baths !== null ? String(property.baths) : '',
+        sqft: property.sqft || '',
+      } as PropertyFormState;
+    }
+    return {
+      ...EMPTY,
+    };
+  });
+  const [pricingOptions, setPricingOptions] = useState<{ size: string; price: string }[]>(() => {
+    const existing = property?.pricingOptions || [];
+    const base = [...existing];
+    while (base.length < 2) {
+      base.push({ size: '', price: '' });
+    }
+    return base.slice(0, 2);
+  });
   const [loading, setLoading] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [uploadingBrochure, setUploadingBrochure] = useState(false);
@@ -86,16 +109,22 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
       const url = isEdit ? `/api/properties/${property!.id}` : '/api/properties';
       const method = isEdit ? 'PUT' : 'POST';
 
+      const finalPricing = pricingOptions.filter(
+        (opt) => opt.size.trim() !== '' && opt.price.trim() !== ''
+      );
+
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...form,
-          beds: Number(form.beds),
-          baths: Number(form.baths),
+          beds: form.beds !== '' && form.beds !== undefined && form.beds !== null ? Number(form.beds) : null,
+          baths: form.baths !== '' && form.baths !== undefined && form.baths !== null ? Number(form.baths) : null,
+          sqft: form.sqft || null,
           tag: form.tag || null,
           isCampaign: !!form.isCampaign,
           brochureUrl: form.brochureUrl || '',
+          pricingOptions: finalPricing,
         }),
       });
 
@@ -119,15 +148,15 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
 
   return (
     <div className="fixed inset-0 z-[90] flex items-center justify-center p-4">
-      {/* Backdrop */}
+      {}
       <div className="absolute inset-0 bg-charcoal/40 backdrop-blur-sm" onClick={onClose} />
 
-      {/* Modal — centered on all devices */}
+      {}
       <div className="relative bg-white border border-gray-100 w-full rounded-2xl sm:rounded-3xl sm:max-w-2xl shadow-[0_24px_48px_-12px_rgba(0,0,0,0.15)] flex flex-col"
         style={{ maxHeight: 'calc(100dvh - 56px)' }}
       >
 
-        {/* Header */}
+        {}
         <div className="border-b border-gray-50 px-6 py-4 flex items-center justify-between flex-shrink-0">
           <div>
             <h2 className="text-lg font-bold text-charcoal">{isEdit ? 'Edit Property' : 'Add New Property'}</h2>
@@ -141,43 +170,43 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
           </button>
         </div>
 
-        {/* Scrollable Form */}
+        {}
         <form onSubmit={handleSubmit} className="overflow-y-auto overscroll-contain p-6 space-y-5 flex-1">
-          {/* Title */}
+          {}
           <div>
             <label className={labelClass} htmlFor="pm-title">Property Title</label>
             <input id="pm-title" name="title" required value={form.title} onChange={handleChange} placeholder="e.g. The Glass House" className={inputClass} />
           </div>
 
-          {/* Location */}
+          {}
           <div>
             <label className={labelClass} htmlFor="pm-location">Location</label>
             <input id="pm-location" name="location" required value={form.location} onChange={handleChange} placeholder="e.g. Malibu, California" className={inputClass} />
           </div>
 
-          {/* Price */}
+          {}
           <div>
             <label className={labelClass} htmlFor="pm-price">Price</label>
             <input id="pm-price" name="price" required value={form.price} onChange={handleChange} placeholder="e.g. $8,500,000" className={inputClass} />
           </div>
 
-          {/* Beds / Baths / Sqft */}
+          {}
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className={labelClass} htmlFor="pm-beds">Beds</label>
-              <input id="pm-beds" name="beds" type="number" min={1} required value={form.beds} onChange={handleChange} className={inputClass} />
+              <label className={labelClass} htmlFor="pm-beds">Beds (optional)</label>
+              <input id="pm-beds" name="beds" type="number" value={form.beds} onChange={handleChange} className={inputClass} />
             </div>
             <div>
-              <label className={labelClass} htmlFor="pm-baths">Baths</label>
-              <input id="pm-baths" name="baths" type="number" min={1} required value={form.baths} onChange={handleChange} className={inputClass} />
+              <label className={labelClass} htmlFor="pm-baths">Baths (optional)</label>
+              <input id="pm-baths" name="baths" type="number" value={form.baths} onChange={handleChange} className={inputClass} />
             </div>
             <div>
-              <label className={labelClass} htmlFor="pm-sqft">Sqft</label>
-              <input id="pm-sqft" name="sqft" required value={form.sqft} onChange={handleChange} placeholder="e.g. 6,500" className={inputClass} />
+              <label className={labelClass} htmlFor="pm-sqft">Sqft (optional)</label>
+              <input id="pm-sqft" name="sqft" value={form.sqft} onChange={handleChange} placeholder="e.g. 6,500" className={inputClass} />
             </div>
           </div>
 
-          {/* Type / Tag */}
+          {}
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className={labelClass} htmlFor="pm-type">Property Type</label>
@@ -193,7 +222,52 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
             </div>
           </div>
 
-          {/* Campaign toggle */}
+          {/* Pricing Options */}
+          <div className="border-t border-gray-100 pt-5 space-y-4">
+            <div>
+              <h4 className="text-xs font-bold text-charcoal uppercase tracking-widest mb-1">Pricing & Sizing Options (optional)</h4>
+              <p className="text-gray-400 text-xs">Add up to 2 custom size/price variations (e.g. "500 SQM" and "₦150,000,000") to display as pill tags on the property card.</p>
+            </div>
+            
+            <div className="space-y-3">
+              {pricingOptions.map((opt, idx) => (
+                <div key={idx} className="grid grid-cols-2 gap-3 items-end">
+                  <div>
+                    <label className={labelClass} htmlFor={`po-size-${idx}`}>Size {idx + 1}</label>
+                    <input
+                      id={`po-size-${idx}`}
+                      type="text"
+                      value={opt.size}
+                      onChange={(e) => {
+                        const next = [...pricingOptions];
+                        next[idx].size = e.target.value;
+                        setPricingOptions(next);
+                      }}
+                      placeholder="e.g. 500 SQM"
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass} htmlFor={`po-price-${idx}`}>Price {idx + 1}</label>
+                    <input
+                      id={`po-price-${idx}`}
+                      type="text"
+                      value={opt.price}
+                      onChange={(e) => {
+                        const next = [...pricingOptions];
+                        next[idx].price = e.target.value;
+                        setPricingOptions(next);
+                      }}
+                      placeholder="e.g. ₦150,000,000"
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {}
           <div className="flex items-center gap-3 bg-gray-50 p-4 rounded-2xl border border-gray-100">
             <input
               type="checkbox"
@@ -216,7 +290,7 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
             </div>
           )}
 
-          {/* Brochure PDF */}
+          {}
           <div>
             <label className={labelClass}>Brochure PDF</label>
             {!form.brochureUrl ? (
@@ -261,7 +335,7 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
             <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest mt-2">Users can download this PDF directly from the property card</p>
           </div>
 
-          {/* Image */}
+          {}
           <div>
             <label className={labelClass}>Property Image</label>
             {!form.image ? (
@@ -300,7 +374,7 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
             )}
           </div>
 
-          {/* Description */}
+          {}
           <div>
             <label className={labelClass} htmlFor="pm-description">Description</label>
             <textarea id="pm-description" name="description" rows={3} value={form.description} onChange={handleChange} placeholder="Brief description of the property..." className={`${inputClass} resize-none`} />
@@ -312,7 +386,7 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
             </div>
           )}
 
-          {/* Actions */}
+          {}
           <div className="flex gap-3 pt-2 pb-2">
             <button type="button" onClick={onClose} className="flex-1 border border-gray-200 text-gray-500 py-2 sm:py-2.5 rounded-[3px] font-bold text-xs sm:text-sm whitespace-nowrap hover:bg-gray-50 transition-all">
               Cancel

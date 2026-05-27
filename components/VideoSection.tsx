@@ -85,10 +85,10 @@ const VideoSection = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative aspect-[9/16] max-w-sm mx-auto rounded-[3rem] overflow-hidden shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)] group cursor-pointer bg-charcoal"
+              className="relative aspect-[9/16] max-w-sm mx-auto rounded-lg overflow-hidden shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)] group cursor-pointer bg-charcoal"
               onClick={togglePlay}
             >
-              {/* Video Element */}
+              {}
               <video
                 ref={videoRef}
                 className="w-full h-full object-cover transition-transform duration-700"
@@ -103,11 +103,11 @@ const VideoSection = () => {
                 Your browser does not support the video tag.
               </video>
 
-              {/* Glassmorphism Overlay */}
+              {}
               <div className={`absolute inset-0 bg-charcoal/20 backdrop-blur-[2px] transition-opacity duration-500 ${isPlaying ? 'opacity-0' : 'opacity-100'}`} />
 
               <div className={`absolute inset-0 flex items-center justify-center gap-6 transition-all duration-700 ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
-                {/* Skip Backward */}
+                {}
                 <button
                   onClick={skipBackward}
                   className="w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full flex items-center justify-center hover:bg-brand transition-all duration-300"
@@ -115,7 +115,7 @@ const VideoSection = () => {
                   <Rewind size={20} fill="white" />
                 </button>
 
-                {/* Play/Pause Button */}
+                {}
                 <div className="w-16 h-16 bg-white/20 backdrop-blur-xl border border-white/30 text-white rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:bg-brand transition-all duration-500">
                   {isPlaying ? (
                     <Pause fill="white" size={24} />
@@ -124,7 +124,7 @@ const VideoSection = () => {
                   )}
                 </div>
 
-                {/* Skip Forward */}
+                {}
                 <button
                   onClick={skipForward}
                   className="w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full flex items-center justify-center hover:bg-brand transition-all duration-300"

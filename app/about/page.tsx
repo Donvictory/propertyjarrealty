@@ -27,7 +27,7 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen bg-white selection:bg-brand selection:text-white">
 
-      {/* Founder Section */}
+      {}
       <section className="py-16 bg-gradient-to-br from-white to-off-white">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-[1fr_2fr] gap-12 items-center">
@@ -85,7 +85,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Specializations Carousel Section */}
+      {}
       <section className="py-16 bg-white overflow-hidden">
         <div className="container mx-auto">
           <motion.div
@@ -102,7 +102,7 @@ export default function AboutPage() {
             </p>
           </motion.div>
 
-          {/* Infinite Marquee + Draggable Carousel */}
+          {}
           <div
             className="relative flex overflow-hidden group cursor-grab active:cursor-grabbing px-6"
             onMouseEnter={() => setIsPaused(true)}
@@ -162,7 +162,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Approach Section */}
+      {}
       <section className="py-16 bg-off-white border-y border-gray-50">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -206,7 +206,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Commitment Block */}
+      {}
       <section className="py-16">
         <div className="container mx-auto px-6">
           <motion.div

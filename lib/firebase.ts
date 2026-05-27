@@ -13,13 +13,13 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
-// Initialize Firebase (Client Side)
+
 const isConfigured = !!firebaseConfig.apiKey;
 const app = isConfigured 
   ? (getApps().length > 0 ? getApp() : initializeApp(firebaseConfig)) 
   : null;
 
-// Initialize Analytics conditionally (only in browser)
+
 export const analytics = (typeof window !== 'undefined' && app) 
   ? isSupported().then(yes => yes ? getAnalytics(app) : null) 
   : null;

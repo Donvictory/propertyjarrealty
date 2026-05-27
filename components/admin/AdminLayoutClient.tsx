@@ -19,7 +19,7 @@ export default function AdminLayoutClient({
 
   return (
     <div className="min-h-screen bg-off-white flex flex-col lg:flex-row">
-      {/* Mobile Header */}
+      {}
       <header className="lg:hidden bg-white border-b border-gray-100 p-4 flex justify-between items-center sticky top-0 z-[60]">
         <Link href="/" className="flex items-center group" aria-label="PropertyJar Realty Home">
           <Image
@@ -44,7 +44,7 @@ export default function AdminLayoutClient({
         </div>
       </header>
 
-      {/* Sidebar Overlay for Mobile */}
+      {}
       <AnimatePresence>
         {isSidebarOpen && (
           <motion.div
@@ -57,7 +57,7 @@ export default function AdminLayoutClient({
         )}
       </AnimatePresence>
 
-      {/* Sidebar Container */}
+      {}
       <div className={`
         fixed top-0 bottom-0 left-0 z-[80] transform transition-transform duration-300 w-64
         ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}

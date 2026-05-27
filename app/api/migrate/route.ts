@@ -16,7 +16,7 @@ export async function GET() {
     }
     const results: any = {};
 
-    // Migrate Admins
+    
     const adminsPath = path.join(process.cwd(), 'data', 'admins.json');
     if (fs.existsSync(adminsPath)) {
       const admins = JSON.parse(fs.readFileSync(adminsPath, 'utf-8'));
@@ -27,16 +27,16 @@ export async function GET() {
       results.admins = `Migrated ${admins.length} admins.`;
     }
 
-    // Migrate Properties
+    
     const propertiesPath = path.join(process.cwd(), 'data', 'properties.json');
     if (fs.existsSync(propertiesPath)) {
       const properties = JSON.parse(fs.readFileSync(propertiesPath, 'utf-8'));
       for (const prop of properties) {
         const { id, ...data } = prop;
-        // Default to isCampaign: true if not specified, since these are currently on the campaign page
+        
         await db.collection('properties').doc(id).set({
           ...data,
-          id, // Explicitly include id for sorting
+          id, 
           isCampaign: data.isCampaign ?? true
         });
       }

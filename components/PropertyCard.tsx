@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 interface PropertyCardProps {
   property: Property;
-  /** Converted price to display (e.g. "£6,715,000"). Falls back to property.price. */
+  
   displayPrice?: string;
   displayPricingOptions?: { size: string; price: string }[];
   currency?: 'NGN' | 'USD' | 'GBP';
@@ -25,8 +25,8 @@ const PropertyCard = ({ property, displayPrice, displayPricingOptions, currency,
       transition={{ duration: 0.3 }}
       className="group bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all flex flex-col h-full relative"
     >
-      {/* Property Image */}
-      {/* aspect-[4/3] */}
+      {}
+      {}
       <div className="relative 
        w-full overflow-hidden shrink-0">
         <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">

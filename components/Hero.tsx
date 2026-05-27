@@ -7,14 +7,14 @@ const Hero = () => {
   return (
     <section className="relative py-14 md:py-24 w-full flex items-center justify-center overflow-hidden">
 
-      {/* Background Image */}
+      {}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
           src="/hero-bg.png"
           alt="Luxury Real Estate"
           className="absolute inset-0 w-full h-full object-cover scale-105"
         />
-        {/* Deep Cinematic Overlays */}
+        {}
         <div className="absolute inset-0 bg-black/40 z-10" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/40 to-transparent z-20" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-20" />
@@ -22,7 +22,7 @@ const Hero = () => {
 
 
 
-      {/* Content */}
+      {}
       <div className="container mx-auto px-6 relative z-30">
         <div className="max-w-5xl">
           <motion.div
@@ -46,7 +46,7 @@ const Hero = () => {
             </p>
           </motion.div>
 
-          {/* Stats Bar */}
+          {}
 
 
           <motion.div

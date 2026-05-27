@@ -55,10 +55,10 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Section */}
+      {}
       <section className="py-16 bg-off-white">
         <div className="container mx-auto px-6">
-          {/* Info */}
+          {}
           <div>
             <span className="text-sm font-bold uppercase tracking-[0.3em] text-brand mb-4 block">Contact Information</span>
             <h1 className="text-3xl md:text-4xl font-medium text-neutral-800 mb-10">We are <span className="italic font-light">Here for You</span></h1>

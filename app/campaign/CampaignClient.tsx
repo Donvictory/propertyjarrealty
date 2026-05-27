@@ -38,7 +38,7 @@ export default function CampaignClient({ properties, initialContent }: CampaignC
   return (
     <main className="min-h-screen bg-off-white">
 
-      {/* Why Invest Section */}
+      {}
       <section className="py-16 bg-white overflow-hidden">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
@@ -89,7 +89,7 @@ export default function CampaignClient({ properties, initialContent }: CampaignC
         </div>
       </section>
 
-      {/* Property Grid Section */}
+      {}
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
@@ -101,7 +101,7 @@ export default function CampaignClient({ properties, initialContent }: CampaignC
             </div>
 
             <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
-              {/* Category Filter */}
+              {}
               <div className="flex flex-col gap-1.5 min-w-[200px]">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 ml-1">Category Filter</label>
                 <div className="relative group">
@@ -120,7 +120,7 @@ export default function CampaignClient({ properties, initialContent }: CampaignC
                 </div>
               </div>
 
-              {/* Currency Selector */}
+              {}
               <div className="flex flex-col gap-1.5 min-w-[200px]">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 ml-1">Market Currency</label>
                 <div className="relative group">
@@ -155,31 +155,48 @@ export default function CampaignClient({ properties, initialContent }: CampaignC
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   onClick={() => router.push(`/campaign/${property.id}?curr=${currency}`)}
-                  className="group cursor-pointer"
+                  className="group bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full relative cursor-pointer"
                 >
-                  <div className="relative aspect-auto rounded-[1rem] overflow-hidden mb-6 shadow-xl transition-transform duration-500 group-hover:-translate-y-2">
+                  <div className="relative aspect-[4/5] w-full overflow-hidden shrink-0 bg-off-white">
                     <img
                       src={property.image}
                       alt={property.title}
                       className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute top-6 right-6">
-                      <span className="bg-white/20 backdrop-blur-md text-white px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest border border-white/20">
+                    <div className="absolute top-4 right-4 z-10">
+                      <span className="bg-white/90 backdrop-blur-sm text-charcoal px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest border border-gray-100 shadow-sm">
                         {property.type}
                       </span>
                     </div>
                   </div>
-                  <div className="px-2 mb-6">
-                    <h3 className="text-xl font-bold text-charcoal mb-2">{property.title}</h3>
-                    <div className="flex items-center justify-between">
-                      <p className="text-gray-500 text-sm">{property.location}</p>
-                      <p className="text-brand font-bold text-lg bg-brand/5 px-3 py-1.5 rounded-md">
-                        {formatDisplay(parsePriceNGN(property.price), currency)}
-                      </p>
+
+                  <div className="p-6 flex flex-col flex-grow">
+                    <h3 className="text-lg font-bold text-charcoal mb-2 leading-tight group-hover:text-brand transition-colors">
+                      {property.title}
+                    </h3>
+                    
+                    <p className="text-gray-400 text-xs mb-4">{property.location}</p>
+                    
+                    {property.pricingOptions && property.pricingOptions.length > 0 ? (
+                      <div className="flex flex-wrap gap-1.5 mb-6 mt-auto">
+                        {property.pricingOptions.slice(0, 2).map((opt, i) => (
+                          <div key={i} className="bg-brand/5 border border-brand/10 text-brand px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-tight">
+                            {opt.size}: {opt.price}
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="mb-6 mt-auto">
+                        <p className="text-[10px] text-gray-400 uppercase tracking-widest font-black mb-1">Value</p>
+                        <p className="text-xl font-bold text-brand">
+                          {formatDisplay(parsePriceNGN(property.price), currency)}
+                        </p>
+                      </div>
+                    )}
+
+                    <div className="flex items-center gap-2 text-brand font-bold text-[10px] uppercase tracking-widest group-hover:gap-4 transition-all mt-auto pt-4 border-t border-gray-50">
+                      View Summary <span>→</span>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-2 text-brand font-bold text-[10px] uppercase tracking-widest group-hover:gap-4 transition-all px-2">
-                    View Summary <span>→</span>
                   </div>
                 </motion.div>
               ))
@@ -188,7 +205,7 @@ export default function CampaignClient({ properties, initialContent }: CampaignC
         </div>
       </section>
 
-      {/* Investment Options Section */}
+      {}
       <section className="py-16 bg-white border-t border-gray-100">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
@@ -217,7 +234,7 @@ export default function CampaignClient({ properties, initialContent }: CampaignC
         </div>
       </section>
 
-      {/* Offer Stack Section */}
+      {}
       <section id="offer-stack" className="py-16 bg-off-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">

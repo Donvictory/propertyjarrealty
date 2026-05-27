@@ -81,7 +81,7 @@ const AdminCampaignClient = () => {
       )}
 
       <form onSubmit={handleSave} className="space-y-8 pb-20">
-        {/* Why Invest Section */}
+        {}
         <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
           <h2 className="text-xl font-bold text-charcoal mb-6 border-b pb-4">&quot; Why Invest&quot; Section</h2>
           <div className="space-y-4">
@@ -120,7 +120,7 @@ const AdminCampaignClient = () => {
           </div>
         </div>
 
-        {/* ROI Section */}
+        {}
         <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
           <h2 className="text-xl font-bold text-charcoal mb-6 border-b pb-4">ROI Projections</h2>
           <div className="grid grid-cols-2 gap-4">
@@ -145,7 +145,7 @@ const AdminCampaignClient = () => {
           </div>
         </div>
 
-        {/* Investment Options */}
+        {}
         <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
           <h2 className="text-xl font-bold text-charcoal mb-6 border-b pb-4">Investment Options</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

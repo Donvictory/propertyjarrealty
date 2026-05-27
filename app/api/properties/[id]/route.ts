@@ -47,7 +47,7 @@ export async function DELETE(_request: NextRequest, { params }: Params) {
 
   const { id } = await params;
 
-  // Fetch property details to check for associated local files before deleting
+  
   const property = await getPropertyById(id);
 
   const deleted = await deleteProperty(id);
@@ -55,11 +55,11 @@ export async function DELETE(_request: NextRequest, { params }: Params) {
     return NextResponse.json({ error: 'Property not found' }, { status: 404 });
   }
 
-  // Clean up associated local uploaded files (image and brochure) if they exist
+  
   if (property) {
     const localUploadsDir = path.join(process.cwd(), 'public');
 
-    // Check & delete image
+    
     if (property.image && property.image.startsWith('/uploads/')) {
       const filePath = path.join(localUploadsDir, property.image);
       try {
@@ -71,7 +71,7 @@ export async function DELETE(_request: NextRequest, { params }: Params) {
       }
     }
 
-    // Check & delete brochure
+    
     if (property.brochureUrl && property.brochureUrl.startsWith('/uploads/')) {
       const filePath = path.join(localUploadsDir, property.brochureUrl);
       try {

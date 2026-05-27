@@ -32,7 +32,7 @@ export default function AdminSidebar({
 
   return (
     <aside className="fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-100 flex flex-col z-50 shadow-sm">
-      {/* Logo */}
+      {}
       <div className="p-5">
         <Link href="/" className="block">
           <Image
@@ -46,7 +46,7 @@ export default function AdminSidebar({
         </Link>
       </div>
 
-      {/* Nav */}
+      {}
       <nav className="flex-1 p-4 space-y-1">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
@@ -78,7 +78,7 @@ export default function AdminSidebar({
         </div>
       </nav>
 
-      {/* User Info + Logout */}
+      {}
       <div className="p-4 border-t border-gray-100">
         <div className="flex items-center gap-3 px-4 py-3 rounded-[3px] bg-gray-50 mb-2">
           <div className="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
