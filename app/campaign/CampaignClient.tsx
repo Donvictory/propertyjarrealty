@@ -88,23 +88,70 @@ export default function CampaignClient({
               {/* Background decorative glow */}
               <div className="absolute -top-10 -right-10 w-64 h-64 bg-brand/5 rounded-full blur-3xl pointer-events-none" />
 
-              <div className="relative overflow-hidden bg-white rounded-[2rem] p-8 md:p-12 border border-neutral-100 shadow-[0_20px_50px_rgba(128,0,32,0.06)] flex flex-col justify-center min-h-[320px]">
-                {/* Brand-colored Accent Bar on the left */}
-                <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-brand" />
+              <div className="relative overflow-hidden bg-white rounded-[2rem] p-8 md:p-10 border border-neutral-100 shadow-[0_20px_50px_rgba(128,0,32,0.06)] flex flex-col justify-between min-h-[380px]">
+                {/* Gold/Brand Vertical Accent Line */}
+                <div className="absolute left-0 top-0 bottom-0 w-[5px] bg-gradient-to-b from-brand to-amber-400" />
 
-                {/* Content */}
+                {/* Header Section */}
                 <div className="relative z-10">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-brand block mb-4">
-                    Projected ROI
-                  </span>
-                  
-                  <h3 className="text-5xl md:text-6xl font-light font-serif tracking-tight text-charcoal mb-4">
-                    {initialContent?.projectedRoi}
-                  </h3>
-                  
-                  <p className="text-base md:text-lg text-gray-400 font-medium tracking-wide leading-relaxed">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-2 w-2 relative">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-brand"></span>
+                    </span>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-brand">
+                      Exclusive Investment Hub
+                    </span>
+                  </div>
+                  <h4 className="text-sm font-black uppercase tracking-[0.15em] text-charcoal/40 mt-4">
+                    Projected Growth
+                  </h4>
+                </div>
+
+                {/* Core ROI Stat */}
+                <div className="my-6 relative z-10">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-6xl md:text-7xl font-light font-serif tracking-tight text-brand">
+                      {initialContent?.projectedRoi}
+                    </span>
+                  </div>
+                  <p className="text-charcoal font-medium text-md mt-4 tracking-tight leading-tight">
                     {initialContent?.roiSubtext}
                   </p>
+                </div>
+
+                {/* Footer Section: Trust Indicators */}
+                <div className="pt-6 border-t border-gray-100 flex items-center justify-between relative z-10">
+                  <div className="flex flex-col">
+                    <span className="text-[9px] font-black uppercase tracking-wider text-gray-400">
+                      Target Asset Class
+                    </span>
+                    <span className="text-xs font-bold text-charcoal">
+                      High-Yield Residential
+                    </span>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <span className="text-[9px] font-black uppercase tracking-wider text-gray-400">
+                      Risk Profile
+                    </span>
+                    <span className="text-xs font-bold text-emerald-600 flex items-center gap-1">
+                      <svg
+                        className="w-3.5 h-3.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2.5"
+                          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                        ></path>
+                      </svg>
+                      Secured
+                    </span>
+                  </div>
                 </div>
               </div>
             </motion.div>
