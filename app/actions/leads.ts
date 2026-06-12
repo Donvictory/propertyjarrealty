@@ -17,7 +17,7 @@ export async function sendPropertyInquiry(formData: FormData) {
   try {
     const { error } = await resend.emails.send({
       from: 'PropertyJar Leads <sales@propertyjarrealty.com>',
-      to: ['sales@propertyjarrealty.com'],
+      to: ["sales@propertyjarrealty.com"],
       replyTo: email,
       subject: `New Lead: Brochure Request for ${propertyTitle}`,
       html: `

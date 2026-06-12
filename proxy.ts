@@ -16,6 +16,8 @@ const ALLOWED_EXACT_PATHNAMES = new Set([
   '/favicon.ico',
   '/robots.txt',
   '/sitemap.xml',
+  '/privacy',
+  '/terms',
 ]);
 
 
@@ -71,6 +73,17 @@ function isAllowedPath(pathname: string): boolean {
 }
 
 export async function proxy(request: NextRequest) {
+  const host = request.headers.get('host') || '';
+
+  // 1. Force redirection from *.vercel.app to the production domain
+  if (host.includes('vercel.app')) {
+    const url = request.nextUrl.clone();
+    url.host = 'propertyjarrealty.com';
+    url.protocol = 'https';
+    url.port = '';
+    return NextResponse.redirect(url, { status: 301 });
+  }
+
   const { pathname } = request.nextUrl;
 
   

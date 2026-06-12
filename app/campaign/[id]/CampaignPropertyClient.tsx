@@ -47,14 +47,31 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
     if (result.success) {
       setIsSuccess(true);
       if (property.brochureUrl) {
-        setTimeout(() => {
-          const link = document.createElement('a');
-          link.href = property.brochureUrl!;
-          link.target = '_blank';
-          link.download = '';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
+        setTimeout(async () => {
+          try {
+            const response = await fetch(property.brochureUrl!);
+            const blob = await response.blob();
+            const blobUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            
+            const fileName = property.brochureUrl!.split('/').pop() || `${property.title.replace(/\s+/g, '_')}_Brochure.pdf`;
+            link.download = decodeURIComponent(fileName);
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(blobUrl);
+          } catch (error) {
+            console.error('Blob download failed, falling back to direct link download', error);
+            const link = document.createElement('a');
+            link.href = property.brochureUrl!;
+            const fileName = property.brochureUrl!.split('/').pop() || 'brochure.pdf';
+            link.download = decodeURIComponent(fileName);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }
         }, 500);
       }
     } else {
