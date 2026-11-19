@@ -16,7 +16,7 @@ import {
   formatDisplay
 } from '@/lib/currency';
 
-const PROPERTY_TYPES = ['All', 'Residential', 'Commercial', 'Industrial', 'Land'];
+const PROPERTY_TYPES = ['All', 'Shortlet', 'Residential', 'Commercial', 'Industrial', 'Land'];
 
 
 const PRICE_RANGES: { label: string; minNGN: number; maxNGN: number }[] = [
@@ -108,7 +108,11 @@ export default function PropertiesClient({ properties }: PropertiesClientProps) 
   const filtered = useMemo(() => {
     const range = PRICE_RANGES[activePriceIdx];
     return properties.filter((p) => {
-      const matchType = activeType === 'All' || p.type === activeType;
+      const matchType =
+        activeType === 'All' ||
+        p.type?.toLowerCase() === activeType.toLowerCase() ||
+        (activeType === 'Shortlet' && (p.type?.toLowerCase().includes('shortlet') || p.category === 'shortlet')) ||
+        (activeType === 'Residential' && p.type?.toLowerCase().includes('residential'));
       const ngnVal = parsePriceNGN(p.price);
       const matchPrice = ngnVal >= range.minNGN && ngnVal < range.maxNGN;
       return matchType && matchPrice;

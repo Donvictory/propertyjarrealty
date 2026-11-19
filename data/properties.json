@@ -130,5 +130,191 @@
     "bestFor": "Family living",
     "brochureUrl": "/MICASA%20BROCHURE.pdf",
     "isCampaign": true
+  },
+  {
+    "id": "wvj-vault",
+    "title": "WVJ - VAULT",
+    "location": "Osapa London, Lekki",
+    "price": "₦85,000/night",
+    "image": "/WVJ-Vault-1.png",
+    "images": [
+      "/WVJ-Vault-1.png",
+      "/WVJ-Vault-2.png",
+      "/WVJ-Vault-3.png"
+    ],
+    "tag": "Luxury Studio",
+    "type": "Shortlet",
+    "category": "shortlet",
+    "beds": 1,
+    "baths": 1,
+    "sqft": "Studio",
+    "description": "Fully furnished luxury studio shortlet in a secure estate at Osapa London, Lekki. Features 24/7 power, high-speed WiFi, smart entertainment, and daily housekeeping availability.",
+    "highlights": [
+      "Fully furnished luxury studio",
+      "24/7 power & security",
+      "Smart TV + Netflix",
+      "High-speed WiFi",
+      "Fully equipped kitchen",
+      "Housekeeping available",
+      "Secure estate location"
+    ],
+    "shortLetDetails": {
+      "checkIn": "2PM",
+      "checkOut": "12PM",
+      "pricePerNight": 85000,
+      "nightlyRate": 85000,
+      "guestCapacity": 2,
+      "maxGuests": 2,
+      "sleepingArrangements": "1 Luxury Studio Bed",
+      "instantBooking": true
+    },
+    "pricingOptions": [
+      { "size": "Per Night", "price": "₦85,000" }
+    ],
+    "isCampaign": true
+  },
+  {
+    "id": "ambiance-2",
+    "title": "Ambiance II",
+    "location": "Sangotedo, Lagos",
+    "price": "₦135M",
+    "image": "/placeholder-ambiance-ii.svg",
+    "tag": "Discount Offer",
+    "type": "Residential",
+    "category": "residential",
+    "description": "Ambiance II in Sangotedo is luxury living at discounted prices that won't last long. Pay and park in with 24/7 power, top-notch security, swimming pool, walk-in closets, and Certificate of Occupancy.",
+    "highlights": [
+      "Pay and park in ready",
+      "A prime, prestigious address in Sangotedo",
+      "Top-notch security & 24/7 surveillance",
+      "Spacious, beautifully designed spaces",
+      "Swimming pool for relaxation",
+      "24/7 water supply & 24/7 power supply",
+      "Walk-in closet for all your clothes",
+      "Ample parking space",
+      "Certificate of Occupancy (C of O)"
+    ],
+    "locationAdvantages": [
+      "Prime location in Sangotedo, Lagos",
+      "Close to Novare Mall / Shoprite Sangotedo",
+      "Fast-growing residential corridor along Lekki-Epe Expressway"
+    ],
+    "pricingOptions": [
+      { "size": "2-Bed Terrace + BQ", "price": "₦135M" },
+      { "size": "3-Bed Terrace + BQ", "price": "₦145M" },
+      { "size": "3-Bed Semi-Detached + BQ", "price": "₦180M" },
+      { "size": "4-Bed Fully Detached", "price": "₦230M" }
+    ],
+    "installmentPlan": "50% initial deposit, balance spread over 4 months. MREIF and mortgage options available.",
+    "bestFor": "Homeowners and investors seeking luxury pay-and-park-in residences with flexible payment plans.",
+    "isCampaign": true
+  },
+  {
+    "id": "ambiance-heights",
+    "title": "Ambiance Heights",
+    "location": "Off Freedom Way, Lekki Phase 1, Lagos",
+    "price": "₦300M",
+    "image": "/placeholder-ambiance-heights.svg",
+    "tag": "Almost Ready for Handover",
+    "type": "Residential",
+    "category": "residential",
+    "beds": 2,
+    "baths": 2,
+    "description": "Ambiance Heights is almost ready for handover! Finishing touches in place in one of Lekki Phase 1's most sought-after locations off Freedom Way. Features exclusive 2 & 3 bedroom maisonettes with Governor's Consent.",
+    "highlights": [
+      "Almost ready for handover — finishing touches in progress",
+      "Prime address off Freedom Way, Lekki Phase 1",
+      "Governor’s Consent title",
+      "Exclusive 2 & 3 bedroom luxury maisonettes",
+      "High capital appreciation & strong rental yields in Lekki Phase 1",
+      "Top-tier estate finishing, cleanup and security"
+    ],
+    "locationAdvantages": [
+      "Off Freedom Way, Lekki Phase 1",
+      "Minutes to Admiralty Way & Victoria Island",
+      "Direct access to Lekki-Ikoyi Link Bridge & Regional Road corridor"
+    ],
+    "pricingOptions": [
+      { "size": "2-Bedroom Maisonette", "price": "₦300M" },
+      { "size": "3-Bedroom Maisonette", "price": "₦350M" }
+    ],
+    "bestFor": "Discerning homeowners and premium rental investors looking for luxury in Lekki Phase 1 with immediate handover.",
+    "isCampaign": true
+  },
+  {
+    "id": "grosvenors-place",
+    "title": "Grosvenors Place",
+    "location": "Awolowo Way, Ikeja, Lagos",
+    "price": "₦5M/sqm",
+    "image": "/Grosvenors.jpeg",
+    "tag": "Prime Commercial",
+    "type": "Commercial",
+    "category": "commercial",
+    "description": "Premium commercial office and retail spaces on Awolowo Way, Ikeja with top-notch amenities. Ideal for corporate offices, retail stores, banking halls, restaurants, tech hubs, and showrooms with 25% annual capital appreciation.",
+    "highlights": [
+      "25% annual capital appreciation",
+      "Valid Lagos State title",
+      "Strategic location near Ikeja City Mall & Airport",
+      "Initial deposit from ₦10M",
+      "Flexible payment plans up to 6 months",
+      "Ideal for corporate offices, retail stores, banking halls & tech hubs"
+    ],
+    "locationAdvantages": [
+      "On Awolowo Way in the commercial heart of Ikeja",
+      "Minutes from Ikeja City Mall (ICM) & Computer Village",
+      "Proximity to Murtala Muhammed International Airport"
+    ],
+    "whatYouCanBuild": [
+      "Corporate Offices",
+      "Retail Stores",
+      "Banking Halls",
+      "Restaurants",
+      "Tech Hubs",
+      "Showrooms"
+    ],
+    "pricingOptions": [
+      { "size": "Price per sqm (Outright)", "price": "₦5M/sqm" },
+      { "size": "Price per sqm (Installment)", "price": "₦5.5M/sqm" },
+      { "size": "Initial Deposit", "price": "₦10M" }
+    ],
+    "installmentPlan": "Initial deposit ₦10M, up to 6 months payment plan at ₦5.5M/sqm.",
+    "bestFor": "Commercial investors, corporate businesses, banks, and retailers targeting high-footfall Ikeja.",
+    "isCampaign": true
+  },
+  {
+    "id": "oranje-apartments",
+    "title": "Oranje Apartments",
+    "location": "Lekki-Ajah, Lagos",
+    "price": "₦130M",
+    "image": "/oranje-apartment.jpeg",
+    "tag": "Smart Living",
+    "type": "Residential",
+    "category": "residential",
+    "beds": 3,
+    "baths": 3,
+    "description": "Oranje Apartments is a premium residential development thoughtfully designed for modern living and smart investing in the heart of Lekki-Ajah. Features all en-suite bedrooms, fitted kitchen with upper-grade appliances, balconies, and Governor's Consent.",
+    "highlights": [
+      "All bedrooms en-suite with modern bathroom fittings",
+      "Fully fitted kitchen with upper-grade cabinetry & appliances",
+      "Spacious living and dining areas",
+      "Smart space optimization for modern lifestyles",
+      "Private balconies for natural lighting & ventilation",
+      "Ample parking for residents",
+      "Alternative power supply (Solar inverters optional)",
+      "Governor’s Consent & Lagos State Building Plan Approval"
+    ],
+    "locationAdvantages": [
+      "Block R, Plot 10, Usman Emmanuel Street, Atlantic Nominee, Lekki-Ajah",
+      "Central Lekki-Ajah growth corridor",
+      "Close proximity to top schools, markets, and shopping centers"
+    ],
+    "pricingOptions": [
+      { "size": "3-Bed (Outright)", "price": "₦130M" },
+      { "size": "3-Bed (6 Months)", "price": "₦135M" },
+      { "size": "3-Bed (12 Months)", "price": "₦147.5M" }
+    ],
+    "installmentPlan": "Outright ₦130M, 6 months at ₦135M, or 12 months at ₦147.5M.",
+    "bestFor": "Families and investors looking for strong rental returns and modern comfort in Lekki-Ajah.",
+    "isCampaign": true
   }
 ]

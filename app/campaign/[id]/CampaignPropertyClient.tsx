@@ -28,10 +28,14 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const [activeImageIdx, setActiveImageIdx] = useState(0);
+  const images = property.images && property.images.length > 0 ? property.images : [property.image];
+
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const currency = (searchParams.get('curr') as Currency) || 'NGN';
+  const isShortlet = property.type?.toLowerCase().includes('shortlet') || property.category === 'shortlet';
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -54,10 +58,10 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
             const blobUrl = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = blobUrl;
-            
+
             const fileName = property.brochureUrl!.split('/').pop() || `${property.title.replace(/\s+/g, '_')}_Brochure.pdf`;
             link.download = decodeURIComponent(fileName);
-            
+
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -83,7 +87,7 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
     <main className="min-h-screen pt-24 bg-off-white selection:bg-brand selection:text-white relative">
       <div className="container mx-auto px-6 pb-20">
 
-        {}
+        { }
         <button
           onClick={() => {
             router.push('/campaign');
@@ -97,26 +101,69 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
 
-          {}
+          { }
           <div className="lg:col-span-7 space-y-12">
 
-            {}
+            { }
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="relative aspect-[16/10] rounded-lg overflow-hidden shadow-2xl mb-8"
+              className="relative aspect-[16/10] rounded-lg overflow-hidden shadow-2xl mb-4 group"
             >
               <img
-                src={property.image}
+                src={images[activeImageIdx] || property.image}
                 alt={property.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-500"
               />
+              {images.length > 1 && (
+                <>
+                  <button
+                    onClick={() => setActiveImageIdx((prev) => (prev - 1 + images.length) % images.length)}
+                    aria-label="Previous image"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/80 transition-all opacity-0 group-hover:opacity-100 backdrop-blur-sm"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
+                  </button>
+                  <button
+                    onClick={() => setActiveImageIdx((prev) => (prev + 1) % images.length)}
+                    aria-label="Next image"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/80 transition-all opacity-0 group-hover:opacity-100 backdrop-blur-sm"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+                  </button>
+                  <div className="absolute bottom-4 left-0 right-0 z-20 flex justify-center gap-2">
+                    {images.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setActiveImageIdx(idx)}
+                        className={`h-2 rounded-full transition-all ${idx === activeImageIdx ? 'w-6 bg-white shadow' : 'w-2 bg-white/60 hover:bg-white'
+                          }`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
               <div className="absolute top-8 md:top-12 right-8 md:right-12">
                 <span className="px-4 py-1.5 rounded-full bg-charcoal/50 backdrop-blur-md text-[10px] font-bold uppercase tracking-[0.2em] text-white border border-white/20">
                   {property.type}
                 </span>
               </div>
             </motion.div>
+
+            {images.length > 1 && (
+              <div className="grid grid-cols-3 gap-3 mb-8">
+                {images.map((img, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveImageIdx(idx)}
+                    className={`relative aspect-[16/10] rounded-lg overflow-hidden border-2 transition-all ${idx === activeImageIdx ? 'border-brand scale-[1.02] shadow-md' : 'border-transparent opacity-70 hover:opacity-100'
+                      }`}
+                  >
+                    <img src={img} alt={`${property.title} - ${idx + 1}`} className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -135,7 +182,7 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
               </div>
             </motion.div>
 
-            {}
+            { }
             <div className="bg-white p-10 rounded-lg shadow-xl border border-gray-100">
               <div className="grid grid-cols-3 gap-8 mb-10 pb-10 border-b border-gray-50">
                 <div className="flex flex-col gap-2">
@@ -172,15 +219,42 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
                 <p className="text-gray-500 text-lg leading-relaxed font-light">
                   {property.description}
                 </p>
+
+                {property.shortLetDetails?.checkIn && (
+                  <div className="mt-6 p-4 rounded-xl bg-off-white border border-gray-100 flex items-center justify-between not-prose">
+                    <div>
+                      <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest">Check-in</p>
+                      <p className="text-sm font-bold text-charcoal">{property.shortLetDetails.checkIn}</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest">Check-out</p>
+                      <p className="text-sm font-bold text-charcoal">{property.shortLetDetails.checkOut}</p>
+                    </div>
+                  </div>
+                )}
+
+                {property.highlights && property.highlights.length > 0 && (
+                  <div className="mt-8 pt-8 border-t border-gray-100 not-prose">
+                    <h4 className="text-sm font-bold text-charcoal uppercase tracking-wider mb-4">Features & Amenities</h4>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {property.highlights.map((hl, i) => (
+                        <li key={i} className="flex items-center gap-2 text-sm text-gray-600">
+                          <span className="text-brand text-xs">✨</span>
+                          <span>{hl.replace(/^✨\s*/, '')}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
           </div>
 
-          {}
+          { }
           <div className="lg:col-span-5">
             <div className="sticky top-32 space-y-8">
 
-              {}
+              { }
               <div className="bg-white p-10 rounded-lg shadow-xl border border-gray-100">
                 <p className="text-[10px] text-gray-400 uppercase tracking-[0.4em] font-black mb-3">Investment Value</p>
                 <p className="text-5xl font-bold text-charcoal tracking-tighter mb-8">
@@ -199,24 +273,49 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
                 </div>
               </div>
 
-              {}
-              <div className="space-y-4">
-                <button
-                  onClick={() => setShowLeadForm(true)}
-                  className="w-full bg-charcoal text-white py-6 rounded-[2rem] font-bold hover:bg-black transition-all shadow-2xl active:scale-95 flex items-center justify-center gap-3 uppercase tracking-widest text-[10px] group"
-                >
-                  Download Full Brochure
-                  <Download size={18} className="group-hover:translate-y-1 transition-transform" />
-                </button>
-                <p className="text-center text-[10px] text-gray-400 font-medium tracking-widest uppercase">
-                  confidential floor plans & market analysis
-                </p>
-              </div>
+              {/* Primary Action — Brochure Lead Modal or Direct Booking */}
+              {!isShortlet && property.brochureUrl ? (
+                <div className="space-y-4">
+                  <button
+                    onClick={() => setShowLeadForm(true)}
+                    className="w-full bg-charcoal text-white py-5 rounded-2xl font-semibold hover:bg-black transition-all shadow-xl active:scale-[0.98] flex items-center justify-center gap-3 uppercase tracking-wider text-sm group"
+                  >
+                    <span>Download Full Brochure</span>
+                    <Download size={18} className="group-hover:translate-y-0.5 transition-transform" />
+                  </button>
+                  <p className="text-center text-xs text-gray-400 font-medium tracking-wide">
+                    Confidential floor plans and market analysis
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <Link
+                    href={`https://wa.me/2349153869750?text=${encodeURIComponent(
+                      isShortlet
+                        ? `Hello PropertyJar Realty, I would like to book ${property.title}.`
+                        : `Hello PropertyJar Realty, I'm interested in ${property.title}.`
+                    )}`}
+                    target="_blank"
+                    className="w-full bg-[#25D366] text-white py-5 rounded-2xl font-semibold hover:bg-[#20ba59] transition-all shadow-xl active:scale-[0.98] flex items-center justify-center gap-3 uppercase tracking-wider text-sm"
+                  >
+                    <span>{isShortlet ? 'Reserve on WhatsApp' : 'Inquire on WhatsApp'}</span>
+                  </Link>
+                  <p className="text-center text-xs text-gray-400 font-medium tracking-wide">
+                    {isShortlet
+                      ? 'Direct booking and reservation confirmation'
+                      : 'Direct inquiry and private consultation'}
+                  </p>
+                </div>
+              )}
 
-              {}
+              { }
               <div className="flex gap-4">
                 <Link
-                  href={`https://wa.me/2349153869750?text=Hello%20PropertyJar%20Realty%2C%20I'm%20interested%20in%20${property.title}`}
+                  href={`https://wa.me/2349153869750?text=${encodeURIComponent(
+                    property.type?.toLowerCase().includes('shortlet') || property.category === 'shortlet'
+                      ? `Hello PropertyJar Realty, I would like to book ${property.title}.`
+                      : `Hello PropertyJar Realty, I'm interested in ${property.title}.`
+                  )}`}
                   target="_blank"
                   className="flex-1 flex items-center justify-center gap-3 bg-[#25D366] text-white py-4 rounded-2xl text-[10px] font-bold hover:opacity-90 transition-all uppercase tracking-widest shadow-lg text-center"
                 >
@@ -235,7 +334,7 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
         </div>
       </div>
 
-      {}
+      { }
       <AnimatePresence>
         {showLeadForm && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6">

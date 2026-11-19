@@ -18,6 +18,7 @@ const CampaignPropertyModal = ({ property, onClose, currency }: CampaignProperty
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const isShortlet = property.type?.toLowerCase().includes('shortlet') || property.category === 'shortlet';
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -171,18 +172,20 @@ const CampaignPropertyModal = ({ property, onClose, currency }: CampaignProperty
                 </div>
 
                 <div className="mt-auto space-y-6">
-                  <div className="p-6 bg-off-white rounded-3xl border border-gray-100">
-                    <p className="text-sm text-charcoal font-medium mb-4 flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-brand" />
-                      Get the full property portfolio & floor plans
-                    </p>
-                    <button
-                      onClick={() => setShowLeadForm(true)}
-                      className="w-full bg-charcoal text-white py-5 rounded-xl font-bold hover:bg-black transition-all shadow-xl active:scale-95 flex items-center justify-center gap-3 uppercase tracking-widest text-xs"
-                    >
-                      Request Full Brochure <ChevronRight size={16} />
-                    </button>
-                  </div>
+                  {!isShortlet && property.brochureUrl ? (
+                    <div className="p-6 bg-off-white rounded-3xl border border-gray-100">
+                      <p className="text-sm text-charcoal font-medium mb-4 flex items-center gap-2">
+                        <CheckCircle2 size={16} className="text-brand" />
+                        Get the full property portfolio & floor plans
+                      </p>
+                      <button
+                        onClick={() => setShowLeadForm(true)}
+                        className="w-full bg-charcoal text-white py-5 rounded-xl font-bold hover:bg-black transition-all shadow-xl active:scale-95 flex items-center justify-center gap-3 uppercase tracking-widest text-xs"
+                      >
+                        Request Full Brochure <ChevronRight size={16} />
+                      </button>
+                    </div>
+                  ) : null}
 
                   <div className="flex gap-4">
                     <Link

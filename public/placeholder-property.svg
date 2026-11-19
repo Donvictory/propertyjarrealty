@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGradP" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141416"/>
+      <stop offset="50%" stop-color="#1f1f24"/>
+      <stop offset="100%" stop-color="#0f0f11"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bgGradP)"/>
+  <rect x="30" y="30" width="740" height="940" rx="24" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1.5"/>
+  <g transform="translate(400, 420)">
+    <circle cx="0" cy="0" r="70" fill="#800020" fill-opacity="0.2" stroke="#800020" stroke-width="2"/>
+    <path d="M -30 20 L -30 -10 L 0 -35 L 30 -10 L 30 20 Z" fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+  <text x="400" y="560" text-anchor="middle" font-family="Georgia, serif" font-size="32" font-weight="700" fill="#ffffff" letter-spacing="1">PROPERTYJAR REALTY</text>
+  <text x="400" y="600" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="500" fill="#a0a0ab" letter-spacing="2">PREVIEW COMING SOON</text>
+</svg>

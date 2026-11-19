@@ -33,6 +33,8 @@ export default function CampaignClient({
     const title = p.title?.toLowerCase() || "";
     const description = p.description?.toLowerCase() || "";
 
+    if (filter === "Shortlet")
+      return type.includes("shortlet") || p.category === "shortlet";
     if (filter === "Residential") return type.includes("residential");
     if (filter === "Commercial") return type.includes("commercial");
     if (filter === "Luxury")
@@ -122,8 +124,8 @@ export default function CampaignClient({
         </div>
       </section>
 
-      {}
-      <section className="py-16">
+      {/* Property Selection Section */}
+      <section id="selection" className="py-16">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div className="max-w-xl">
@@ -149,7 +151,7 @@ export default function CampaignClient({
                     onChange={(e) => setFilter(e.target.value)}
                     className="appearance-none w-full bg-white border border-gray-100 text-charcoal text-sm font-bold rounded-2xl px-6 py-3.5 focus:outline-none focus:border-brand focus:ring-4 focus:ring-brand/5 transition-all shadow-sm cursor-pointer hover:border-brand/50"
                   >
-                    {["All", "Residential", "Commercial", "Luxury"].map((f) => (
+                    {["All", "Shortlet", "Residential", "Commercial", "Luxury"].map((f) => (
                       <option key={f} value={f}>
                         {f === "All" ? "All Categories" : f}
                       </option>
@@ -267,7 +269,7 @@ export default function CampaignClient({
                         </div>
                       ) : (
                         <div className="mb-6 mt-auto">
-                          <p className="text-[10px] text-gray-400 uppercase tracking-widest font-black mb-1">
+                          <p className="text-xs text-gray-400 uppercase tracking-widest font-semibold mb-1">
                             Value
                           </p>
                           <p className="text-xl font-bold text-brand">

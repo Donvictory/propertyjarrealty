@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141416"/>
+      <stop offset="50%" stop-color="#1d1d22"/>
+      <stop offset="100%" stop-color="#0f0f11"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#800020"/>
+      <stop offset="50%" stop-color="#c99738"/>
+      <stop offset="100%" stop-color="#800020"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.04"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="1000" fill="url(#bgGrad)"/>
+  <rect width="800" height="1000" fill="url(#grid)"/>
+
+  <!-- Subtle glow -->
+  <circle cx="400" cy="460" r="280" fill="#800020" fill-opacity="0.12" filter="blur(60px)"/>
+
+  <!-- Outer frame border -->
+  <rect x="30" y="30" width="740" height="940" rx="24" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1.5"/>
+  <rect x="44" y="44" width="712" height="912" rx="16" fill="none" stroke="#c99738" stroke-opacity="0.18" stroke-width="1"/>
+
+  <!-- Brand header pill -->
+  <g transform="translate(400, 140)">
+    <rect x="-130" y="-18" width="260" height="36" rx="18" fill="#800020" fill-opacity="0.25" stroke="#800020" stroke-width="1"/>
+    <text text-anchor="middle" y="5" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" letter-spacing="3" fill="#e5c378">PROPERTYJAR REALTY</text>
+  </g>
+
+  <!-- Luxury Architectural Illustration -->
+  <g transform="translate(400, 390)">
+    <!-- House outline -->
+    <path d="M -110 90 L -110 -20 L 0 -110 L 110 -20 L 110 90 Z" fill="none" stroke="#c99738" stroke-width="3.5" stroke-linejoin="round" stroke-opacity="0.85"/>
+    <path d="M -80 90 L -80 0 L 0 -75 L 80 0 L 80 90" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.3"/>
+    
+    <!-- Sun / Gold circle -->
+    <circle cx="0" cy="-20" r="32" fill="#800020" fill-opacity="0.4" stroke="#c99738" stroke-width="2"/>
+    
+    <!-- Doorway arch -->
+    <path d="M -22 90 L -22 45 C -22 30 22 30 22 45 L 22 90 Z" fill="#c99738" fill-opacity="0.25" stroke="#c99738" stroke-width="2"/>
+
+    <!-- Left & Right modern balcony lines -->
+    <line x1="-150" y1="90" x2="150" y2="90" stroke="#c99738" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="-130" y1="104" x2="130" y2="104" stroke="#ffffff" stroke-opacity="0.2" stroke-width="1.5"/>
+  </g>
+
+  <!-- Title & Details -->
+  <text x="400" y="580" text-anchor="middle" font-family="Georgia, serif" font-size="44" font-weight="700" fill="#ffffff" letter-spacing="2">AMBIANCE II</text>
+  
+  <rect x="340" y="605" width="120" height="3" rx="1.5" fill="url(#goldGrad)"/>
+
+  <text x="400" y="650" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" fill="#c99738" letter-spacing="2">SANGOTEDO, LAGOS</text>
+  
+  <text x="400" y="685" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="400" fill="#a0a0ab" letter-spacing="0.5">Pay &amp; Park In • Terraces &amp; Detached Duplexes</text>
+
+  <!-- Status pill -->
+  <g transform="translate(400, 770)">
+    <rect x="-140" y="-22" width="280" height="44" rx="22" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1"/>
+    <circle cx="-100" cy="0" r="5" fill="#22c55e"/>
+    <text text-anchor="middle" x="12" y="5" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#ffffff" letter-spacing="1">UNITS AVAILABLE NOW</text>
+  </g>
+
+  <!-- Footer note -->
+  <text x="400" y="870" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="500" fill="#71717a" letter-spacing="1.5">OFFICIAL PREVIEW • FULL GALLERY COMING SOON</text>
+</svg>

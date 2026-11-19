@@ -117,7 +117,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html data-scroll-behavior="smooth" lang="en" className={`${notoSans.className} h-full antialiased`}>
+    <html data-scroll-behavior="smooth" lang="en" className={`${notoSans.variable} ${notoSans.className} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <Script
           id="org-schema"

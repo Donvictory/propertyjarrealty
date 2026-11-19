@@ -3,12 +3,14 @@ export interface Property {
   title: string;
   location: string;
   price: string;
-  beds?: number;
-  baths?: number;
-  sqft?: string;
+  beds?: number | null;
+  baths?: number | null;
+  sqft?: string | null;
   image: string;
+  images?: string[];
   tag?: string | null;
   type: string;
+  category?: string;
   description: string;
   highlights?: string[];
   locationAdvantages?: string[];
@@ -18,6 +20,18 @@ export interface Property {
   whatYouCanBuild?: string[];
   isCampaign?: boolean;
   brochureUrl?: string;
+  shortLetDetails?: {
+    checkIn?: string;
+    checkOut?: string;
+    guestCapacity?: number;
+    nightlyRate?: number;
+    pricePerNight?: number;
+    cautionDeposit?: number;
+    maxGuests?: number;
+    sleepingArrangements?: string;
+    instantBooking?: boolean;
+    blockedDates?: string[];
+  };
 }
 
 export interface Admin {
