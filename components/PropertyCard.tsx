@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import type { Property } from '@/lib/types';
+import { resolveImageUrl, resolveImageUrls } from '@/lib/image-url';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -16,7 +17,9 @@ interface PropertyCardProps {
 
 const PropertyCard = ({ property, displayPrice, displayPricingOptions, currency }: PropertyCardProps) => {
   const [activeImageIdx, setActiveImageIdx] = useState(0);
-  const images = property.images && property.images.length > 0 ? property.images : [property.image];
+  const images = resolveImageUrls(
+    property.images && property.images.length > 0 ? property.images : [property.image]
+  );
 
   const shownPrice = displayPrice ?? property.price;
   const pricingOptions = displayPricingOptions ?? property.pricingOptions;

@@ -12,6 +12,7 @@ import {
   formatDisplay,
   parsePriceNGN,
 } from "@/lib/currency";
+import { resolveImageUrl } from "@/lib/image-url";
 import Link from "next/link";
 
 interface CampaignClientProps {
@@ -235,7 +236,7 @@ export default function CampaignClient({
                   >
                     <div className="relative aspect-[4/5] w-full overflow-hidden shrink-0 bg-off-white">
                       <img
-                        src={property.image}
+                        src={resolveImageUrl(property.image)}
                         alt={property.title}
                         className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
                       />

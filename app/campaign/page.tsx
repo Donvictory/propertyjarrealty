@@ -4,7 +4,7 @@ import { getProperties } from '@/lib/properties';
 import { getCampaignContent } from '@/lib/campaign';
 import CampaignClient from './CampaignClient';
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Investment Campaigns',

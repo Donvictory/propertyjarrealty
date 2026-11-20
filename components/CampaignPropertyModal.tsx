@@ -6,6 +6,7 @@ import { Bed, Bath, Maximize, X, Mail, User, CheckCircle2, ChevronRight } from '
 import type { Property } from '@/lib/types';
 import { sendPropertyInquiry } from '@/app/actions/leads';
 import { type Currency, formatDisplay, parsePriceNGN } from '@/lib/currency';
+import { resolveImageUrl } from '@/lib/image-url';
 import Link from 'next/link';
 
 interface CampaignPropertyModalProps {
@@ -100,7 +101,7 @@ const CampaignPropertyModal = ({ property, onClose, currency }: CampaignProperty
               initial={{ scale: 1.1 }}
               animate={{ scale: 1 }}
               transition={{ duration: 1.5 }}
-              src={property.image}
+              src={resolveImageUrl(property.image)}
               alt={property.title}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />

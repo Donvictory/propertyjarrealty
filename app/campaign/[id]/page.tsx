@@ -4,6 +4,8 @@ import { Suspense } from 'react';
 import { getPropertyById, getProperties } from '@/lib/properties';
 import CampaignPropertyClient from './CampaignPropertyClient';
 
+export const revalidate = 60;
+
 interface PageProps {
   params: Promise<{ id: string }>;
 }

@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { getProperties } from '@/lib/properties';
 import PropertiesClient from '@/components/PropertiesClient';
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: 'Exclusive Properties',
   description: "Browse our curated portfolio of world-class luxury properties across the world's most desirable locations. Filter by type, price, and location.",

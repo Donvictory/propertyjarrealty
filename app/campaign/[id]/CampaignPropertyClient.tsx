@@ -18,6 +18,7 @@ import {
 import type { Property } from '@/lib/types';
 import { sendPropertyInquiry } from '@/app/actions/leads';
 import { type Currency, formatDisplay, parsePriceNGN } from '@/lib/currency';
+import { resolveImageUrl, resolveImageUrls } from '@/lib/image-url';
 import Link from 'next/link';
 
 interface CampaignPropertyClientProps {
@@ -29,7 +30,9 @@ export default function CampaignPropertyClient({ property }: CampaignPropertyCli
   const searchParams = useSearchParams();
 
   const [activeImageIdx, setActiveImageIdx] = useState(0);
-  const images = property.images && property.images.length > 0 ? property.images : [property.image];
+  const images = resolveImageUrls(
+    property.images && property.images.length > 0 ? property.images : [property.image]
+  );
 
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
