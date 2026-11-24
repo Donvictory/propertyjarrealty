@@ -9,7 +9,7 @@ export async function GET() {
   const user = await getCurrentUser();
   const body = user
     ? {
-        user: { name: user.name, email: user.email },
+        user: { name: user.name, email: user.email, avatarUrl: user.avatarUrl },
         savedIds: user.savedPropertyIds,
         showCommunityPrompt: user.communityPromptAt === null,
       }

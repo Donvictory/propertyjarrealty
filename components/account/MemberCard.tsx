@@ -3,7 +3,8 @@ import Image from 'next/image';
 type Props = {
   name: string;
   memberSince: string;
-  /** Shown once referrals launch; until then the slot reads "Coming soon". */
+  role: 'client' | 'realtor';
+  /** Realtors only. */
   referralCode?: string | null;
 };
 
@@ -11,7 +12,7 @@ type Props = {
  * A premium-card style summary of the member. Dark ink with a faint concept-plan grid, the mark,
  * the member's name and the date they joined.
  */
-export default function MemberCard({ name, memberSince, referralCode }: Props) {
+export default function MemberCard({ name, memberSince, role, referralCode }: Props) {
   return (
     <div className="relative aspect-[1.6/1] w-full overflow-hidden bg-ink p-6 text-paper shadow-[0_24px_60px_rgba(28,28,27,0.25)] sm:p-7">
       {/* Faint plot grid, echoing the site-plan drawings. */}
@@ -30,7 +31,7 @@ export default function MemberCard({ name, memberSince, referralCode }: Props) {
         <div className="flex items-start justify-between">
           <div>
             <p className="text-sm font-semibold tracking-tight">PropertyJar</p>
-            <p className="mt-0.5 text-[10px] font-semibold tracking-[0.22em] text-paper/60">MEMBER</p>
+            <p className="mt-0.5 text-[10px] font-semibold tracking-[0.22em] text-paper/60">{role === 'realtor' ? 'REALTOR' : 'CLIENT'}</p>
           </div>
           <span className="flex h-11 w-11 items-center justify-center rounded-full bg-paper">
             <Image src="/brand/pjr-mark.png" alt="" width={34} height={34} className="h-[34px] w-[34px] rounded-none" />
@@ -44,10 +45,12 @@ export default function MemberCard({ name, memberSince, referralCode }: Props) {
               <p className="text-paper/50">Member since</p>
               <p className="mt-1 font-medium">{memberSince}</p>
             </div>
-            <div className="text-right">
-              <p className="text-paper/50">Referral code</p>
-              <p className="mt-1 font-medium tabular-nums tracking-[0.12em]">{referralCode ?? 'Coming soon'}</p>
-            </div>
+            {role === 'realtor' && (
+              <div className="text-right">
+                <p className="text-paper/50">Referral code</p>
+                <p className="mt-1 font-medium tabular-nums tracking-[0.12em]">{referralCode ?? '—'}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

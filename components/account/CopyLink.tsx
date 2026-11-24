@@ -33,12 +33,12 @@ export default function CopyLink({ url, shareText }: { url: string; shareText: s
           value={url}
           onFocus={(e) => e.currentTarget.select()}
           aria-label="Your referral link"
-          className="h-12 min-w-0 flex-1 border border-r-0 border-line bg-paper px-4 text-sm text-ink focus:outline-none"
+          className="h-12 min-w-0 flex-1 !rounded-r-none border border-r-0 border-line bg-paper px-4 text-sm text-ink focus:outline-none"
         />
         <button
           type="button"
           onClick={copy}
-          className="btn-fill btn-accent flex h-12 shrink-0 items-center gap-2 bg-ink px-5 text-sm font-medium text-paper"
+          className="btn-fill btn-accent flex h-12 shrink-0 items-center gap-2 !rounded-l-none bg-ink px-5 text-sm font-medium text-paper"
         >
           {copied ? <Check size={16} aria-hidden /> : <Copy size={16} aria-hidden />}
           {copied ? 'Copied' : 'Copy'}

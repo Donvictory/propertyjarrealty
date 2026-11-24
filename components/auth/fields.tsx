@@ -19,9 +19,15 @@ type FieldProps = {
   required?: boolean;
   readOnly?: boolean;
   inputMode?: React.HTMLAttributes<HTMLInputElement>['inputMode'];
+  /** Controlled use (the stepped sign-up keeps every value in state). */
+  value?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  autoFocus?: boolean;
+  /** Bigger text and height, for one-question-per-screen steps. */
+  large?: boolean;
 };
 
-export function TextField({ label, name, type = 'text', error, hint, required = true, ...rest }: FieldProps) {
+export function TextField({ label, name, type = 'text', error, hint, required = true, large = false, ...rest }: FieldProps) {
   const id = useId();
   const describedBy = error ? `${id}-error` : hint ? `${id}-hint` : undefined;
   return (
@@ -37,7 +43,7 @@ export function TextField({ label, name, type = 'text', error, hint, required = 
         required={required}
         aria-invalid={Boolean(error)}
         aria-describedby={describedBy}
-        className={`${INPUT} ${error ? 'border-brand' : 'border-line focus:border-ink'} ${rest.readOnly ? 'bg-panel text-muted' : ''}`}
+        className={`${INPUT} ${large ? '!h-14 !text-lg' : ''} ${error ? 'border-brand' : 'border-line focus:border-ink'} ${rest.readOnly ? 'bg-panel text-muted' : ''}`}
         {...rest}
       />
       {error ? (
@@ -54,7 +60,18 @@ export function TextField({ label, name, type = 'text', error, hint, required = 
 }
 
 /** Password input with a show/hide toggle. */
-export function PasswordField({ label, name, autoComplete = 'current-password', error, hint, required = true }: FieldProps) {
+export function PasswordField({
+  label,
+  name,
+  autoComplete = 'current-password',
+  error,
+  hint,
+  required = true,
+  large = false,
+  value,
+  onChange,
+  autoFocus,
+}: FieldProps) {
   const id = useId();
   const [visible, setVisible] = useState(false);
   const describedBy = error ? `${id}-error` : hint ? `${id}-hint` : undefined;
@@ -72,14 +89,17 @@ export function PasswordField({ label, name, autoComplete = 'current-password', 
           required={required}
           aria-invalid={Boolean(error)}
           aria-describedby={describedBy}
-          className={`${INPUT} pr-12 ${error ? 'border-brand' : 'border-line focus:border-ink'}`}
+          value={value}
+          onChange={onChange}
+          autoFocus={autoFocus}
+          className={`${INPUT} ${large ? '!h-14 !text-lg' : ''} pr-12 ${error ? 'border-brand' : 'border-line focus:border-ink'}`}
         />
         <button
           type="button"
           onClick={() => setVisible((v) => !v)}
           aria-label={visible ? 'Hide password' : 'Show password'}
           aria-pressed={visible}
-          className="absolute bottom-0 right-0 flex h-12 w-12 items-center justify-center text-muted hover:text-ink"
+          className={`absolute bottom-0 right-0 flex ${large ? 'h-14 w-14' : 'h-12 w-12'} items-center justify-center text-muted hover:text-ink`}
         >
           {visible ? <EyeOff size={18} strokeWidth={1.5} /> : <Eye size={18} strokeWidth={1.5} />}
         </button>

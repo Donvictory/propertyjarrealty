@@ -1,6 +1,8 @@
 'use server';
 
+import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { rateLimit } from '@/lib/rate-limit';
 import { verifyAdminPassword } from '@/lib/admins';
 import { createSession, deleteSession } from '@/lib/session';
 
@@ -17,6 +19,16 @@ export async function loginAction(
 
   if (!email || !password) {
     return { error: 'Email and password are required.' };
+  }
+
+  // Brute-force speed bump: 5 tries per 10 minutes per IP and per email (per server instance).
+  const h = await headers();
+  const ip = h.get('x-forwarded-for')?.split(',')[0]?.trim() || h.get('x-real-ip') || 'unknown';
+  if (
+    !rateLimit(`admin-login:${ip}`, 5, 10 * 60_000).allowed ||
+    !rateLimit(`admin-login:${email.toLowerCase()}`, 5, 10 * 60_000).allowed
+  ) {
+    return { error: 'Too many attempts. Wait 10 minutes and try again.' };
   }
 
   const admin = await verifyAdminPassword(email, password);

@@ -1,6 +1,9 @@
 'use server';
 
 import bcrypt from 'bcryptjs';
+import sharp from 'sharp';
+import { del, put } from '@vercel/blob';
+import { NIGERIAN_BANKS } from '@/lib/nigerian-banks';
 import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
@@ -112,7 +115,7 @@ export async function signUpAction(_prev: FormState, formData: FormData): Promis
   const typedRef = typeof formData.get('ref') === 'string' ? String(formData.get('ref')).trim() : '';
   const referredBy = await resolveReferralCode(typedRef || cookieStore.get(REF_COOKIE)?.value).catch(() => null);
   if (typedRef && !referredBy) {
-    return { fields: { ref: 'That referral code doesn’t match a member. Check it, or leave it blank.' }, values };
+    return { fields: { ref: 'That code doesn’t match a realtor. Check it, or leave it blank.' }, values };
   }
 
   let userId: string;
@@ -124,6 +127,7 @@ export async function signUpAction(_prev: FormState, formData: FormData): Promis
       passwordHash: await bcrypt.hash(v.password, 12),
       emailVerified: false,
       referredBy,
+      role: formData.get('role') === 'realtor' ? 'realtor' : 'client',
     });
     if (referredBy) cookieStore.delete(REF_COOKIE);
     userId = user.id;
@@ -315,4 +319,86 @@ export async function deleteAccountAction(_prev: FormState, formData: FormData):
   if (fresh) await deleteUser(fresh);
   await deleteUserSession();
   redirect('/signed-out?deleted=1');
+}
+
+/* ---------- realtor payout & identity details ---------- */
+
+export async function updateRealtorDetailsAction(_prev: FormState, formData: FormData): Promise<FormState> {
+  const user = await signedInUser();
+  if (user.role !== 'realtor') return { error: 'Only realtor accounts have payout details.' };
+
+  const values = keep(formData, ['bankName', 'bankAccountNumber', 'dateOfBirth', 'address']);
+  const parsed = z
+    .object({
+      bankName: z.enum(NIGERIAN_BANKS, { message: 'Choose your bank.' }),
+      bankAccountNumber: z
+        .string()
+        .transform((v) => v.replace(/\s+/g, ''))
+        .refine((v) => /^\d{10}$/.test(v), 'Enter your 10-digit account number.'),
+      dateOfBirth: z
+        .string()
+        .regex(/^\d{4}-\d{2}-\d{2}$/, 'Enter your date of birth.')
+        .refine((v) => {
+          const dob = new Date(`${v}T00:00:00Z`);
+          if (Number.isNaN(dob.getTime())) return false;
+          const now = new Date();
+          const eighteen = new Date(Date.UTC(dob.getUTCFullYear() + 18, dob.getUTCMonth(), dob.getUTCDate()));
+          return eighteen <= now && dob.getUTCFullYear() >= 1900;
+        }, 'You must be at least 18 years old.'),
+      address: z.string().trim().min(10, 'Enter your full house address.').max(300),
+    })
+    .safeParse(values);
+  if (!parsed.success) return { fields: fieldErrors(parsed.error), values };
+
+  await updateUser(user.id, parsed.data);
+  revalidatePath('/account', 'layout');
+  return { success: 'Your details are saved.', values: { ...parsed.data } };
+}
+
+/* ---------- profile photo ---------- */
+
+const AVATAR_MAX_BYTES = 5 * 1024 * 1024;
+const BLOB_HOST = '.public.blob.vercel-storage.com';
+
+export async function uploadAvatarAction(formData: FormData): Promise<{ ok: boolean; error?: string }> {
+  const user = await signedInUser();
+  const file = formData.get('photo');
+  if (!(file instanceof File) || file.size === 0) return { ok: false, error: 'Choose a photo to upload.' };
+  if (file.size > AVATAR_MAX_BYTES) return { ok: false, error: 'That photo is too large. Use one under 5 MB.' };
+  if (!/^image\/(jpeg|png|webp|gif|avif)$/.test(file.type)) {
+    return { ok: false, error: 'Use a JPG, PNG or WebP photo.' };
+  }
+
+  // Re-encode: decodes the image for real (rejects anything that isn't one), strips EXIF/GPS, fixes size.
+  let webp: Buffer;
+  try {
+    webp = await sharp(Buffer.from(await file.arrayBuffer()), { limitInputPixels: 40_000_000 })
+      .rotate()
+      .resize(320, 320, { fit: 'cover', position: 'attention' })
+      .webp({ quality: 82 })
+      .toBuffer();
+  } catch {
+    return { ok: false, error: 'We couldn’t read that image. Try a different photo.' };
+  }
+
+  const blob = await put(`avatars/${user.id}.webp`, webp, {
+    access: 'public',
+    contentType: 'image/webp',
+    addRandomSuffix: true,
+  });
+  await updateUser(user.id, { avatarUrl: blob.url });
+  if (user.avatarUrl?.includes(BLOB_HOST)) await del(user.avatarUrl).catch(() => {});
+
+  revalidatePath('/account', 'layout');
+  return { ok: true };
+}
+
+export async function removeAvatarAction(): Promise<{ ok: boolean }> {
+  const user = await signedInUser();
+  if (user.avatarUrl) {
+    await updateUser(user.id, { avatarUrl: null });
+    if (user.avatarUrl.includes(BLOB_HOST)) await del(user.avatarUrl).catch(() => {});
+  }
+  revalidatePath('/account', 'layout');
+  return { ok: true };
 }

@@ -8,7 +8,7 @@ import {
   resendVerificationAction,
   resetPasswordAction,
   signInAction,
-  signUpAction,
+
   type FormState,
 } from '@/app/actions/account';
 import { FormMessage, GoogleButton, OrDivider, PasswordField, SubmitButton, TextField } from './fields';
@@ -22,10 +22,13 @@ const NOTICES: Record<string, { error?: string; success?: string }> = {
   'google-unavailable': { error: 'Google sign-in isn’t available right now. Use your email and password.' },
 };
 
-function googleHref(next?: string, save?: string) {
+export type SignUpRole = 'client' | 'realtor';
+
+export function googleHref(next?: string, save?: string, role?: SignUpRole) {
   const q = new URLSearchParams();
   if (next) q.set('next', next);
   if (save) q.set('save', save);
+  if (role) q.set('role', role);
   const qs = q.toString();
   return `/api/auth/google${qs ? `?${qs}` : ''}`;
 }
@@ -90,76 +93,7 @@ export function SignInFormFromUrl({ google }: { google: boolean }) {
   );
 }
 
-/* ---------------- sign up ---------------- */
-
-export function SignUpForm({ next, google, refCode }: { next?: string; google: boolean; refCode?: string }) {
-  const [state, action] = useActionState(signUpAction, INITIAL);
-  const f = state.fields ?? {};
-
-  return (
-    <div className="space-y-6">
-      {google && (
-        <>
-          <GoogleButton href={googleHref(next)} />
-          <OrDivider />
-        </>
-      )}
-
-      <form action={action} className="space-y-5" noValidate>
-        <FormMessage error={state.error} />
-        <TextField label="Full name" name="name" autoComplete="name" defaultValue={state.values?.name} error={f.name} />
-        <TextField
-          label="Email"
-          name="email"
-          type="email"
-          autoComplete="email"
-          defaultValue={state.values?.email}
-          error={f.email}
-        />
-        <TextField
-          label="Phone"
-          name="phone"
-          type="tel"
-          inputMode="tel"
-          autoComplete="tel"
-          placeholder="+234"
-          defaultValue={state.values?.phone}
-          error={f.phone}
-          hint="So our team can reach you about properties you enquire on."
-        />
-        <PasswordField label="Password" name="password" autoComplete="new-password" error={f.password} hint={PASSWORD_HINT} />
-        <PasswordField label="Confirm password" name="confirm" autoComplete="new-password" error={f.confirm} />
-        <TextField
-          label="Referral code"
-          name="ref"
-          required={false}
-          autoComplete="off"
-          placeholder="e.g. ADA7K2X"
-          defaultValue={state.values?.ref ?? refCode}
-          error={f.ref}
-          hint={refCode ? 'Added from your invite link.' : 'If a member invited you, enter their code.'}
-        />
-        <SubmitButton pending="Creating your account…">Create account</SubmitButton>
-        <p className="text-xs leading-relaxed text-muted">
-          By creating an account you agree to our{' '}
-          <Link href="/terms" className="underline underline-offset-4 hover:text-ink">
-            Terms
-          </Link>{' '}
-          and{' '}
-          <Link href="/privacy" className="underline underline-offset-4 hover:text-ink">
-            Privacy policy
-          </Link>
-          .
-        </p>
-      </form>
-    </div>
-  );
-}
-
-export function SignUpFormFromUrl({ google }: { google: boolean }) {
-  const q = useSearchParams();
-  return <SignUpForm google={google} next={q.get('next') ?? undefined} refCode={q.get('ref')?.toUpperCase() ?? undefined} />;
-}
+/* Sign up lives in SignUpSteps.tsx (one step per screen). */
 
 /* ---------------- verification ---------------- */
 

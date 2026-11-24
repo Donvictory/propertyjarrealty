@@ -28,18 +28,23 @@
   --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-playfair), serif;
 
-  --radius-sm: 5px;
-  --radius-md: 5px;
-  --radius-lg: 5px;
-  --radius-xl: 5px;
-  --radius-2xl: 5px;
-  --radius-3xl: 5px;
+  --font-display: var(--font-archivo), var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+
+  /* Soft corners: controls 8px, cards 12px, panels and dialogs 16px+. */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
   
   --background-image-gold-gradient: linear-gradient(135deg, #d4af37 0%, #f9f295 25%, #d4af37 50%, #f9f295 75%, #d4af37 100%);
 }
 
 html {
   scroll-behavior: smooth;
+  /* No grey flash on tap in mobile browsers. */
+  -webkit-tap-highlight-color: transparent;
 }
 
 :root {
@@ -93,6 +98,40 @@ body {
   img {
     border-radius: 5px;
   }
+
+  /* Form controls get the same soft corner as buttons. */
+  input:not([type='checkbox']):not([type='radio']):not([type='hidden']),
+  select,
+  textarea {
+    border-radius: var(--radius-lg);
+  }
+
+  dialog {
+    border-radius: var(--radius-2xl);
+  }
+}
+
+/*
+ * Headings: wide, heavy display type. Unlayered on purpose so it wins over the older per-heading
+ * font-medium / tracking utilities without editing every page; size and line height still come
+ * from each heading's own classes.
+ */
+h1,
+h2 {
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 900;
+  letter-spacing: -0.015em;
+}
+h2 {
+  font-weight: 800;
+}
+/* Opt-in for display type on other elements (big numbers, card titles). */
+.font-display {
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 800;
+  letter-spacing: -0.01em;
 }
 
 .glass {
@@ -133,6 +172,7 @@ body {
  */
 @utility btn-fill {
   position: relative;
+  border-radius: var(--radius-lg);
   isolation: isolate;
   overflow: hidden;
   transition: color 0.3s ease, border-color 0.3s ease;
@@ -148,15 +188,25 @@ body {
     transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  &:hover:not(:disabled)::before,
   &:focus-visible::before {
     transform: scaleY(1);
   }
 
-  &:hover:not(:disabled),
   &:focus-visible {
     color: var(--fill-fg, var(--color-paper));
     border-color: var(--fill-bg, var(--color-ink));
+  }
+
+  /* Mouse/trackpad only: on touch screens a tap would otherwise leave the fill stuck on. */
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled)::before {
+      transform: scaleY(1);
+    }
+
+    &:hover:not(:disabled) {
+      color: var(--fill-fg, var(--color-paper));
+      border-color: var(--fill-bg, var(--color-ink));
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -196,6 +246,7 @@ body {
  */
 @utility icon-fill {
   position: relative;
+  border-radius: var(--radius-lg);
   isolation: isolate;
   overflow: hidden;
   display: inline-flex;
@@ -214,13 +265,24 @@ body {
     transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  :is(.group:hover, .group:focus-within) &::before {
+  .group:has(:focus-visible) &::before {
     transform: scaleY(1);
   }
 
-  :is(.group:hover, .group:focus-within) & {
+  .group:has(:focus-visible) & {
     color: var(--fill-fg, #fff);
     border-color: var(--fill-bg, var(--color-brand));
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .group:hover &::before {
+      transform: scaleY(1);
+    }
+
+    .group:hover & {
+      color: var(--fill-fg, #fff);
+      border-color: var(--fill-bg, var(--color-brand));
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -295,6 +357,57 @@ html:has(dialog[open]) {
 @media (prefers-reduced-motion: reduce) {
   .get-started-modal[open],
   .get-started-modal[open]::backdrop {
+    animation: none;
+  }
+}
+
+/*
+ * Above-the-fold entrance (page headings). Pure CSS so it starts on first paint instead of waiting for
+ * JavaScript, which keeps the headline (usually the largest element) from being hidden until hydration.
+ * Same motion as <Reveal>: in from the left on desktop, rising on phones.
+ */
+@keyframes hero-in-x {
+  0% { opacity: 0; transform: translateX(-45vw); }
+  55% { opacity: 1; }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes hero-in-y {
+  0% { opacity: 0; transform: translateY(48px); }
+  55% { opacity: 1; }
+  100% { opacity: 1; transform: none; }
+}
+.hero-reveal {
+  animation: hero-in-x 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (max-width: 767px) {
+  .hero-reveal {
+    animation-name: hero-in-y;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-reveal {
+    animation: none;
+  }
+}
+
+/* Sign-up steps: each new step slides in a little from the side it comes from. */
+@keyframes step-in-next {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes step-in-back {
+  from { opacity: 0; transform: translateX(-24px); }
+  to { opacity: 1; transform: none; }
+}
+.step-in-next {
+  animation: step-in-next 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.step-in-back {
+  animation: step-in-back 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .step-in-next,
+  .step-in-back {
     animation: none;
   }
 }

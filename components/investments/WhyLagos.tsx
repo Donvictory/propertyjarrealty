@@ -1,5 +1,6 @@
 import type { CampaignContent } from '@/lib/campaign';
 import Reveal from '@/components/motion/Reveal';
+import HeroReveal from '@/components/motion/HeroReveal';
 
 /** Rising bars in the site-plan drawing style, tuned for the dark band. */
 function GrowthDrawing() {
@@ -33,7 +34,7 @@ export default function WhyLagos({ content }: { content: CampaignContent }) {
     <section className="bg-ink text-paper">
       <div className="shell pb-16 pt-16 lg:pb-24 lg:pt-20">
         {/* Title row: heading left, subtitle bottom-right */}
-        <Reveal from="left">
+        <HeroReveal>
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:items-end lg:gap-16">
             <div>
               <p className="eyebrow text-paper/60">Investments</p>
@@ -48,7 +49,7 @@ export default function WhyLagos({ content }: { content: CampaignContent }) {
               </p>
             )}
           </div>
-        </Reveal>
+        </HeroReveal>
 
         {/* Figures row: growth column + reasons in a 2×2 grid, all on hairline rules */}
         <div className="mt-12 grid border-t border-paper/15 lg:mt-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">

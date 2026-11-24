@@ -182,7 +182,7 @@ function MobileMenu({ open, pathname, onClose }: { open: boolean; pathname: stri
                         href={link.href}
                         onClick={onClose}
                         aria-current={active ? 'page' : undefined}
-                        className={`btn-fill btn-accent flex items-center justify-between px-2 py-4 text-2xl font-medium tracking-[-0.01em] ${
+                        className={`flex items-center justify-between px-2 py-3.5 text-lg font-medium outline-none focus-visible:bg-panel ${
                           active ? 'text-brand' : 'text-ink'
                         }`}
                       >
@@ -214,24 +214,24 @@ function MobileMenu({ open, pathname, onClose }: { open: boolean; pathname: stri
 function AccountButton() {
   const me = useMe();
   if (me.status === 'loading') {
-    return <span aria-hidden className="inline-block h-11 w-[132px] bg-line/40" />;
+    return <span aria-hidden className="inline-block h-11 w-[132px] rounded-lg bg-line/40" />;
   }
   if (!me.user) return <GetStarted />;
-  const first = me.user.name.split(' ')[0] || me.user.name;
+  // Just the photo or initials in a circle; the full name is for screen readers and the hover tooltip.
   return (
     <Link
       href="/account"
       aria-label={`${me.user.name}, open your account`}
       title={me.user.name}
-      className="btn-fill btn-ink inline-flex h-11 max-w-[200px] items-center gap-3 border border-line bg-paper pl-1.5 pr-5 text-sm font-medium text-ink outline-none"
+      className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-brand text-sm font-semibold tracking-wide text-white outline-none ring-offset-2 ring-offset-paper transition-shadow hover:ring-2 hover:ring-brand/40 focus-visible:ring-2 focus-visible:ring-brand"
     >
-      <span
-        aria-hidden
-        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand text-[11px] font-semibold tracking-wide text-white"
-      >
-        {initialsOf(me.user.name)}
-      </span>
-      <span className="truncate">{first}</span>
+      {me.user.avatarUrl ? (
+        // Plain <img>: tiny, already optimised on upload, and avoids the optimiser for a 44px avatar.
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={me.user.avatarUrl} alt="" className="h-full w-full rounded-none object-cover" />
+      ) : (
+        <span aria-hidden>{initialsOf(me.user.name)}</span>
+      )}
     </Link>
   );
 }

@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import Reveal from '@/components/motion/Reveal';
+import HeroReveal from '@/components/motion/HeroReveal';
 import ContactForm, { ContactFormFromUrl } from '@/components/contact/ContactForm';
 
 const WHATSAPP = 'https://wa.me/2349153869750';
@@ -26,13 +27,13 @@ export default function ContactPage() {
       <section className="grid lg:min-h-[calc(100svh-5rem)] lg:grid-cols-2">
         {/* Ways to reach us */}
         <div className={`flex flex-col bg-ink py-14 text-paper lg:py-20 ${BLEED_LEFT}`}>
-          <Reveal from="left">
+          <HeroReveal>
             <p className="eyebrow text-paper/60">Contact</p>
             <h1 className="mt-5 text-[44px] font-medium leading-[1.02] tracking-[-0.035em] sm:text-6xl lg:text-[64px]">
               We are here for you.
             </h1>
             <p className="mt-5 text-lg text-paper/70">We will respond within one business day.</p>
-          </Reveal>
+          </HeroReveal>
 
           <ul className="mt-12 border-t border-paper/15 lg:mt-16">
             {CHANNELS.map((c, i) => (

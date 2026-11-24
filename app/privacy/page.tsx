@@ -106,7 +106,24 @@ export default function PrivacyPage() {
 
             <section>
               <h2 className="text-xl font-bold text-charcoal mb-4 tracking-tight">
-                5. Contact Us
+                5. Our AI Assistant
+              </h2>
+              <p>
+                The chat assistant on our site is powered by third-party AI
+                services (Google Gemini, and xAI Grok as a backup). Your typed
+                messages and voice notes are sent to these services to produce
+                an answer. We do not store your conversation; it stays in your
+                browser tab until you close it or start a new chat. If you ask
+                our team to contact you through the assistant, we keep the name,
+                phone number, email and interest you share so we can follow up.
+                Please don&rsquo;t share bank, card or identity details in the
+                chat.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-charcoal mb-4 tracking-tight">
+                6. Contact Us
               </h2>
               <p>
                 If you have questions or comments about this Privacy Policy,

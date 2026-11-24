@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import { getCurrentUser } from '@/lib/user-session';
 import { getNetwork } from '@/lib/network';
 import NetworkTree from '@/components/account/NetworkTree';
@@ -7,6 +8,8 @@ import { requestOrigin } from '@/lib/site-origin';
 
 export default async function AccountNetworkPage() {
   const user = (await getCurrentUser())!;
+  // Clients don't refer; their realtor shows on the Overview.
+  if (user.role !== 'realtor') redirect('/account');
   const [{ uplines, downlines }, code, origin] = await Promise.all([
     getNetwork(user),
     ensureReferralCode(user).catch(() => null),
@@ -22,7 +25,7 @@ export default async function AccountNetworkPage() {
           Your upline is the member who referred you. Your downlines are the people who join with your referral link.
         </p>
 
-        <div className="mt-8 border border-line p-5">
+        <div className="rounded-xl mt-8 border border-line p-5">
           <p className="text-sm font-medium">Your referral link</p>
           <p className="mt-1 text-sm text-muted">
             Anyone who signs up through this link joins as your downline.
@@ -42,7 +45,7 @@ export default async function AccountNetworkPage() {
           </div>
         </div>
 
-        <dl className="mt-8 grid grid-cols-2 gap-px border border-line bg-line">
+        <dl className="overflow-hidden rounded-xl mt-8 grid grid-cols-2 gap-px border border-line bg-line">
           <div className="bg-paper p-4">
             <dt className="text-xs text-muted">Uplines</dt>
             <dd className="mt-1 text-2xl font-medium tabular-nums">{uplines.length}</dd>

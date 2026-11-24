@@ -1,6 +1,5 @@
 import type { Property } from './types';
 import { parsePriceNGN, NGN_RATES, SYMBOLS, type Currency } from './currency';
-import { resolveImageUrl } from './image-url';
 
 export type PropertyCategory = 'land' | 'residential' | 'commercial' | 'shortlet';
 
@@ -66,6 +65,18 @@ function detailsOf(p: Property, cats: PropertyCategory[]): string {
   return parts.join(' · ');
 }
 
+/**
+ * Every listing uses generated branded artwork (see lib/property-art.ts) instead of its uploaded photo,
+ * because some photos carry other companies' logos. The ?v= changes when the details on the cover change,
+ * so caches pick up edits.
+ */
+export function propertyArtUrl(p: Pick<Property, 'id' | 'title' | 'location' | 'type' | 'category' | 'tag'>) {
+  const key = [p.title, p.location, p.type, p.category, p.tag].join('|');
+  let h = 0;
+  for (let i = 0; i < key.length; i++) h = (Math.imul(31, h) + key.charCodeAt(i)) | 0;
+  return `/api/property-art/${encodeURIComponent(p.id)}.svg?v=${(h >>> 0).toString(36)}`;
+}
+
 export function toPropertyCard(p: Property): PropertyCardData {
   const cats = categoriesOf(p);
   const [amount, unit] = (p.price ?? '').split('/').map((s) => s.trim());
@@ -79,7 +90,7 @@ export function toPropertyCard(p: Property): PropertyCardData {
     priceUnit: unit || null,
     priceRaw: p.price ?? '',
     details: detailsOf(p, cats),
-    image: resolveImageUrl(p.images?.[0] || p.image),
+    image: propertyArtUrl(p),
   };
 }
 

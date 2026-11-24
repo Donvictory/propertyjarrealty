@@ -35,7 +35,7 @@ export default async function PropertiesPage() {
         <PropertiesBrowser properties={cards} />
       </div>
 
-      <section className="mt-20 flex flex-col gap-4 bg-panel px-6 py-7 sm:flex-row sm:items-center sm:justify-between lg:px-6">
+      <section className="rounded-xl mt-20 flex flex-col gap-4 bg-panel px-6 py-7 sm:flex-row sm:items-center sm:justify-between lg:px-6">
         <h2 className="text-2xl font-medium tracking-[-0.01em]">Not sure where to begin?</h2>
         <Link href="/contact" className="font-medium text-brand hover:underline hover:underline-offset-4 sm:mr-40">
           Talk to our team →

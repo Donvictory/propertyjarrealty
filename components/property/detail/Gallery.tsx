@@ -10,7 +10,7 @@ export default function Gallery({ images, title }: { images: string[]; title: st
   const src = images[index];
 
   return (
-    <figure className="flex h-full flex-col bg-panel">
+    <figure className="flex h-full flex-col overflow-hidden rounded-xl bg-panel">
       <div className="relative aspect-[16/10] w-full lg:aspect-auto lg:flex-1">
         <Image
           key={src}
@@ -19,7 +19,7 @@ export default function Gallery({ images, title }: { images: string[]; title: st
           fill
           priority={index === 0}
           sizes="(min-width: 1024px) 62vw, 100vw"
-          unoptimized={src.endsWith('.svg')}
+          unoptimized={src.includes('.svg')}
           className="rounded-none object-contain p-4 lg:p-6"
         />
       </div>

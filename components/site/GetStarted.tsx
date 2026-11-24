@@ -1,37 +1,54 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Mail, X } from 'lucide-react';
+import { ArrowLeft, BriefcaseBusiness, KeyRound, Mail, X } from 'lucide-react';
 import { GoogleButton } from '@/components/auth/fields';
 
+type Role = 'client' | 'realtor';
+
+const ROLE_COPY: Record<Role, { title: string; body: string; icon: typeof KeyRound; heading: string }> = {
+  client: {
+    title: 'Sign up as a Client',
+    body: 'Buy or invest. Save listings and follow your payments.',
+    icon: KeyRound,
+    heading: 'Create your client account',
+  },
+  realtor: {
+    title: 'Sign up as a Realtor',
+    body: 'Refer clients with your link and track your commission.',
+    icon: BriefcaseBusiness,
+    heading: 'Create your realtor account',
+  },
+};
+
 /** Where Google should send people back to: the page they started from. */
-function googleHref(pathname: string | null) {
+function googleHref(pathname: string | null, role: Role) {
   const next = pathname && !pathname.startsWith('/sign') ? pathname : '/account';
-  return `/api/auth/google?next=${encodeURIComponent(next)}`;
+  return `/api/auth/google?next=${encodeURIComponent(next)}&role=${role}`;
 }
 
-/**
- * The sign-up choices, shared by the modal and the mobile menu.
- * Google is always offered; if it isn't configured yet, /api/auth/google sends people to sign-in
- * with a clear "Google sign-in isn't available" notice rather than an error.
- */
+/** Mobile menu: the two sign-up routes plus sign in (the role pages offer Google and email). */
 export function GetStartedOptions({ onChoose }: { onChoose?: () => void }) {
-  const pathname = usePathname();
   return (
     <div className="space-y-3">
-      <div onClick={onChoose}>
-        <GoogleButton href={googleHref(pathname)} label="Sign up with Google" />
-      </div>
-      <Link
-        href="/sign-up"
-        onClick={onChoose}
-        className="btn-fill btn-ink flex h-12 w-full items-center justify-center gap-3 border border-line bg-paper text-sm font-medium"
-      >
-        <Mail size={18} strokeWidth={1.5} aria-hidden />
-        Sign up with email
-      </Link>
+      {(Object.keys(ROLE_COPY) as Role[]).map((role) => {
+        const { title, icon: Icon } = ROLE_COPY[role];
+        return (
+          <Link
+            key={role}
+            href={`/sign-up/${role}`}
+            onClick={onChoose}
+            className={`btn-fill flex h-12 w-full items-center justify-center gap-3 text-sm font-medium ${
+              role === 'client' ? 'btn-accent bg-ink text-paper' : 'btn-ink border border-line bg-paper'
+            }`}
+          >
+            <Icon size={18} strokeWidth={1.5} aria-hidden />
+            {title}
+          </Link>
+        );
+      })}
       <p className="pt-3 text-center text-sm text-muted">
         Already have an account?{' '}
         <Link href="/sign-in" onClick={onChoose} className="font-medium text-brand underline-offset-4 hover:underline">
@@ -43,13 +60,18 @@ export function GetStartedOptions({ onChoose }: { onChoose?: () => void }) {
 }
 
 /**
- * Header "Get started": opens a centred modal to sign up with Google or email.
- * Uses the native <dialog>, so focus is trapped inside, Esc closes it and the page behind is inert.
+ * Header "Get started": a centred modal. Step 1 picks Client or Realtor; step 2 offers Google or email
+ * for that role. Native <dialog>: focus is trapped, Esc closes, the page behind is inert.
  */
 export default function GetStarted() {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const pathname = usePathname();
+  const [role, setRole] = useState<Role | null>(null);
 
-  const open = () => dialogRef.current?.showModal();
+  const open = () => {
+    setRole(null);
+    dialogRef.current?.showModal();
+  };
   const close = () => dialogRef.current?.close();
 
   return (
@@ -67,12 +89,21 @@ export default function GetStarted() {
         ref={dialogRef}
         aria-labelledby="get-started-title"
         onClick={(e) => {
-          // A click on the backdrop lands on the <dialog> itself, not its content.
           if (e.target === dialogRef.current) close();
         }}
-        className="get-started-modal m-auto w-[calc(100%-2rem)] max-w-[440px] bg-paper p-0 text-ink shadow-[0_30px_80px_rgba(28,28,27,0.35)] backdrop:bg-ink/60 backdrop:backdrop-blur-sm"
+        className="get-started-modal m-auto w-[calc(100%-2rem)] max-w-[460px] bg-paper p-0 text-ink shadow-[0_30px_80px_rgba(28,28,27,0.35)] backdrop:bg-ink/60 backdrop:backdrop-blur-sm"
       >
         <div className="relative px-7 pb-8 pt-10 sm:px-10 sm:pb-10 sm:pt-12">
+          {role && (
+            <button
+              type="button"
+              onClick={() => setRole(null)}
+              className="absolute left-3 top-3 flex h-10 items-center gap-1.5 px-2 text-sm text-muted hover:text-ink"
+            >
+              <ArrowLeft size={16} strokeWidth={1.5} aria-hidden />
+              Back
+            </button>
+          )}
           <button
             type="button"
             onClick={close}
@@ -83,20 +114,63 @@ export default function GetStarted() {
           </button>
 
           <div className="text-center">
-            <p className="eyebrow text-muted">PropertyJar Realty</p>
+            <p className="eyebrow text-muted">{role ? (role === 'client' ? 'Client' : 'Realtor') : 'PropertyJar Realty'}</p>
             <h2 id="get-started-title" className="mt-4 text-3xl font-medium tracking-[-0.02em]">
-              Create your account
+              {role ? ROLE_COPY[role].heading : 'Create your account'}
             </h2>
             <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-muted">
-              Save properties, follow your enquiries and keep your plans in one place.
+              {role ? ROLE_COPY[role].body : 'How will you use PropertyJar?'}
             </p>
           </div>
 
           <div className="mt-8">
-            <GetStartedOptions onChoose={close} />
+            {!role ? (
+              <ul className="space-y-3">
+                {(Object.keys(ROLE_COPY) as Role[]).map((r) => {
+                  const { title, body, icon: Icon } = ROLE_COPY[r];
+                  return (
+                    <li key={r}>
+                      <button
+                        type="button"
+                        onClick={() => setRole(r)}
+                        className="rounded-xl group flex w-full items-start gap-4 border border-line bg-paper p-4 text-left transition-colors hover:border-ink"
+                      >
+                        <span className="icon-fill h-10 w-10 shrink-0 border border-line text-brand [--fill-bg:var(--color-brand)] [--fill-fg:#fff]">
+                          <Icon size={18} strokeWidth={1.5} aria-hidden />
+                        </span>
+                        <span>
+                          <span className="block font-medium">{title}</span>
+                          <span className="mt-0.5 block text-sm text-muted">{body}</span>
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <div className="space-y-3">
+                <div onClick={close}>
+                  <GoogleButton href={googleHref(pathname, role)} label="Sign up with Google" />
+                </div>
+                <Link
+                  href={`/sign-up/${role}`}
+                  onClick={close}
+                  className="btn-fill btn-ink flex h-12 w-full items-center justify-center gap-3 border border-line bg-paper text-sm font-medium"
+                >
+                  <Mail size={18} strokeWidth={1.5} aria-hidden />
+                  Sign up with email
+                </Link>
+              </div>
+            )}
+            <p className="pt-6 text-center text-sm text-muted">
+              Already have an account?{' '}
+              <Link href="/sign-in" onClick={close} className="font-medium text-brand underline-offset-4 hover:underline">
+                Sign in
+              </Link>
+            </p>
           </div>
 
-          <p className="mt-8 border-t border-line pt-5 text-center text-xs leading-relaxed text-muted">
+          <p className="mt-6 border-t border-line pt-5 text-center text-xs leading-relaxed text-muted">
             By continuing you agree to our{' '}
             <Link href="/terms" onClick={close} className="underline underline-offset-4 hover:text-ink">
               Terms

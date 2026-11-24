@@ -4,18 +4,20 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const TABS = [
-  { href: '/account', label: 'Profile' },
-  { href: '/account/network', label: 'Network' },
+  { href: '/account', label: 'Overview' },
+  { href: '/account/network', label: 'Network', realtorOnly: true },
+  { href: '/account/profile', label: 'Profile' },
   { href: '/account/saved', label: 'Saved' },
   { href: '/account/security', label: 'Security' },
 ];
 
-export default function AccountNav({ savedCount }: { savedCount: number }) {
+export default function AccountNav({ savedCount, role }: { savedCount: number; role: 'client' | 'realtor' }) {
   const pathname = usePathname();
+  const tabs = TABS.filter((t) => !t.realtorOnly || role === 'realtor');
   return (
     <nav aria-label="Account" className="scrollbar-hide -mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
       <ul className="flex gap-1">
-        {TABS.map((t) => {
+        {tabs.map((t) => {
           const active = pathname === t.href;
           return (
             <li key={t.href} className="shrink-0">

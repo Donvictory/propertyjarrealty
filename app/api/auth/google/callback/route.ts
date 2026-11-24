@@ -30,7 +30,7 @@ function sameState(a: string, b: string) {
 export async function GET(req: NextRequest) {
   if (!googleConfigured()) return fail(req);
 
-  let stored: { state?: string; next?: string; save?: string } = {};
+  let stored: { state?: string; next?: string; save?: string; role?: string } = {};
   try {
     stored = JSON.parse(req.cookies.get(OAUTH_COOKIE)?.value ?? '{}');
   } catch {
@@ -59,6 +59,8 @@ export async function GET(req: NextRequest) {
         try {
           user = await createUser({
             referredBy,
+            // Only applies to brand-new accounts; existing ones keep their role.
+            role: stored.role === 'realtor' ? 'realtor' : 'client',
             email: profile.email,
             name: profile.name || profile.email.split('@')[0],
             phone: '',

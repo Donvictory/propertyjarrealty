@@ -12,8 +12,12 @@ import { db } from './firebase-admin';
  *   user_tokens/{sha256}     one-time email tokens (verify / reset); only the hash is stored
  */
 
+/** Clients buy/invest; realtors refer clients and earn commission. Accounts made before roles existed are clients. */
+export type UserRole = 'client' | 'realtor';
+
 export type UserRecord = {
   id: string;
+  role: UserRole;
   email: string;
   name: string;
   phone: string;
@@ -27,6 +31,14 @@ export type UserRecord = {
   referralCode: string | null;
   /** When the member answered the WhatsApp community invite (joined or dismissed). Null = not asked yet. */
   communityPromptAt: string | null;
+  /** Profile photo (Vercel Blob URL), or null for initials. */
+  avatarUrl: string | null;
+  /** Realtor payout + identity details (null until completed). */
+  bankName: string | null;
+  bankAccountNumber: string | null;
+  /** YYYY-MM-DD */
+  dateOfBirth: string | null;
+  address: string | null;
   /** Bumped to invalidate every existing session (password change, "sign out everywhere"). */
   sessionVersion: number;
   createdAt: string;
@@ -51,6 +63,7 @@ function fromDoc(id: string, data: FirebaseFirestore.DocumentData | undefined): 
   if (!data) return null;
   return {
     id,
+    role: data.role === 'realtor' ? 'realtor' : 'client',
     email: data.email,
     name: data.name ?? '',
     phone: data.phone ?? '',
@@ -61,6 +74,11 @@ function fromDoc(id: string, data: FirebaseFirestore.DocumentData | undefined): 
     referredBy: typeof data.referredBy === 'string' ? data.referredBy : null,
     referralCode: typeof data.referralCode === 'string' ? data.referralCode : null,
     communityPromptAt: typeof data.communityPromptAt === 'string' ? data.communityPromptAt : null,
+    avatarUrl: typeof data.avatarUrl === 'string' ? data.avatarUrl : null,
+    bankName: typeof data.bankName === 'string' ? data.bankName : null,
+    bankAccountNumber: typeof data.bankAccountNumber === 'string' ? data.bankAccountNumber : null,
+    dateOfBirth: typeof data.dateOfBirth === 'string' ? data.dateOfBirth : null,
+    address: typeof data.address === 'string' ? data.address : null,
     sessionVersion: data.sessionVersion ?? 1,
     createdAt: data.createdAt ?? '',
     updatedAt: data.updatedAt ?? '',
@@ -97,13 +115,16 @@ export async function createUser(input: {
   emailVerified: boolean;
   /** Upline's user id, if they signed up through a referral link. */
   referredBy?: string | null;
+  role?: UserRole;
 }): Promise<UserRecord> {
   const firestore = requireDb();
   const email = normalizeEmail(input.email);
   const userRef = firestore.collection(USERS).doc();
   const emailRef = firestore.collection(EMAILS).doc(email);
   const now = new Date().toISOString();
+  const role: UserRole = input.role === 'realtor' ? 'realtor' : 'client';
   const data = {
+    role,
     email,
     name: input.name.trim(),
     phone: input.phone.trim(),
@@ -114,16 +135,22 @@ export async function createUser(input: {
     referredBy: input.referredBy ?? null,
     referralCode: null as string | null,
     communityPromptAt: null as string | null,
+    avatarUrl: null as string | null,
+    bankName: null as string | null,
+    bankAccountNumber: null as string | null,
+    dateOfBirth: null as string | null,
+    address: null as string | null,
     sessionVersion: 1,
     createdAt: now,
     updatedAt: now,
   };
 
-  const candidates = Array.from({ length: 4 }, () => makeReferralCode(data.name));
+  // Only realtors get a referral code.
+  const candidates = role === 'realtor' ? Array.from({ length: 4 }, () => makeReferralCode(data.name)) : [];
   await firestore.runTransaction(async (tx) => {
     const existing = await tx.get(emailRef);
     if (existing.exists) throw new EmailTakenError('Email already registered');
-    const code = await pickFreeCode(tx, candidates);
+    const code = candidates.length ? await pickFreeCode(tx, candidates) : null;
     data.referralCode = code;
     tx.set(emailRef, { userId: userRef.id });
     if (code) tx.set(firestore.collection(CODES).doc(code), { userId: userRef.id });
@@ -135,7 +162,21 @@ export async function createUser(input: {
 
 export async function updateUser(
   id: string,
-  patch: Partial<Pick<UserRecord, 'name' | 'phone' | 'passwordHash' | 'googleId' | 'emailVerified'>> & {
+  patch: Partial<
+    Pick<
+      UserRecord,
+      | 'name'
+      | 'phone'
+      | 'passwordHash'
+      | 'googleId'
+      | 'emailVerified'
+      | 'avatarUrl'
+      | 'bankName'
+      | 'bankAccountNumber'
+      | 'dateOfBirth'
+      | 'address'
+    >
+  > & {
     bumpSessionVersion?: boolean;
   },
 ): Promise<UserRecord | null> {
@@ -228,8 +269,9 @@ async function pickFreeCode(tx: FirebaseFirestore.Transaction, candidates: strin
   return i >= 0 ? candidates[i] : null;
 }
 
-/** Returns the member's referral code, creating one for accounts made before referrals existed. */
+/** A realtor's referral code, creating one if missing. Clients don't have codes (returns null). */
 export async function ensureReferralCode(user: UserRecord): Promise<string | null> {
+  if (user.role !== 'realtor') return null;
   if (user.referralCode) return user.referralCode;
   const firestore = requireDb();
   const userRef = firestore.collection(USERS).doc(user.id);
@@ -246,16 +288,24 @@ export async function ensureReferralCode(user: UserRecord): Promise<string | nul
   });
 }
 
-/** The user id a referral code belongs to, or null if the code is unknown. */
+/** The realtor a referral code belongs to, or null if the code is unknown or not a realtor's. */
 export async function resolveReferralCode(raw: string | null | undefined): Promise<string | null> {
   const code = (raw ?? '').trim().toUpperCase();
   if (!REFERRAL_CODE_RE.test(code)) return null;
   const snap = await requireDb().collection(CODES).doc(code).get();
   const userId = snap.data()?.userId;
-  return typeof userId === 'string' ? userId : null;
+  if (typeof userId !== 'string') return null;
+  // Only realtors' codes count as referrals.
+  const owner = await getUserById(userId);
+  return owner?.role === 'realtor' ? userId : null;
 }
 
 /** Records that the member has answered the WhatsApp community invite, so it isn't shown again. */
 export async function markCommunityPrompted(id: string) {
   await requireDb().collection(USERS).doc(id).update({ communityPromptAt: new Date().toISOString() });
+}
+
+/** Realtors must add payout and identity details before commission can be paid. */
+export function realtorProfileComplete(u: Pick<UserRecord, 'role' | 'bankName' | 'bankAccountNumber' | 'dateOfBirth' | 'address'>) {
+  return u.role !== 'realtor' || Boolean(u.bankName && u.bankAccountNumber && u.dateOfBirth && u.address);
 }

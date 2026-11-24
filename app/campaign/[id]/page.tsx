@@ -2,12 +2,13 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getPropertyById, getProperties } from '@/lib/properties';
-import { resolveImageUrl, resolveImageUrls } from '@/lib/image-url';
+import { resolveImageUrl } from '@/lib/image-url';
 import type { Property } from '@/lib/types';
 import {
   categoriesOf,
   formatCardPrice,
   formatNaira,
+  propertyArtUrl,
   shortLocation,
   toPropertyCard,
   type PropertyCategory,
@@ -51,7 +52,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: `${property.title} | PropertyJar Realty Ltd`,
       description,
       url: `${BASE_URL}/campaign/${id}`,
-      images: [{ url: resolveImageUrl(property.image), width: 1200, height: 630, alt: property.title }],
     },
     alternates: { canonical: `${BASE_URL}/campaign/${id}` },
   };
@@ -125,7 +125,8 @@ export default async function PropertyDetailPage({ params }: PageProps) {
   const card = toPropertyCard(p);
   const cats = categoriesOf(p);
   const isShortlet = cats.includes('shortlet');
-  const images = resolveImageUrls(p.images && p.images.length > 0 ? p.images : [p.image]);
+  // Branded artwork instead of uploaded photos (some carry other companies' logos).
+  const images = [propertyArtUrl(p)];
   const facts = factsFor(p, cats, card.kind);
   const [h1, h2] = headlineFor(cats);
   const firstOption = p.pricingOptions?.[0];
@@ -176,7 +177,7 @@ export default async function PropertyDetailPage({ params }: PageProps) {
         </Reveal>
 
         <Reveal from="right">
-          <aside className="flex h-full flex-col bg-panel p-6 sm:p-7">
+          <aside className="rounded-xl flex h-full flex-col bg-panel p-6 sm:p-7">
             <p className="eyebrow text-muted">{isShortlet ? 'Nightly rate' : 'Price'}</p>
             <p className="mt-4 text-[28px] font-medium tracking-[-0.01em] text-brand">{formatCardPrice(card)}</p>
             {firstOption && !isShortlet && (
@@ -293,7 +294,7 @@ export default async function PropertyDetailPage({ params }: PageProps) {
         </section>
       )}
 
-      <section className="flex flex-col gap-6 bg-panel px-6 py-9 sm:px-7 lg:flex-row lg:items-center lg:justify-between">
+      <section className="rounded-xl flex flex-col gap-6 bg-panel px-6 py-9 sm:px-7 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <h2 className="text-3xl font-medium tracking-[-0.02em]">
             {isShortlet ? 'Check availability for your dates.' : 'See the location before you commit.'}

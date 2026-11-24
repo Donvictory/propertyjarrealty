@@ -8,7 +8,7 @@ import { dismissCommunityPrompt, useMe } from '@/lib/use-me';
 export const WHATSAPP_COMMUNITY_URL = 'https://chat.whatsapp.com/FfyrsnS2nWULdzfc4PBXn0';
 
 /** Screens where the invite would get in the way (the person is mid sign-in / sign-up). */
-const HIDE_ON = ['/sign-in', '/sign-up', '/forgot-password', '/reset-password', '/check-email', '/signed-out'];
+const HIDE_ON = ['/sign-in', '/sign-up', '/sign-up/client', '/sign-up/realtor', '/forgot-password', '/reset-password', '/check-email', '/signed-out'];
 
 /**
  * Once a member is signed in, invite them to the WhatsApp community. Shown once per account:

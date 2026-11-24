@@ -6,10 +6,11 @@ import { usePathname } from 'next/navigation';
 import { useTransition } from 'react';
 import { logoutAction } from '@/app/actions/auth';
 import type { SessionPayload } from '@/lib/types';
-import { Users, LayoutGrid, Settings, Globe } from 'lucide-react';
+import { Users, LayoutGrid, Settings, Globe, Wallet } from 'lucide-react';
 
 const navItems = [
   { href: '/admin', label: 'Dashboard', icon: <LayoutGrid className='size-5' /> },
+  { href: '/admin/payments', label: 'Payments', icon: <Wallet className='size-5' /> },
   { href: '/admin/admins', label: 'Admin Users', icon: <Users className='size-5' /> },
   { href: '/admin/settings', label: 'Settings', icon: <Settings className='size-5' /> },
 ];

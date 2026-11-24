@@ -17,16 +17,16 @@ export default function PropertyCard({ property: p, currency = 'NGN', variant = 
   const full = variant === 'full';
 
   return (
-    <article className="group flex h-full flex-col border border-line p-4 transition-colors duration-300 hover:border-ink/40 sm:p-5">
+    <article className="rounded-xl group flex h-full flex-col border border-line p-4 transition-colors duration-300 hover:border-ink/40 sm:p-5">
       {/* Image and favourite are siblings: a link can't contain another link. */}
       <div className="relative">
-        <Link href={href} tabIndex={-1} aria-hidden className="relative block aspect-[3/2] overflow-hidden bg-panel">
+        <Link href={href} tabIndex={-1} aria-hidden className="relative block aspect-[3/2] overflow-hidden rounded-lg bg-panel">
           <Image
             src={p.image}
             alt=""
             fill
             sizes={sizes ?? '(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw'}
-            unoptimized={p.image.endsWith('.svg')}
+            unoptimized={p.image.includes('.svg')}
             className="rounded-none object-cover transition-transform duration-700 group-hover:scale-[1.03]"
           />
         </Link>

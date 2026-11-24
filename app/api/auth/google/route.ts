@@ -11,9 +11,10 @@ export async function GET(req: NextRequest) {
   const state = randomBytes(24).toString('base64url');
   const next = safeNext(req.nextUrl.searchParams.get('next'));
   const save = req.nextUrl.searchParams.get('save') ?? '';
+  const role = req.nextUrl.searchParams.get('role') === 'realtor' ? 'realtor' : 'client';
 
   const res = NextResponse.redirect(googleAuthUrl(req.nextUrl.origin, state));
-  res.cookies.set(OAUTH_COOKIE, JSON.stringify({ state, next, save }), {
+  res.cookies.set(OAUTH_COOKIE, JSON.stringify({ state, next, save, role }), {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',

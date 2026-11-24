@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Reveal from '@/components/motion/Reveal';
+import HeroReveal from '@/components/motion/HeroReveal';
 import HeroVideo from './HeroVideo';
 
 export default function HomeHero() {
@@ -15,8 +15,8 @@ export default function HomeHero() {
         <p className="eyebrow text-paper/80">PropertyJar Realty / Lagos</p>
 
         <div className="flex flex-1 items-center py-16">
-          <Reveal from="left" className="max-w-2xl">
-            <h1 className="text-[44px] font-medium leading-[1.02] tracking-[-0.03em] sm:text-6xl lg:text-[80px]">
+          <HeroReveal className="max-w-3xl">
+            <h1 className="text-[34px] leading-[1.04] sm:text-5xl lg:text-[68px]">
               A place to own.
               <br />
               A plan to grow.
@@ -39,7 +39,7 @@ export default function HomeHero() {
                 Investment options
               </Link>
             </div>
-          </Reveal>
+          </HeroReveal>
         </div>
 
         <div className="flex items-center justify-between border-t border-paper/20 pt-6">

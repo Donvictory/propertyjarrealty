@@ -36,7 +36,7 @@ export default async function AvailableProperties() {
         {cards && cards.length > 0 ? (
           <PropertyCarousel properties={cards} />
         ) : (
-          <div className="bg-panel px-6 py-12 text-center">
+          <div className="rounded-xl bg-panel px-6 py-12 text-center">
             <p className="text-lg font-medium">Listings are being updated.</p>
             <p className="mt-2 text-sm text-muted">
               Tell us what you are looking for and we will share what is available.{' '}

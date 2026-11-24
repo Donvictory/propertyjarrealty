@@ -32,13 +32,13 @@ export default function AboutPage() {
         />
       </div>
 
-      {/* Founder spread: photo over an offset brand block, letter set like a magazine feature. */}
+      {/* Founder spread: round photo over an offset brand circle, letter set like a magazine feature. */}
       <section className="shell mt-16 grid gap-14 pb-24 lg:mt-20 lg:grid-cols-12 lg:gap-12 lg:pb-32">
         <Reveal from="left" className="lg:col-span-5">
           <figure>
             <div className="relative pb-6 pl-6">
-            <div aria-hidden className="absolute bottom-0 left-0 h-[78%] w-[82%] bg-brand" />
-            <div className="relative aspect-[4/5] bg-panel">
+            <div aria-hidden className="absolute bottom-0 left-0 aspect-square w-[calc(100%-1.5rem)] rounded-full bg-brand" />
+            <div className="relative aspect-square overflow-hidden rounded-full bg-panel">
               <Image
                 src="/About-Image.jpeg"
                 alt="Jaiyesinmi MA, Founder and CEO of PropertyJar Realty"
@@ -49,7 +49,7 @@ export default function AboutPage() {
               />
             </div>
             </div>
-            <figcaption className="mt-4 flex items-baseline justify-between gap-4 pl-6">
+            <figcaption className="mt-6 flex items-baseline justify-between gap-4 pl-6">
               <span className="text-lg font-medium">Jaiyesinmi MA</span>
               <span className="text-sm text-muted">Founder &amp; CEO</span>
             </figcaption>

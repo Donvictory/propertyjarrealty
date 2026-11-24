@@ -95,8 +95,8 @@ export default function IntroVideo() {
 
         {/* The film, framed like a sheet */}
         <div className="order-1 mx-auto w-full max-w-[400px] lg:order-none">
-          <div className="bg-sage-200 p-4 sm:p-5">
-            <div className="relative aspect-[9/16] overflow-hidden bg-ink">
+          <div className="rounded-xl bg-sage-200 p-4 sm:p-5">
+            <div className="relative aspect-[9/16] overflow-hidden rounded-lg bg-ink">
               <video
                 ref={videoRef}
                 className="absolute inset-0 h-full w-full cursor-pointer object-cover"

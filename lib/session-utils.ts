@@ -6,11 +6,16 @@ import type { SessionPayload } from './types';
 export const COOKIE_NAME = 'pjr_admin_session';
 
 function getEncodedKey(): Uint8Array {
-  const secretKey = process.env.AUTH_SECRET || 'pjr_default_secure_session_secret_key_change_me_123';
-  if (!process.env.AUTH_SECRET) {
-    console.warn('[Session] Warning: AUTH_SECRET environment variable is not defined. Using secure default fallback.');
+  const secret = process.env.AUTH_SECRET;
+  if (!secret || secret.length < 32) {
+    // A known fallback key would let anyone forge an admin cookie, so production refuses to run without one.
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('AUTH_SECRET must be set to a random string of at least 32 characters.');
+    }
+    console.warn('[Session] AUTH_SECRET missing or short; using an insecure development key.');
+    return new TextEncoder().encode('dev-only-insecure-admin-key-dev-only-insecure');
   }
-  return new TextEncoder().encode(secretKey);
+  return new TextEncoder().encode(secret);
 }
 
 export async function encrypt(payload: SessionPayload): Promise<string> {

@@ -18,7 +18,7 @@ const joined = (iso: string) =>
 
 function Node({ person, tone }: { person: NetworkPerson; tone: 'upline' | 'downline' }) {
   return (
-    <div className="flex items-center gap-3 border border-line bg-paper px-4 py-3">
+    <div className="rounded-xl flex items-center gap-3 border border-line bg-paper px-4 py-3">
       <span
         aria-hidden
         className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[11px] font-semibold ${
@@ -45,7 +45,7 @@ export default function NetworkTree({ you, uplines, downlines }: { you: string; 
   const chain = [...uplines].sort((a, b) => b.level - a.level);
 
   return (
-    <div className="bg-sage-100 px-4 py-10 sm:px-10">
+    <div className="rounded-xl bg-sage-100 px-4 py-10 sm:px-10">
       {/* Uplines */}
       <section aria-labelledby="uplines-heading" className="mx-auto max-w-sm">
         <h3 id="uplines-heading" className="mb-3 text-center text-xs font-medium text-muted">
@@ -61,7 +61,7 @@ export default function NetworkTree({ you, uplines, downlines }: { you: string; 
             ))}
           </ol>
         ) : (
-          <p className="border border-dashed border-sage-line/60 px-4 py-4 text-center text-sm text-muted">
+          <p className="rounded-xl border border-dashed border-sage-line/60 px-4 py-4 text-center text-sm text-muted">
             You joined directly, with no referrer.
           </p>
         )}
@@ -89,7 +89,7 @@ export default function NetworkTree({ you, uplines, downlines }: { you: string; 
         </h3>
         {downlines.length ? (
           // One fine-lined tray holds every downline, so it reads as a single branch at any count.
-          <ul className="grid gap-3 border border-ink/15 p-3 sm:grid-cols-2 sm:p-4 lg:grid-cols-3">
+          <ul className="rounded-xl grid gap-3 border border-ink/15 p-3 sm:grid-cols-2 sm:p-4 lg:grid-cols-3">
             {downlines.map((p) => (
               <li key={p.id}>
                 <Node person={p} tone="downline" />
@@ -97,7 +97,7 @@ export default function NetworkTree({ you, uplines, downlines }: { you: string; 
             ))}
           </ul>
         ) : (
-          <p className="mx-auto max-w-sm border border-dashed border-sage-line/60 px-4 py-4 text-center text-sm text-muted">
+          <p className="rounded-xl mx-auto max-w-sm border border-dashed border-sage-line/60 px-4 py-4 text-center text-sm text-muted">
             No one has joined with your link yet. Share it when referrals open.
           </p>
         )}

@@ -4,9 +4,10 @@ import { usePathname } from 'next/navigation';
 import SiteHeader from './site/SiteHeader';
 import SiteFooter from './site/SiteFooter';
 import CommunityModal from './site/CommunityModal';
+import ChatWidget from './site/ChatWidget';
 
 /** Focused screens (sign in, sign up, password help…) fill the window under the header, with no footer. */
-const NO_FOOTER = ['/sign-in', '/sign-up', '/forgot-password', '/reset-password', '/check-email', '/signed-out'];
+const NO_FOOTER = ['/sign-in', '/sign-up', '/sign-up/client', '/sign-up/realtor', '/forgot-password', '/reset-password', '/check-email', '/signed-out'];
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -24,6 +25,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <div className="pt-20">{children}</div>
       {showFooter && <SiteFooter />}
       <CommunityModal />
+      <ChatWidget />
     </>
   );
 }

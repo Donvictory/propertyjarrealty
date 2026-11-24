@@ -8,7 +8,7 @@ export default function CheckEmail() {
   const email = useSearchParams().get('email') ?? '';
   return (
     <div className="space-y-8">
-      <div className="border border-line p-6">
+      <div className="rounded-xl border border-line p-6">
         <p className="text-sm text-muted">We sent a confirmation link to</p>
         <p className="mt-1 break-all text-lg font-medium">{email || 'your email address'}</p>
         <p className="mt-4 text-sm leading-relaxed text-muted">

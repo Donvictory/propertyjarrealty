@@ -62,7 +62,7 @@ export default function PropertiesBrowser({ properties, emptyMessage }: Props) {
                 type="button"
                 aria-pressed={active}
                 onClick={() => setFilter(f.value)}
-                className={`h-12 min-w-24 shrink-0 snap-start border px-4 text-left text-[15px] font-medium sm:min-w-28 lg:min-w-36 ${
+                className={`h-12 min-w-24 shrink-0 snap-start rounded-lg border px-4 text-left text-[15px] font-medium sm:min-w-28 lg:min-w-36 ${
                   active ? 'border-brand bg-brand text-white' : 'border-line text-ink btn-fill btn-accent'
                 }`}
               >

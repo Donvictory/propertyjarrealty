@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Instrument_Sans } from 'next/font/google';
+import { Archivo, Instrument_Sans } from 'next/font/google';
 import './globals.css';
 import Script from 'next/script';
 import AppLayout from '@/components/AppLayout';
@@ -7,6 +7,14 @@ import AppLayout from '@/components/AppLayout';
 const instrumentSans = Instrument_Sans({
   variable: '--font-instrument',
   subsets: ['latin'],
+  display: 'swap',
+});
+
+// Headings: Archivo at its widest, heaviest setting (a free stand-in for a blocky, expanded display face).
+const archivo = Archivo({
+  variable: '--font-archivo',
+  subsets: ['latin'],
+  axes: ['wdth'],
   display: 'swap',
 });
 
@@ -111,7 +119,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html data-scroll-behavior="smooth" lang="en" className={`${instrumentSans.variable} ${instrumentSans.className} h-full antialiased`}>
+    <html data-scroll-behavior="smooth" lang="en" className={`${instrumentSans.variable} ${archivo.variable} ${instrumentSans.className} h-full antialiased`}>
       <body className="min-h-full flex flex-col overflow-x-clip bg-paper text-ink">
         <Script
           id="org-schema"

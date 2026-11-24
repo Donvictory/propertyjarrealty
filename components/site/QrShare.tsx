@@ -64,7 +64,7 @@ export default function QrShare() {
             Scan or download this code to open our investment campaign.
           </p>
 
-          <div className="mx-auto mt-7 w-fit border border-line bg-white p-4">
+          <div className="rounded-xl mx-auto mt-7 w-fit border border-line bg-white p-4">
             <Image
               src={QR_IMAGE}
               alt="QR code linking to propertyjarrealty.com/campaign"
@@ -91,12 +91,12 @@ export default function QrShare() {
               value={CAMPAIGN_URL}
               aria-label="Campaign link"
               onFocus={(e) => e.currentTarget.select()}
-              className="h-12 min-w-0 flex-1 border border-r-0 border-line bg-paper px-3 text-left text-sm text-muted focus:outline-none"
+              className="h-12 min-w-0 flex-1 rounded-l-lg border border-r-0 border-line bg-paper px-3 text-left text-sm text-muted focus:outline-none"
             />
             <button
               type="button"
               onClick={copy}
-              className="btn-fill btn-accent flex h-12 shrink-0 items-center gap-2 bg-ink px-4 text-sm font-medium text-paper"
+              className="btn-fill btn-accent flex h-12 shrink-0 items-center gap-2 !rounded-l-none bg-ink px-4 text-sm font-medium text-paper"
             >
               {copied ? <Check size={16} aria-hidden /> : <Copy size={16} aria-hidden />}
               {copied ? 'Copied' : 'Copy'}

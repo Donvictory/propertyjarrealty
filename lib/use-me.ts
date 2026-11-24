@@ -9,7 +9,7 @@ import { useSyncExternalStore } from 'react';
 
 export type Me = {
   status: 'loading' | 'ready';
-  user: { name: string; email: string } | null;
+  user: { name: string; email: string; avatarUrl?: string | null } | null;
   savedIds: string[];
   /** Signed in and hasn't answered the WhatsApp community invite yet. */
   showCommunityPrompt: boolean;
