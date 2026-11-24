@@ -12,8 +12,6 @@ export default function HomeHero() {
       <div aria-hidden className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink/80 to-transparent" />
 
       <div className="shell relative flex flex-1 flex-col pb-10 pt-14 lg:pt-16">
-        <p className="eyebrow text-paper/80">PropertyJar Realty / Lagos</p>
-
         <div className="flex flex-1 items-center py-16">
           <HeroReveal className="max-w-3xl">
             <h1 className="text-[34px] leading-[1.04] sm:text-5xl lg:text-[68px]">
@@ -42,10 +40,6 @@ export default function HomeHero() {
           </HeroReveal>
         </div>
 
-        <div className="flex items-center justify-between border-t border-paper/20 pt-6">
-          <p className="eyebrow text-paper/75">01 / Property, with a clear plan</p>
-          <p className="eyebrow hidden text-paper/60 sm:block">Scroll ↓</p>
-        </div>
       </div>
     </section>
   );

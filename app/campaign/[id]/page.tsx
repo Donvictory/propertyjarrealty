@@ -16,6 +16,7 @@ import {
 import Gallery from '@/components/property/detail/Gallery';
 import BrochureDialog from '@/components/property/detail/BrochureDialog';
 import Reveal from '@/components/motion/Reveal';
+import { SHARE_IMAGES } from '@/lib/share-image';
 
 export const revalidate = 60;
 
@@ -49,6 +50,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: property.title,
     description,
     openGraph: {
+      images: SHARE_IMAGES,
       title: `${property.title} | PropertyJar Realty Ltd`,
       description,
       url: `${BASE_URL}/campaign/${id}`,

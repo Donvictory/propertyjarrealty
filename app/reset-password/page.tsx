@@ -14,7 +14,6 @@ export const metadata: Metadata = {
 export default function ResetPasswordPage() {
   return (
     <AuthShell
-      eyebrow="Password help"
       title="Choose a new password."
       lede="Once it's saved you will be signed in, and any other devices will be signed out."
       footer={

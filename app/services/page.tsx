@@ -3,12 +3,14 @@ import Link from 'next/link';
 import PageIntro from '@/components/site/PageIntro';
 import CtaBand from '@/components/site/CtaBand';
 import Reveal from '@/components/motion/Reveal';
+import { SHARE_IMAGES } from '@/lib/share-image';
 
 export const metadata: Metadata = {
   title: 'Our Services',
   description:
     'Brokerage, real estate consulting, portfolio management, land banking, luxury property sales and investment advisory from PropertyJar Realty Ltd.',
   openGraph: {
+    images: SHARE_IMAGES,
     title: 'Our Services | PropertyJar Realty Ltd',
     description: 'From property acquisition to investment advisory, a full suite of real estate services in Lagos.',
     url: 'https://propertyjarrealty.com/services',
@@ -149,7 +151,6 @@ export default function ServicesPage() {
   return (
     <main className="shell pb-16 pt-14 lg:pt-20">
       <PageIntro
-        eyebrow="Our services"
         title="Our bespoke services."
         lede="From property acquisition to investment advisory, we provide a full suite of services tailored to the luxury real estate market."
       />

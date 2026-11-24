@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getProperties } from '@/lib/properties';
 import { toPropertyCard } from '@/lib/property-display';
 import PropertiesBrowser from '@/components/property/PropertiesBrowser';
+import { SHARE_IMAGES } from '@/lib/share-image';
 
 export const revalidate = 60;
 
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
   title: 'Properties',
   description: 'Land, residential and commercial property in Lagos and beyond. Compare prices, locations and payment plans.',
   openGraph: {
+    images: SHARE_IMAGES,
     title: 'Properties | PropertyJar Realty Ltd',
     description: 'Land, residential and commercial property in Lagos and beyond.',
     url: 'https://propertyjarrealty.com/properties',
@@ -24,8 +26,7 @@ export default async function PropertiesPage() {
   return (
     <main className="shell pb-16 pt-14 lg:pt-20">
       <header>
-        <p className="eyebrow text-muted">Property collection</p>
-        <h1 className="mt-5 text-[40px] font-medium leading-[1.05] tracking-[-0.03em] sm:text-5xl lg:text-[52px]">
+        <h1 className="text-[40px] font-medium leading-[1.05] tracking-[-0.03em] sm:text-5xl lg:text-[52px]">
           Space for your next chapter.
         </h1>
         <p className="mt-6 text-lg text-muted">Land, residential and commercial property in Lagos and beyond.</p>

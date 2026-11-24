@@ -22,7 +22,6 @@ export default function AboutPage() {
     <main>
       <div className="shell pt-14 lg:pt-20">
         <PageIntro
-          eyebrow="About PropertyJar"
           title={
             <>
               Hi, I&rsquo;m Jaiyesinmi MA, founder of
@@ -114,8 +113,7 @@ export default function AboutPage() {
       <section className="shell py-24 lg:py-32">
         <Reveal from="left">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="eyebrow text-muted">The PropertyJar Way</p>
-            <h2 className="mt-5 text-4xl font-medium leading-[1.1] tracking-[-0.02em] lg:text-[52px]">
+            <h2 className="text-4xl font-medium leading-[1.1] tracking-[-0.02em] lg:text-[52px]">
               Our approach is simple yet uncompromising.
             </h2>
             <p className="mx-auto mt-6 max-w-xl leading-relaxed text-muted">

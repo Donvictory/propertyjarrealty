@@ -8,7 +8,6 @@ export const metadata: Metadata = { title: 'Reset your password', robots: { inde
 export default function ForgotPasswordPage() {
   return (
     <AuthShell
-      eyebrow="Password help"
       title="Reset your password."
       lede="Enter the email you signed up with and we will send you a link to choose a new password."
       footer={

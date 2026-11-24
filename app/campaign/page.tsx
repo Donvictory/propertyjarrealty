@@ -8,6 +8,7 @@ import InvestmentOptions from '@/components/investments/InvestmentOptions';
 import OfferStack from '@/components/investments/OfferStack';
 import CtaBand from '@/components/site/CtaBand';
 import Reveal from '@/components/motion/Reveal';
+import { SHARE_IMAGES } from '@/lib/share-image';
 
 export const revalidate = 60;
 
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
     canonical: 'https://propertyjarrealty.com/campaign',
   },
   openGraph: {
+    images: SHARE_IMAGES,
     title: 'Investment Campaigns | PropertyJar Realty Ltd',
     description: 'Explore exclusive high-yield luxury real estate investment campaigns in Lagos with PropertyJar Realty Ltd.',
     url: 'https://propertyjarrealty.com/campaign',

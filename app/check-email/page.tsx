@@ -9,7 +9,6 @@ export const metadata: Metadata = { title: 'Confirm your email', robots: { index
 export default function CheckEmailPage() {
   return (
     <AuthShell
-      eyebrow="One more step"
       title="Check your inbox."
       footer={
         <>

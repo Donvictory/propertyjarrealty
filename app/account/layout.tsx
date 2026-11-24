@@ -18,8 +18,10 @@ export default async function AccountLayout({ children }: { children: React.Reac
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-8">
               <AvatarUploader name={user.name} avatarUrl={user.avatarUrl} />
               <div>
-                <p className="eyebrow text-paper/60">{user.role === 'realtor' ? 'Realtor' : 'Client'}</p>
-                <h1 className="mt-2 text-3xl font-medium tracking-[-0.02em] lg:text-[44px]">Hello, {first}.</h1>
+                <p className="inline-flex rounded-full bg-paper/10 px-3 py-1 text-xs font-medium text-paper/80">
+                  {user.role === 'realtor' ? 'Realtor' : 'Client'}
+                </p>
+                <h1 className="mt-3 text-3xl font-medium tracking-[-0.02em] lg:text-[44px]">Hello, {first}.</h1>
                 <p className="mt-1 break-all text-sm text-paper/60">{user.email}</p>
               </div>
             </div>

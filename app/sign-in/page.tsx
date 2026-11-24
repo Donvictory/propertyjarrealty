@@ -11,7 +11,6 @@ export default function SignInPage() {
   const google = googleConfigured();
   return (
     <AuthShell
-      eyebrow="Your account"
       title="Welcome back."
       lede="Sign in to see your saved properties and account details."
       footer={

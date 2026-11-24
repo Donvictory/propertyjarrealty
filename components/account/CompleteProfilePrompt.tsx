@@ -46,8 +46,7 @@ export default function CompleteProfilePrompt({ onProfilePage = false }: { onPro
         <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-brand text-white">
           <Landmark size={24} strokeWidth={1.5} aria-hidden />
         </span>
-        <p className="eyebrow mt-6 text-muted">One more step</p>
-        <h2 id="complete-profile-title" className="mt-3 text-3xl font-medium tracking-[-0.02em]">
+        <h2 id="complete-profile-title" className="mt-6 text-3xl font-medium tracking-[-0.02em]">
           Complete your profile
         </h2>
         <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-muted">

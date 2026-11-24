@@ -39,8 +39,7 @@ export default function Steps() {
   return (
     <section className="shell py-16 lg:py-20">
       <Reveal from="left">
-        <p className="eyebrow text-muted">From browsing to buying</p>
-        <h2 className="mt-5 max-w-xl text-4xl font-medium leading-[1.1] tracking-[-0.02em] lg:text-[44px]">
+        <h2 className="max-w-xl text-4xl font-medium leading-[1.1] tracking-[-0.02em] lg:text-[44px]">
           Three steps, with someone to guide you.
         </h2>
       </Reveal>

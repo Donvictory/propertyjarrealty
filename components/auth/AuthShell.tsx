@@ -1,7 +1,6 @@
 import HeroVideo from '@/components/home/HeroVideo';
 
 type Props = {
-  eyebrow: string;
   title: React.ReactNode;
   lede?: React.ReactNode;
   children: React.ReactNode;
@@ -13,7 +12,7 @@ type Props = {
  * Split screen for every auth screen: a dark, quiet panel with the looping footage and the mark
  * on the left (desktop only), the form on the right.
  */
-export default function AuthShell({ eyebrow, title, lede, children, footer }: Props) {
+export default function AuthShell({ title, lede, children, footer }: Props) {
   return (
     <main className="grid min-h-[calc(100svh-5rem)] lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
       <aside className="relative hidden overflow-clip bg-ink text-paper lg:block">
@@ -35,8 +34,7 @@ export default function AuthShell({ eyebrow, title, lede, children, footer }: Pr
 
       <section className="flex items-center px-4 py-14 sm:px-8 lg:px-16 lg:py-20">
         <div className="mx-auto w-full max-w-md">
-          <p className="eyebrow text-muted">{eyebrow}</p>
-          <h1 className="mt-4 text-4xl font-medium leading-[1.08] tracking-[-0.025em] lg:text-[44px]">{title}</h1>
+          <h1 className="text-4xl font-medium leading-[1.08] tracking-[-0.025em] lg:text-[44px]">{title}</h1>
           {lede && <p className="mt-4 leading-relaxed text-muted">{lede}</p>}
           <div className="mt-10">{children}</div>
           {footer && <div className="mt-10 border-t border-line pt-6 text-sm text-muted">{footer}</div>}

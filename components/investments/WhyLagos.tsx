@@ -37,8 +37,7 @@ export default function WhyLagos({ content }: { content: CampaignContent }) {
         <HeroReveal>
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:items-end lg:gap-16">
             <div>
-              <p className="eyebrow text-paper/60">Investments</p>
-              <h1 className="mt-5 text-[44px] font-medium leading-[1.02] tracking-[-0.035em] sm:text-6xl lg:text-[76px]">
+              <h1 className="text-[44px] font-medium leading-[1.02] tracking-[-0.035em] sm:text-6xl lg:text-[76px]">
                 {content.whyInvestTitle}
               </h1>
             </div>

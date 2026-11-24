@@ -72,8 +72,7 @@ export default function IntroVideo() {
   return (
     <section className="shell py-20 lg:py-28">
       <Reveal from="left">
-        <p className="eyebrow text-muted">Meet PropertyJar</p>
-        <h2 className="mt-5 max-w-2xl text-4xl font-medium leading-[1.05] tracking-[-0.02em] lg:text-[52px]">
+        <h2 className="max-w-2xl text-4xl font-medium leading-[1.05] tracking-[-0.02em] lg:text-[52px]">
           Start with the right questions.
         </h2>
         <p className="mt-5 max-w-xl leading-relaxed text-muted">

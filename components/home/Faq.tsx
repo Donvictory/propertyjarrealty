@@ -26,7 +26,6 @@ export default function Faq() {
         <Reveal from="left">
           <div className="flex flex-col-reverse gap-4 sm:flex-row sm:items-end sm:justify-between">
             <h2 className="text-4xl font-medium tracking-[-0.02em] lg:text-5xl">A few answers.</h2>
-            <p className="eyebrow text-muted sm:pb-2">Before you begin</p>
           </div>
         </Reveal>
 

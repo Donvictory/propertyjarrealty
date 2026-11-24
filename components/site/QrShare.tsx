@@ -56,8 +56,7 @@ export default function QrShare() {
             <X size={20} strokeWidth={1.5} />
           </button>
 
-          <p className="eyebrow text-muted">Share</p>
-          <h2 id="qr-title" className="mt-3 text-3xl font-medium tracking-[-0.02em]">
+          <h2 id="qr-title" className="text-3xl font-medium tracking-[-0.02em]">
             Campaign QR
           </h2>
           <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-muted">

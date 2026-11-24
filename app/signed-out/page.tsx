@@ -14,8 +14,7 @@ export default function SignedOutPage() {
           <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-paper">
             <Image src="/brand/pjr-mark.png" alt="" width={48} height={48} className="h-12 w-12 rounded-none" />
           </span>
-          <p className="eyebrow mt-10 text-paper/60">Signed out</p>
-          <div className="[&_p]:text-paper/70">
+          <div className="mt-10 [&_p]:text-paper/70">
             <Suspense
               fallback={
                 <h1 className="mt-4 text-4xl font-medium leading-[1.08] tracking-[-0.025em] lg:text-[44px]">

@@ -107,7 +107,6 @@ export default function ApproachBand() {
               <br />
               Build at your own pace.
             </h2>
-            <p className="eyebrow text-muted lg:pb-2">Our approach</p>
           </div>
         </Reveal>
 

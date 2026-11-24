@@ -20,8 +20,7 @@ export default async function AvailableProperties() {
   return (
     <section className="shell py-20 lg:py-28">
       <Reveal from="left">
-        <p className="eyebrow text-muted">Available property</p>
-        <div className="mt-4 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <h2 className="text-4xl font-medium tracking-[-0.02em] lg:text-5xl">Find your next address.</h2>
           <Link
             href="/properties"

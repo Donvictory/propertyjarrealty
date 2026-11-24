@@ -24,8 +24,7 @@ export default function WhyUs() {
     <section className="bg-panel">
       <div className="shell grid gap-10 py-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)] lg:gap-16 lg:py-16">
         <Reveal from="left">
-          <p className="eyebrow text-muted">Why buy with us</p>
-          <h2 className="mt-4 text-3xl font-medium leading-[1.1] tracking-[-0.02em] lg:text-[40px]">
+          <h2 className="text-3xl font-medium leading-[1.1] tracking-[-0.02em] lg:text-[40px]">
             Details first.
             <br />
             Decisions after.

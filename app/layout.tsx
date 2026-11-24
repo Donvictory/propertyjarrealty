@@ -62,21 +62,12 @@ export const metadata: Metadata = {
     title: 'PropertyJar Realty Ltd — Luxury Real Estate',
     description:
       'Discover the most exclusive luxury properties worldwide. Buy, sell, and invest with PropertyJar Realty Ltd.',
-    images: [
-      {
-        url: `${BASE_URL}/newlogo.JPEG`,
-        width: 1200,
-        height: 630,
-        alt: 'PropertyJar Realty Ltd — Luxury Real Estate',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'PropertyJar Realty Ltd — Luxury Real Estate',
     description:
       'Discover the most exclusive luxury properties worldwide with PropertyJar Realty Ltd.',
-    images: [`${BASE_URL}/newlogo.JPEG`],
     creator: '@propertyjarrealty',
   },
   alternates: {

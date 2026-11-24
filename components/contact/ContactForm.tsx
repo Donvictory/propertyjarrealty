@@ -51,8 +51,7 @@ export default function ContactForm({ defaultSubject }: { defaultSubject?: strin
   if (status === 'sent') {
     return (
       <div role="status">
-        <p className="eyebrow text-muted">Message sent</p>
-        <h2 className="mt-4 text-3xl font-medium tracking-[-0.02em]">Thank you for reaching out.</h2>
+        <h2 className="text-3xl font-medium tracking-[-0.02em]">Thank you for reaching out.</h2>
         <p className="mt-4 leading-relaxed text-muted">One of our advisors will be in touch within 24 hours.</p>
         <button
           type="button"

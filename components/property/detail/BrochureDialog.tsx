@@ -103,8 +103,7 @@ export default function BrochureDialog({ brochureUrl, propertyTitle, propertyLoc
 
           {status === 'done' ? (
             <div role="status">
-              <p className="eyebrow text-muted">Brochure</p>
-              <h2 id="brochure-title" className="mt-4 text-3xl font-medium tracking-[-0.02em]">
+              <h2 id="brochure-title" className="text-3xl font-medium tracking-[-0.02em]">
                 Your download has started.
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-muted">
@@ -124,8 +123,7 @@ export default function BrochureDialog({ brochureUrl, propertyTitle, propertyLoc
             </div>
           ) : (
             <form onSubmit={onSubmit}>
-              <p className="eyebrow text-muted">{propertyTitle}</p>
-              <h2 id="brochure-title" className="mt-4 text-3xl font-medium tracking-[-0.02em]">
+              <h2 id="brochure-title" className="text-3xl font-medium tracking-[-0.02em]">
                 Download the brochure
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-muted">

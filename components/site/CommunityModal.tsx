@@ -36,7 +36,6 @@ export default function CommunityModal() {
     dismissCommunityPrompt();
   };
 
-  const first = me.user?.name.split(' ')[0];
 
   return (
     <dialog
@@ -62,8 +61,7 @@ export default function CommunityModal() {
           <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] text-white">
             <Users size={28} strokeWidth={1.75} aria-hidden />
           </span>
-          <p className="eyebrow mt-6 text-paper/60">{first ? `Welcome, ${first}` : 'Welcome'}</p>
-          <h2 id="community-title" className="mt-3 text-3xl font-medium tracking-[-0.02em]">
+          <h2 id="community-title" className="mt-6 text-3xl font-medium tracking-[-0.02em]">
             Join our WhatsApp community
           </h2>
         </div>

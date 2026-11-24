@@ -16,6 +16,9 @@ const ALLOWED_EXACT_PATHNAMES = new Set([
   '/favicon.ico',
   '/robots.txt',
   '/sitemap.xml',
+  // Generated share preview images (app/opengraph-image.tsx, app/twitter-image.tsx).
+  '/opengraph-image',
+  '/twitter-image',
   '/privacy',
   '/terms',
   '/sign-in',

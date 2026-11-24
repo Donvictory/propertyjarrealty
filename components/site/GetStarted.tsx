@@ -114,8 +114,7 @@ export default function GetStarted() {
           </button>
 
           <div className="text-center">
-            <p className="eyebrow text-muted">{role ? (role === 'client' ? 'Client' : 'Realtor') : 'PropertyJar Realty'}</p>
-            <h2 id="get-started-title" className="mt-4 text-3xl font-medium tracking-[-0.02em]">
+            <h2 id="get-started-title" className="text-3xl font-medium tracking-[-0.02em]">
               {role ? ROLE_COPY[role].heading : 'Create your account'}
             </h2>
             <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-muted">

@@ -36,13 +36,13 @@ export default function PropertyCard({ property: p, currency = 'NGN', variant = 
         </span>
       </div>
 
-      <p className="eyebrow mt-5 text-muted">{full ? p.kind : `${p.kind} / ${p.location}`}</p>
+      <p className="mt-5 text-sm text-muted">{full ? p.kind : `${p.kind} · ${p.location}`}</p>
       <h3 className={`font-medium tracking-[-0.01em] ${full ? 'mt-3 text-[22px]' : 'mt-2 text-2xl'}`}>
         <Link href={href} className="hover:text-brand">
           {p.title}
         </Link>
       </h3>
-      {full && <p className="eyebrow mt-2 text-muted">{p.location}</p>}
+      {full && <p className="mt-2 text-sm text-muted">{p.location}</p>}
       <p className={`text-lg font-medium ${full ? 'mt-4' : 'mt-1'}`}>
         <span className="font-normal text-muted">Price: </span>
         <span className="text-brand">{formatCardPrice(p, currency)}</span>
