@@ -9,6 +9,7 @@ import Logo from './Logo';
 import { useMe } from '@/lib/use-me';
 import { signOutAction } from '@/app/actions/account';
 import GetStarted, { GetStartedOptions } from './GetStarted';
+import QrShare from './QrShare';
 
 function initialsOf(name: string) {
   return name.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]?.toUpperCase()).join('') || '•';
@@ -67,9 +68,12 @@ export default function SiteHeader() {
           </ul>
         </nav>
 
-        <div className="hidden lg:block">
-          <AccountButton />
-        </div>
+        {/* Right side: one QR button for every size, then the account button (desktop) or menu (mobile). */}
+        <div className="flex items-center gap-3">
+          <QrShare />
+          <div className="hidden lg:block">
+            <AccountButton />
+          </div>
 
         <button
           ref={menuButtonRef}
@@ -87,6 +91,7 @@ export default function SiteHeader() {
             className="block h-px w-[10px] translate-x-[4px] bg-current transition-[width,transform] duration-300 ease-out group-hover/menu:w-[18px] group-hover/menu:translate-x-0"
           />
         </button>
+        </div>
       </div>
     </header>
 
