@@ -1,27 +1,46 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { getProperties } from '@/lib/properties';
-import PropertiesClient from '@/components/PropertiesClient';
+import { toPropertyCard } from '@/lib/property-display';
+import PropertiesBrowser from '@/components/property/PropertiesBrowser';
 
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'Exclusive Properties',
-  description: "Browse our curated portfolio of world-class luxury properties across the world's most desirable locations. Filter by type, price, and location.",
+  title: 'Properties',
+  description: 'Land, residential and commercial property in Lagos and beyond. Compare prices, locations and payment plans.',
   openGraph: {
-    title: 'Exclusive Properties | PropertyJar Realty Ltd',
-    description: 'Browse our curated portfolio of world-class luxury properties.',
+    title: 'Properties | PropertyJar Realty Ltd',
+    description: 'Land, residential and commercial property in Lagos and beyond.',
     url: 'https://propertyjarrealty.com/properties',
-    images: [{ url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1200&h=630&fit=crop', width: 1200, height: 630, alt: 'PropertyJar Luxury Properties' }],
   },
   alternates: { canonical: 'https://propertyjarrealty.com/properties' },
 };
 
 export default async function PropertiesPage() {
   const properties = await getProperties();
+  const cards = properties.map(toPropertyCard);
 
   return (
-    <main className="min-h-screen bg-off-white">
-      <PropertiesClient properties={properties} />
+    <main className="shell pb-16 pt-14 lg:pt-20">
+      <header>
+        <p className="eyebrow text-muted">Property collection</p>
+        <h1 className="mt-5 text-[40px] font-medium leading-[1.05] tracking-[-0.03em] sm:text-5xl lg:text-[52px]">
+          Space for your next chapter.
+        </h1>
+        <p className="mt-6 text-lg text-muted">Land, residential and commercial property in Lagos and beyond.</p>
+      </header>
+
+      <div className="mt-14">
+        <PropertiesBrowser properties={cards} />
+      </div>
+
+      <section className="mt-20 flex flex-col gap-4 bg-panel px-6 py-7 sm:flex-row sm:items-center sm:justify-between lg:px-6">
+        <h2 className="text-2xl font-medium tracking-[-0.01em]">Not sure where to begin?</h2>
+        <Link href="/contact" className="font-medium text-brand hover:underline hover:underline-offset-4 sm:mr-40">
+          Talk to our team →
+        </Link>
+      </section>
     </main>
   );
 }

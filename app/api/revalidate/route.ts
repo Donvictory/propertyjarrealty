@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    revalidateTag('properties');
+    revalidateTag('properties', { expire: 0 });
   } catch {}
   try {
     revalidatePath('/properties');

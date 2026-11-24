@@ -1,13 +1,12 @@
 import type { Metadata } from 'next';
-import { Noto_Sans } from 'next/font/google';
+import { Instrument_Sans } from 'next/font/google';
 import './globals.css';
 import Script from 'next/script';
 import AppLayout from '@/components/AppLayout';
 
-const notoSans = Noto_Sans({
-  variable: '--font-notosans',
+const instrumentSans = Instrument_Sans({
+  variable: '--font-instrument',
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
   display: 'swap',
 });
 
@@ -75,11 +74,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: BASE_URL,
   },
-  icons: {
-    icon: '/newlogo.JPEG?v=3',
-    shortcut: '/newlogo.JPEG?v=3',
-    apple: '/newlogo.JPEG?v=3',
-  },
   verification: {
     google: 'your-google-search-console-code',
   },
@@ -117,8 +111,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html data-scroll-behavior="smooth" lang="en" className={`${notoSans.variable} ${notoSans.className} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
+    <html data-scroll-behavior="smooth" lang="en" className={`${instrumentSans.variable} ${instrumentSans.className} h-full antialiased`}>
+      <body className="min-h-full flex flex-col overflow-x-clip bg-paper text-ink">
         <Script
           id="org-schema"
           type="application/ld+json"

@@ -202,7 +202,7 @@ export default function PropertyModal({ property, onClose, onSaved }: PropertyMo
             </div>
             <div>
               <label className={labelClass} htmlFor="pm-sqft">Sqft (optional)</label>
-              <input id="pm-sqft" name="sqft" value={form.sqft} onChange={handleChange} placeholder="e.g. 6,500" className={inputClass} />
+              <input id="pm-sqft" name="sqft" value={form.sqft ?? ''} onChange={handleChange} placeholder="e.g. 6,500" className={inputClass} />
             </div>
           </div>
 

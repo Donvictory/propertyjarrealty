@@ -12,7 +12,20 @@
   --color-gold: #d4af37;
   --color-gold-light: #f9f295;
 
-  --font-sans: var(--font-notosans), ui-sans-serif, system-ui, sans-serif;
+  /* Redesign tokens */
+  --color-paper: #f5f3ee;
+  --color-panel: #edeae3;
+  --color-ink: #1c1c1b;
+  --color-ink-raised: #262625;
+  --color-line: #dcd8cf;
+  --color-muted: #6e6b64;
+  --color-sage: #d9dcc5;
+  --color-sage-line: #a3a68c;
+  --color-sage-100: #e7e8dc;
+  --color-sage-200: #dddfcc;
+  --color-sage-300: #d3d9bf;
+
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-playfair), serif;
 
   --radius-sm: 5px;
@@ -30,14 +43,17 @@ html {
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #121212;
+  --background: #f5f3ee;
+  --foreground: #1c1c1b;
   --line-height-relaxed: 1.7;
 }
 
 
-a, button {
-  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease;
+/* In the base layer so Tailwind transition utilities can override it. */
+@layer base {
+  a, button {
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease;
+  }
 }
 
 body {
@@ -49,11 +65,28 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #121212;
-    --foreground: #f9f9f9;
+/* Dark mode is intentionally off until every page is redesigned.
+   Add a [data-theme="dark"] block here that redefines the tokens above. */
+
+@utility shell {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
   }
+  @media (width >= 64rem) {
+    padding-inline: 4rem;
+  }
+}
+
+@utility eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.4;
 }
 
 @layer base {
@@ -90,4 +123,178 @@ body {
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/*
+ * Bottom-to-top fill on hover / keyboard focus, shared by every button and nav link.
+ * Pick the fill colour with one of the btn-ink / btn-brand / btn-accent / btn-paper utilities below (default: ink fill, paper text).
+ * The fill is a ::before layer; isolation keeps it above the element's own background
+ * but below its text.
+ */
+@utility btn-fill {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: color 0.3s ease, border-color 0.3s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--fill-bg, var(--color-ink));
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  &:hover:not(:disabled)::before,
+  &:focus-visible::before {
+    transform: scaleY(1);
+  }
+
+  &:hover:not(:disabled),
+  &:focus-visible {
+    color: var(--fill-fg, var(--color-paper));
+    border-color: var(--fill-bg, var(--color-ink));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::before {
+      transition: none;
+    }
+  }
+}
+
+/* Outline / light buttons: fill with ink. */
+@utility btn-ink {
+  --fill-bg: var(--color-ink);
+  --fill-fg: var(--color-paper);
+}
+
+/* Primary burgundy buttons: fill with the darker brand hover colour. */
+@utility btn-brand {
+  --fill-bg: var(--color-brand-hover);
+  --fill-fg: #fff;
+}
+
+/* Nav links and filter tabs: fill burgundy. */
+@utility btn-accent {
+  --fill-bg: var(--color-brand);
+  --fill-fg: #fff;
+}
+
+/* Buttons on dark backgrounds: fill with paper. */
+@utility btn-paper {
+  --fill-bg: var(--color-paper);
+  --fill-fg: var(--color-ink);
+}
+
+/*
+ * Icon tile that fills bottom-to-top when its .group parent (card / row) is hovered or focused.
+ * Colours come from --fill-bg / --fill-fg, same as btn-fill.
+ */
+@utility icon-fill {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease, border-color 0.3s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--fill-bg, var(--color-brand));
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  :is(.group:hover, .group:focus-within) &::before {
+    transform: scaleY(1);
+  }
+
+  :is(.group:hover, .group:focus-within) & {
+    color: var(--fill-fg, #fff);
+    border-color: var(--fill-bg, var(--color-brand));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::before {
+      transition: none;
+    }
+  }
+}
+
+/*
+ * Looping colour cycles for the small concept drawings (home "Our approach").
+ * They only run while the drawing is on screen: InViewPlay sets data-inview on an ancestor.
+ */
+/*
+ * Literal colours on purpose: Safari has bugs animating SVG fill with var() inside @keyframes.
+ * sage #d9dcc5 / sage-300 #c4cba6 / brand #800020 / sage-line #a3a68c
+ * Every box runs the full cycle, offset by a negative delay, so all of them are always changing.
+ */
+@keyframes drawing-cell {
+  0%, 100% { fill: #d9dcc5; stroke: #a3a68c; }
+  30% { fill: #c4cba6; stroke: #a3a68c; }
+  55%, 72% { fill: #800020; stroke: #800020; }
+  88% { fill: #c4cba6; stroke: #a3a68c; }
+}
+
+@keyframes drawing-line {
+  0%, 100% { fill: #a3a68c; }
+  55%, 72% { fill: #800020; }
+}
+
+.drawing-cell,
+.drawing-line {
+  animation-duration: var(--cycle, 3.6s);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+}
+.drawing-cell { animation-name: drawing-cell; }
+.drawing-line { animation-name: drawing-line; }
+
+[data-inview='true'] .drawing-cell,
+[data-inview='true'] .drawing-line {
+  animation-play-state: running;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawing-cell,
+  .drawing-line {
+    animation: none;
+  }
+}
+
+/* Modals (native <dialog>): keep the page from scrolling behind an open one, and ease it in. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.get-started-modal[open] {
+  animation: modal-in 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.get-started-modal[open]::backdrop {
+  animation: backdrop-in 0.25s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .get-started-modal[open],
+  .get-started-modal[open]::backdrop {
+    animation: none;
+  }
 }

@@ -1,8 +1,13 @@
 import type { Metadata } from 'next';
-import { Suspense } from 'react';
 import { getProperties } from '@/lib/properties';
 import { getCampaignContent } from '@/lib/campaign';
-import CampaignClient from './CampaignClient';
+import { toPropertyCard } from '@/lib/property-display';
+import PropertiesBrowser from '@/components/property/PropertiesBrowser';
+import WhyLagos from '@/components/investments/WhyLagos';
+import InvestmentOptions from '@/components/investments/InvestmentOptions';
+import OfferStack from '@/components/investments/OfferStack';
+import CtaBand from '@/components/site/CtaBand';
+import Reveal from '@/components/motion/Reveal';
 
 export const revalidate = 60;
 
@@ -20,27 +25,36 @@ export const metadata: Metadata = {
 };
 
 export default async function CampaignPage() {
-  const [properties, campaignContent] = await Promise.all([
-    getProperties().catch(() => []),
-    getCampaignContent(),
-  ]);
-
-  const campaignProperties = properties.filter(p => p.isCampaign === true);
+  const [properties, content] = await Promise.all([getProperties().catch(() => []), getCampaignContent()]);
+  const cards = properties.filter((p) => p.isCampaign === true).map(toPropertyCard);
 
   return (
-    <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-off-white">
-        <div className="flex flex-col items-center gap-8">
-          <div className="relative w-16 h-16">
-            <div className="absolute inset-0 border-2 border-brand/20 rounded-full" />
-            <div className="absolute inset-0 border-t-2 border-brand rounded-full animate-spin" />
-            <div className="absolute inset-4 bg-brand/10 rounded-full animate-pulse" />
-          </div>
-          <p className="text-charcoal font-bold animate-pulse uppercase tracking-[0.4em] text-[10px]">PropertyjarRealty Ltd</p>
+    <main>
+      <WhyLagos content={content} />
+
+      <section id="selection" className="shell py-20 lg:py-28">
+        <Reveal from="left">
+          <h2 className="text-4xl font-medium tracking-[-0.02em] lg:text-5xl">The selection</h2>
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
+            Explore our curated selection of high-yield assets. Select a property to view its full investment summary
+            and request the confidential brochure.
+          </p>
+        </Reveal>
+        <div className="mt-12">
+          <PropertiesBrowser properties={cards} emptyMessage="No investment properties in this category." />
         </div>
+      </section>
+
+      <InvestmentOptions options={content.investmentOptions} />
+      <OfferStack offers={content.offerStack} />
+
+      <div className="shell pb-16 lg:pb-20">
+        <CtaBand
+          title="Not sure which route fits?"
+          body="Tell us your budget and timeline. We will walk you through the options."
+          cta={{ label: 'Speak to the team', href: '/contact?subject=Investment%20Advisory' }}
+        />
       </div>
-    }>
-      <CampaignClient properties={campaignProperties} initialContent={campaignContent} />
-    </Suspense>
+    </main>
   );
 }

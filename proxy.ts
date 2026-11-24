@@ -18,6 +18,16 @@ const ALLOWED_EXACT_PATHNAMES = new Set([
   '/sitemap.xml',
   '/privacy',
   '/terms',
+  '/sign-in',
+  '/sign-up',
+  '/forgot-password',
+  '/reset-password',
+  '/check-email',
+  '/signed-out',
+  '/account',
+  '/account/network',
+  '/account/saved',
+  '/account/security',
 ]);
 
 
@@ -48,6 +58,11 @@ function isAllowedPath(pathname: string): boolean {
   }
 
   
+  // Referral links: /r/<code>
+  if (/^\/r\/[A-Za-z0-9]{4,12}$/.test(pathname)) {
+    return true;
+  }
+
   if (pathname.startsWith('/campaign/')) {
     const subpath = pathname.substring('/campaign/'.length);
     if (!subpath || subpath.includes('/') || subpath.includes('$') || subpath.includes('&')) {

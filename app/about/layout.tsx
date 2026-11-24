@@ -9,9 +9,9 @@ export const metadata: Metadata = {
     url: 'https://propertyjarrealty.com/about',
     images: [
       {
-        url: 'https://propertyjarrealty.com/profile.jpeg',
-        width: 800,
-        height: 1000,
+        url: 'https://propertyjarrealty.com/About-Image.jpeg',
+        width: 720,
+        height: 1080,
         alt: 'Jaiyesinmi MA - Founder & CEO',
       },
     ],

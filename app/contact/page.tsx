@@ -1,166 +1,110 @@
-'use client';
+import { Suspense } from 'react';
+import Reveal from '@/components/motion/Reveal';
+import ContactForm, { ContactFormFromUrl } from '@/components/contact/ContactForm';
 
-import { useState } from 'react';
-import { Building2, Phone, Mail, Clock } from 'lucide-react';
+const WHATSAPP = 'https://wa.me/2349153869750';
+const WHATSAPP_BOOKING = `${WHATSAPP}?text=Hello%20PropertyJar%20Realty%2C%20I%20would%20like%20to%20book%20an%20appointment%20for%20a%20private%20consultation.`;
+const MAPS_LINK = 'https://maps.google.com/?q=Osapa+London,+Lekki,+Lagos';
+const MAP_SRC =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.724623199859!2d3.504283!3d6.435834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf4281f62b881%3A0xc4a193699c279a0!2sOsapa%20London%2C%20Lekki!5e0!3m2!1sen!2sng!4v1715678000000!5m2!1sen!2sng';
 
-import { sendContactEmail } from '@/app/actions/contact';
-import Link from 'next/link';
-
-const contactInfo = [
-  { icon: <Building2 className='text-brand' strokeWidth={1.5} size={24} />, label: 'Visit Us', value: '21 Alexander court, Osapa London Lekki' },
-  { icon: <Phone className='text-brand' strokeWidth={1.5} size={24} />, label: 'Call Us', value: '09153869750 / +2348146259729' },
-  { icon: <Mail className='text-brand' strokeWidth={1.5} size={24} />, label: 'Email Us', value: 'sales@propertyjarrealty.com' },
-  { icon: <Clock className='text-brand' strokeWidth={1.5} size={24} />, label: 'Office Hours', value: 'Mon – Sat, 9AM – 6PM' },
+const CHANNELS = [
+  { label: 'Email', value: 'sales@propertyjarrealty.com', href: 'mailto:sales@propertyjarrealty.com' },
+  { label: 'Call', value: '0915 386 9750', href: 'tel:+2349153869750' },
+  { label: 'Call', value: '+234 814 625 9729', href: 'tel:+2348146259729' },
+  { label: 'WhatsApp', value: 'Chat with our team', href: WHATSAPP, external: true },
+  { label: 'Visit', value: '21 Alexander Court, Osapa London, Lekki', href: MAPS_LINK, external: true },
 ];
 
+/* Each half bleeds to its screen edge; content lines up with the site's .shell gutter. */
+const BLEED_LEFT = 'px-4 sm:px-8 lg:pl-[max(4rem,calc((100vw-1440px)/2+4rem))] lg:pr-16';
+const BLEED_RIGHT = 'px-4 sm:px-8 lg:pr-[max(4rem,calc((100vw-1440px)/2+4rem))] lg:pl-16';
+
 export default function ContactPage() {
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-
-    const formData = new FormData(e.currentTarget);
-    const result = await sendContactEmail(formData);
-
-    setLoading(false);
-    if (result.success) {
-      setSubmitted(true);
-    } else {
-      setError(result.error || 'Something went wrong.');
-    }
-  }
-
   return (
-    <main className="min-h-screen pt-16 bg-off-white">
+    <main>
+      <section className="grid lg:min-h-[calc(100svh-5rem)] lg:grid-cols-2">
+        {/* Ways to reach us */}
+        <div className={`flex flex-col bg-ink py-14 text-paper lg:py-20 ${BLEED_LEFT}`}>
+          <Reveal from="left">
+            <p className="eyebrow text-paper/60">Contact</p>
+            <h1 className="mt-5 text-[44px] font-medium leading-[1.02] tracking-[-0.035em] sm:text-6xl lg:text-[64px]">
+              We are here for you.
+            </h1>
+            <p className="mt-5 text-lg text-paper/70">We will respond within one business day.</p>
+          </Reveal>
 
+          <ul className="mt-12 border-t border-paper/15 lg:mt-16">
+            {CHANNELS.map((c, i) => (
+              <li key={c.value} className="border-b border-paper/15">
+                <Reveal from="left" distance={1 + i * 0.12}>
+                  <a
+                    href={c.href}
+                    {...(c.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    className="btn-fill btn-paper -mx-3 grid grid-cols-[5.5rem_1fr] items-baseline gap-4 px-3 py-5 sm:grid-cols-[7rem_1fr]"
+                  >
+                    <span className="text-sm opacity-60">{c.label}</span>
+                    <span className="text-lg font-medium tracking-[-0.01em] sm:text-xl">{c.value}</span>
+                  </a>
+                </Reveal>
+              </li>
+            ))}
+          </ul>
 
-
-      <section className="py-10 bg-brand text-white">
-        <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div>
-            <h3 className="text-2xl font-bold mb-2">Ready for a private consultation?</h3>
-            <p className="text-white/80">Schedule a direct appointment with one of our luxury specialists.</p>
-          </div>
-          <Link
-            href="https://wa.me/2349153869750?text=Hello%20PropertyJar%20Realty%2C%20I%20would%20like%20to%20book%20an%20appointment%20for%20a%20private%20consultation."
-            target="_blank"
-            className="bg-white text-brand px-10 py-4 rounded-sm font-semibold hover:bg-gray-100 transition-all shadow-xl active:scale-95 inline-block text-center"
-          >
-            Book an Appointment
-          </Link>
+          <Reveal from="left" distance={1.7}>
+            <p className="mt-10 text-sm text-paper/60">Office hours: Monday to Saturday, 9:00 am to 6:00 pm</p>
+          </Reveal>
         </div>
-      </section>
 
-      {}
-      <section className="py-16 bg-off-white">
-        <div className="container mx-auto px-6">
-          {}
-          <div>
-            <span className="text-sm font-bold uppercase tracking-[0.3em] text-brand mb-4 block">Contact Information</span>
-            <h1 className="text-3xl md:text-4xl font-medium text-neutral-800 mb-10">We are <span className="italic font-light">Here for You</span></h1>
-            <div className="grid md:grid-cols-[1fr_1.5fr] gap-10">
-              <div>
-                <div className="space-y-6 mb-12">
-                  {contactInfo.map((item) => (
-                    <div key={item.label} className="flex items-start gap-4 p-5 bg-white rounded-2xl border border-gray-100 shadow-sm">
-                      <div className="text-2xl w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center flex-shrink-0">{item.icon}</div>
-                      <div>
-                        <p className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-1">{item.label}</p>
-                        <p className="font-semibold text-charcoal">{item.value}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="h-72 md:h-96 rounded-2xl overflow-hidden bg-gray-100 border border-gray-200 shadow-inner group">
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    loading="lazy"
-                    allowFullScreen
-                    referrerPolicy="no-referrer-when-downgrade"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.724623199859!2d3.504283!3d6.435834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf4281f62b881%3A0xc4a193699c279a0!2sOsapa%20London%2C%20Lekki!5e0!3m2!1sen!2sng!4v1715678000000!5m2!1sen!2sng"
-                    title="PropertyJar Realty Location"
-                    className="grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
-                  ></iframe>
-                </div>
-              </div>
-              <div>
-                <div className={`w-full bg-white rounded-3xl border border-gray-100 shadow-xl p-8 md:p-10 ${submitted ? 'flex items-center justify-center min-h-[500px]' : ''}`}>
-                  {submitted ? (
-                    <div className="text-center">
-                      <div className="text-5xl mb-6">✅</div>
-                      <h3 className="text-3xl font-bold text-charcoal mb-4">Message Sent!</h3>
-                      <p className="text-lg text-gray-500 leading-relaxed">Thank you for reaching out. One of our advisors will be in touch within 24 hours.</p>
-                      <button
-                        onClick={() => setSubmitted(false)}
-                        className="mt-10 bg-brand text-white px-10 py-4 rounded-full font-bold hover:bg-brand-hover transition-all shadow-lg active:scale-95"
-                      >
-                        Send Another
-                      </button>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleSubmit} className="space-y-5">
-                      <div>
-                        <h3 className="text-2xl font-bold text-charcoal mb-1">Send a Message</h3>
-                        <p className="text-gray-500 text-sm">We will respond within one business day.</p>
-                      </div>
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        <div>
-                          <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5 block" htmlFor="firstName">First Name</label>
-                          <input id="firstName" name="firstName" required type="text" placeholder="Victoria" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors text-black" />
-                        </div>
-                        <div>
-                          <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5 block" htmlFor="lastName">Last Name</label>
-                          <input id="lastName" name="lastName" required type="text" placeholder="Chase" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors text-black" />
-                        </div>
-                      </div>
-                      <div>
-                        <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5 block" htmlFor="email">Email Address</label>
-                        <input id="email" name="email" required type="email" placeholder="hello@example.com" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors text-black" />
-                      </div>
-                      <div>
-                        <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5 block" htmlFor="phone">Phone (Optional)</label>
-                        <input id="phone" name="phone" type="tel" placeholder="+1 (310) 555-0100" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors text-black" />
-                      </div>
-                      <div>
-                        <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5 block" htmlFor="subject">Subject</label>
-                        <select id="subject" name="subject" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors bg-white text-black">
-                          <option>General Enquiry</option>
-                          <option>Property Purchase</option>
-                          <option>Property Sale / Listing</option>
-                          <option>Investment Advisory</option>
-                          <option>Property Management</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5 block" htmlFor="message">Message</label>
-                        <textarea id="message" name="message" required rows={4} placeholder="Tell us about your requirements..." className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors resize-none text-black" />
-                      </div>
-
-                      {error && (
-                        <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3">
-                          <p className="text-red-500 text-xs font-bold">{error}</p>
-                        </div>
-                      )}
-
-                      <button type="submit" disabled={loading} className="w-full bg-brand text-white py-4 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-brand-hover transition-all disabled:opacity-70 shadow-lg shadow-brand/10 active:scale-95">
-                        {loading ? 'Sending...' : 'Send Message'}
-                      </button>
-                    </form>
-                  )}
-                </div>
-              </div>
+        {/* Message form */}
+        <div className={`py-14 lg:py-20 ${BLEED_RIGHT}`}>
+          <Reveal from="right">
+            <h2 className="text-3xl font-medium tracking-[-0.02em] lg:text-4xl">Send a message</h2>
+            <p className="mt-3 text-muted">Tell us what you are looking for and we will take it from there.</p>
+            <div className="mt-10">
+              {/* Static page: ?subject= is read client-side; the fallback is the same form, so it's in the prerendered HTML. */}
+              <Suspense fallback={<ContactForm />}>
+                <ContactFormFromUrl />
+              </Suspense>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-
+      {/* Map strip with the visit card on top */}
+      <section className="relative h-[460px] bg-panel lg:h-[520px]">
+        <iframe
+          src={MAP_SRC}
+          title="PropertyJar Realty location: Osapa London, Lekki"
+          className="absolute inset-0 h-full w-full border-0 grayscale-[40%]"
+          loading="lazy"
+          allowFullScreen
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+        <div className="shell pointer-events-none relative flex h-full items-end pb-6 lg:items-center lg:pb-0">
+          <Reveal from="left" className="pointer-events-auto w-full max-w-sm">
+            <div className="bg-paper p-6 shadow-[0_12px_40px_rgba(28,28,27,0.18)] sm:p-8">
+              <p className="text-sm text-muted">Our office</p>
+              <p className="mt-2 text-2xl font-medium leading-tight tracking-[-0.01em]">
+                21 Alexander Court,
+                <br />
+                Osapa London, Lekki
+              </p>
+              <p className="mt-4 text-sm text-muted">
+                Visits are by appointment, so we can have the right person ready for you.
+              </p>
+              <a
+                href={WHATSAPP_BOOKING}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-fill btn-brand mt-6 flex h-12 items-center justify-center bg-brand text-sm font-medium text-white"
+              >
+                Book an appointment
+              </a>
+            </div>
+          </Reveal>
+        </div>
+      </section>
     </main>
   );
 }
