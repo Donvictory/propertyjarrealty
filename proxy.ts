@@ -96,8 +96,9 @@ function isAllowedPath(pathname: string): boolean {
 export async function proxy(request: NextRequest) {
   const host = request.headers.get('host') || '';
 
-  // 1. Force redirection from *.vercel.app to the production domain
-  if (host.includes('vercel.app')) {
+  // 1. One canonical address: *.vercel.app and www. both go to propertyjarrealty.com. Besides SEO, this
+  //    keeps sign-in cookies and the Google OAuth redirect URI on a single host.
+  if (host.includes('vercel.app') || host.startsWith('www.')) {
     const url = request.nextUrl.clone();
     url.host = 'propertyjarrealty.com';
     url.protocol = 'https';

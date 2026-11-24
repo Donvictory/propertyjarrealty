@@ -60,7 +60,6 @@ export default function SiteHeader() {
                     }`}
                   >
                     {link.name}
-                    {active && <span aria-hidden className="absolute inset-x-4 bottom-1 h-px bg-current" />}
                   </Link>
                 </li>
               );
