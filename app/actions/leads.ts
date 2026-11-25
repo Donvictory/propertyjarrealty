@@ -30,8 +30,8 @@ export async function sendPropertyInquiry(formData: FormData) {
 
   try {
     const { error } = await resend.emails.send({
-      from: 'PropertyJar Leads <sales@propertyjarrealty.com>',
-      to: ['sales@propertyjarrealty.com'],
+      from: 'PropertyJar Leads <support@propertyjarrealty.com>',
+      to: ['support@propertyjarrealty.com'],
       replyTo: email,
       subject: `New Lead: Brochure Request for ${propertyTitle.replace(/[\r\n]/g, ' ')}`,
       html: `

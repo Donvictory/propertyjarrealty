@@ -376,16 +376,26 @@ html:has(dialog[open]) {
   55% { opacity: 1; }
   100% { opacity: 1; transform: none; }
 }
+@keyframes hero-in-x-right {
+  0% { opacity: 0; transform: translateX(45vw); }
+  55% { opacity: 1; }
+  100% { opacity: 1; transform: none; }
+}
 .hero-reveal {
   animation: hero-in-x 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+.hero-reveal-right {
+  animation: hero-in-x-right 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
 @media (max-width: 767px) {
-  .hero-reveal {
+  .hero-reveal,
+  .hero-reveal-right {
     animation-name: hero-in-y;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-reveal {
+  .hero-reveal,
+  .hero-reveal-right {
     animation: none;
   }
 }

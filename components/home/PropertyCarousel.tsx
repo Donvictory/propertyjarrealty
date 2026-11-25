@@ -1,12 +1,20 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import PropertyCard from '@/components/property/PropertyCard';
 import type { PropertyCardData } from '@/lib/property-display';
 
 const GAP_PX = 24;
 
-export default function PropertyCarousel({ properties }: { properties: PropertyCardData[] }) {
+type Props = {
+  properties: PropertyCardData[];
+  /** Ends the carousel with a card linking to every listing, when the home page shows only some. */
+  viewAll?: { href: string; total: number };
+};
+
+export default function PropertyCarousel({ properties, viewAll }: Props) {
   const trackRef = useRef<HTMLUListElement>(null);
   const [index, setIndex] = useState(0);
   const [atStart, setAtStart] = useState(true);
@@ -56,6 +64,22 @@ export default function PropertyCarousel({ properties }: { properties: PropertyC
             />
           </li>
         ))}
+        {viewAll && (
+          <li className="w-[84%] shrink-0 snap-start sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)]">
+            <Link
+              href={viewAll.href}
+              className="group flex h-full min-h-[320px] flex-col justify-between rounded-xl bg-ink p-6 text-paper sm:p-8"
+            >
+              <span className="font-display text-3xl leading-tight">See all {viewAll.total} properties</span>
+              <span className="flex items-center justify-between gap-4 text-sm text-paper/70">
+                Land, homes, commercial and short-lets
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand text-white transition-transform group-hover:translate-x-1">
+                  <ArrowRight size={18} strokeWidth={1.75} aria-hidden />
+                </span>
+              </span>
+            </Link>
+          </li>
+        )}
       </ul>
 
       <div className="mt-6 flex items-center justify-between">

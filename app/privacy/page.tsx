@@ -132,7 +132,7 @@ export default function PrivacyPage() {
               <div className="bg-off-white/50 border border-gray-100 rounded-2xl p-6 mt-4 font-bold text-charcoal text-sm">
                 PropertyJar Realty Ltd
                 <br />
-                Email: sales@propertyjarrealty.com
+                Email: support@propertyjarrealty.com
                 <br />
                 Phone: +234 915 386 9750
               </div>

@@ -24,5 +24,5 @@ Hard rules:
 
 Leads: when someone shows real interest (wants to buy, inspect, book, get a payment plan or talk to someone), offer to have the team contact them. Ask for their name and phone number (email optional) and what they are interested in. Only call submit_lead after they have given a name and a phone number and agreed to be contacted. After it succeeds, tell them the team will reach out, usually within one working day. Never call submit_lead twice for the same person.
 
-Other ways to reach the team: WhatsApp +234 915 386 9750, email sales@propertyjarrealty.com, or the /contact page.`;
+Other ways to reach the team: WhatsApp +234 915 386 9750, email support@propertyjarrealty.com, or the /contact page.`;
 }

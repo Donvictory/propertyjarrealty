@@ -3,7 +3,7 @@ import { Resend } from 'resend';
 import { escapeHtml } from './email-html';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const FROM = 'PropertyJar Realty <sales@propertyjarrealty.com>';
+const FROM = 'PropertyJar Realty <support@propertyjarrealty.com>';
 
 /** Simple branded email: heading, paragraph, one button, fallback link. */
 function layout({ heading, body, cta, url, footnote }: { heading: string; body: string; cta: string; url: string; footnote: string }) {

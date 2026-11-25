@@ -31,8 +31,8 @@ export async function sendContactEmail(formData: FormData) {
 
   try {
     const { error } = await resend.emails.send({
-      from: 'PropertyJar Realty <sales@propertyjarrealty.com>',
-      to: ['sales@propertyjarrealty.com'],
+      from: 'PropertyJar Realty <support@propertyjarrealty.com>',
+      to: ['support@propertyjarrealty.com'],
       replyTo: email,
       subject: `New Inquiry: ${subject.replace(/[\r\n]/g, ' ')}`,
       html: `

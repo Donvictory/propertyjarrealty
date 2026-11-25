@@ -427,5 +427,86 @@
     "images": [
       "https://v12rsrt1wfzpoenh.public.blob.vercel-storage.com/uploads/oranje-apartment.jpeg"
     ]
+  },
+  {
+    "id": "civic-residence-waterfront",
+    "title": "Civic Residence Waterfront",
+    "location": "Sangotedo, Lagos",
+    "price": "₦39M",
+    "image": "https://v12rsrt1wfzpoenh.public.blob.vercel-storage.com/uploads/civic-residence-waterfront.jpeg",
+    "images": [
+      "https://v12rsrt1wfzpoenh.public.blob.vercel-storage.com/uploads/civic-residence-waterfront.jpeg"
+    ],
+    "tag": "Waterfront",
+    "type": "Land",
+    "category": "land",
+    "description": "Waterfront plots at Civic Residence Waterfront, Sangotedo, Lagos, with a Government Allocation title. Choose from 300sqm, 500sqm or 1,000sqm plots.",
+    "highlights": [
+      "Waterfront estate",
+      "Government Allocation title",
+      "Plot sizes from 300sqm to 1,000sqm"
+    ],
+    "locationAdvantages": [
+      "Sangotedo, Lagos"
+    ],
+    "pricingOptions": [
+      {
+        "size": "300sqm",
+        "price": "₦39M"
+      },
+      {
+        "size": "500sqm",
+        "price": "₦65M"
+      },
+      {
+        "size": "1,000sqm",
+        "price": "₦130M"
+      }
+    ],
+    "isCampaign": true
+  },
+  {
+    "id": "oranje-chateaux",
+    "title": "Oranje Chateaux",
+    "location": "Atlantic Nominee, Ajah, Lagos",
+    "price": "₦263M",
+    "image": "https://v12rsrt1wfzpoenh.public.blob.vercel-storage.com/uploads/placeholder-property.svg",
+    "images": [
+      "https://v12rsrt1wfzpoenh.public.blob.vercel-storage.com/uploads/placeholder-property.svg"
+    ],
+    "tag": "Selling Fast",
+    "type": "Residential",
+    "category": "residential",
+    "beds": 4,
+    "description": "Oranje Chateaux is a collection of 4-bedroom duplexes with a BQ in Atlantic Nominee, Ajah, with smart home features, an estate gym and Governor’s Consent. Selected units are still available.",
+    "highlights": [
+      "4-bedroom duplexes with BQ",
+      "Smart home features",
+      "Estate gym",
+      "Governor’s Consent"
+    ],
+    "locationAdvantages": [
+      "Atlantic Nominee, Ajah, Lagos"
+    ],
+    "pricingOptions": [
+      {
+        "size": "Fully Detached (₦33.5M deposit)",
+        "price": "₦335M"
+      },
+      {
+        "size": "Semi-Detached (₦29.9M deposit)",
+        "price": "₦299M"
+      },
+      {
+        "size": "Corner Terrace (₦27.5M deposit)",
+        "price": "₦275M"
+      },
+      {
+        "size": "Middle Terrace (₦26.3M deposit)",
+        "price": "₦263M"
+      }
+    ],
+    "installmentPlan": "10% deposit to secure a unit: ₦33.5M (Fully Detached), ₦29.9M (Semi-Detached), ₦27.5M (Corner Terrace) or ₦26.3M (Middle Terrace).",
+    "isCampaign": true
   }
 ]

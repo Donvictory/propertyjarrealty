@@ -47,8 +47,8 @@ export default function SiteFooter() {
             <address className="mt-5 space-y-0.5 text-sm not-italic leading-relaxed text-paper/60">
               <p>21 Alexander Court, Osapa London, Lekki, Lagos</p>
               <p>
-                <a href="mailto:sales@propertyjarrealty.com" className="transition-colors hover:text-paper">
-                  sales@propertyjarrealty.com
+                <a href="mailto:support@propertyjarrealty.com" className="transition-colors hover:text-paper">
+                  support@propertyjarrealty.com
                 </a>
               </p>
               <p>

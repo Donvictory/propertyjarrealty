@@ -187,14 +187,14 @@ async function getProperty(args: Record<string, unknown>, ctx: Ctx) {
     brochure: p.brochureUrl ? 'A brochure can be downloaded on the listing page.' : undefined,
     short_let: s
       ? {
-          price_per_night: s.pricePerNight ?? s.nightlyRate,
-          caution_deposit: s.cautionDeposit,
-          max_guests: s.maxGuests ?? s.guestCapacity,
-          check_in: s.checkIn,
-          check_out: s.checkOut,
-          sleeping: s.sleepingArrangements,
-          booking: 'Book on the listing page or through the team.',
-        }
+        price_per_night: s.pricePerNight ?? s.nightlyRate,
+        caution_deposit: s.cautionDeposit,
+        max_guests: s.maxGuests ?? s.guestCapacity,
+        check_in: s.checkIn,
+        check_out: s.checkOut,
+        sleeping: s.sleepingArrangements,
+        booking: 'Book on the listing page or through the team.',
+      }
       : undefined,
     url: card.url,
   };
@@ -236,12 +236,12 @@ async function submitLead(args: Record<string, unknown>, ctx: Ctx) {
   const e = Object.fromEntries(Object.entries(lead).map(([k, v]) => [k, escapeHtml(String(v))])) as Record<keyof typeof lead, string>;
   const mailed = resend
     ? resend.emails
-        .send({
-          from: 'PropertyJar Leads <sales@propertyjarrealty.com>',
-          to: ['sales@propertyjarrealty.com'],
-          ...(email ? { replyTo: email } : {}),
-          subject: `New chat lead: ${name}`,
-          html: `<div style="font-family:sans-serif;padding:20px;color:#121212">
+      .send({
+        from: 'PropertyJar Leads <support@propertyjarrealty.com>',
+        to: ['support@propertyjarrealty.com'],
+        ...(email ? { replyTo: email } : {}),
+        subject: `New chat lead: ${name}`,
+        html: `<div style="font-family:sans-serif;padding:20px;color:#121212">
   <h2 style="color:#800020">New lead from the website assistant</h2>
   <p><strong>Name:</strong> ${e.name}</p>
   <p><strong>Phone:</strong> ${e.phone}</p>
@@ -251,8 +251,8 @@ async function submitLead(args: Record<string, unknown>, ctx: Ctx) {
   ${lead.page ? `<p><strong>Page:</strong> ${e.page}</p>` : ''}
   <p style="font-size:11px;color:#999;margin-top:30px">Captured by the AI chat on propertyjarrealty.com.</p>
 </div>`,
-        })
-        .then(({ error }) => (error ? (console.error('chat lead email', error), false) : true), (err) => (console.error('chat lead email', err), false))
+      })
+      .then(({ error }) => (error ? (console.error('chat lead email', error), false) : true), (err) => (console.error('chat lead email', err), false))
     : Promise.resolve(false);
 
   const [ok1, ok2] = await Promise.all([saved, mailed]);
