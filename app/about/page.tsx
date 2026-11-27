@@ -81,7 +81,7 @@ export default function AboutPage() {
       </section>
 
       {/* Specialisms: dark band */}
-      <section className="bg-ink text-paper">
+      <section className="stay-dark bg-ink text-paper">
         <div className="shell py-20 lg:py-24">
           <Reveal from="left">
             <h2 className="text-4xl font-medium tracking-[-0.02em] lg:text-5xl">We specialize in</h2>
@@ -149,7 +149,7 @@ export default function AboutPage() {
             </blockquote>
             <Link
               href="/contact"
-              className="btn-fill btn-brand mt-10 inline-flex h-12 items-center bg-brand px-8 text-sm font-medium text-white"
+              className="btn-fill btn-brand mt-10 inline-flex h-12 items-center bg-brand px-8 text-sm font-medium text-on-brand"
             >
               Work with us
             </Link>

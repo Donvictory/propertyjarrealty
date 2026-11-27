@@ -17,7 +17,7 @@ function rank(title = '') {
 const TIER_STYLE = [
   { tile: 'bg-sage-100 text-ink', muted: 'text-ink/70', btn: 'border border-ink/25 btn-ink', height: 'lg:min-h-[400px]', blocks: 1 },
   { tile: 'bg-sage-300 text-ink', muted: 'text-ink/70', btn: 'bg-ink text-paper btn-accent', height: 'lg:min-h-[470px]', blocks: 3 },
-  { tile: 'bg-brand text-white', muted: 'text-white/80', btn: 'bg-paper text-brand btn-ink', height: 'lg:min-h-[540px]', blocks: 5 },
+  { tile: 'bg-brand text-on-brand', muted: 'text-on-brand/80', btn: 'bg-paper text-brand btn-ink', height: 'lg:min-h-[540px]', blocks: 5 },
   { tile: 'bg-panel text-ink', muted: 'text-muted', btn: 'border border-ink/25 btn-ink', height: 'lg:min-h-[400px]', blocks: 1 },
 ];
 
@@ -26,7 +26,7 @@ function Units({ count, light }: { count: number; light: boolean }) {
   return (
     <span aria-hidden className="flex flex-col-reverse gap-1">
       {Array.from({ length: count }).map((_, i) => (
-        <span key={i} className={`h-2.5 w-7 ${light ? 'bg-white/80' : 'bg-brand'}`} />
+        <span key={i} className={`h-2.5 w-7 ${light ? 'bg-on-brand/80' : 'bg-brand'}`} />
       ))}
     </span>
   );
@@ -46,7 +46,7 @@ export default function OfferStack({ offers }: { offers: Offer[] }) {
       <ol className="mt-12 grid items-end gap-4 md:grid-cols-3 lg:gap-5">
         {sorted.map((offer, i) => {
           const style = TIER_STYLE[Math.min(rank(offer.title), 3)];
-          const light = style.tile.includes('text-white');
+          const light = style.tile.includes('text-on-brand');
           return (
             <li key={offer.title ?? i} className="h-full md:h-auto">
               <Reveal from={i % 2 === 0 ? 'left' : 'right'} delay={i * 0.06} className="h-full">

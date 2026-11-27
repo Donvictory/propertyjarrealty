@@ -33,7 +33,7 @@ export default function CtaBand({ title, body, cta, tone = 'panel' }: Props) {
         <Link
           href={cta.href}
           {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-          className="btn-fill btn-brand inline-flex h-12 items-center bg-brand px-8 text-sm font-medium text-white lg:min-w-60"
+          className="btn-fill btn-brand inline-flex h-12 items-center bg-brand px-8 text-sm font-medium text-on-brand lg:min-w-60"
         >
           {cta.label}
         </Link>

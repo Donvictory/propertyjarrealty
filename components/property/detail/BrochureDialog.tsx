@@ -73,7 +73,7 @@ export default function BrochureDialog({ brochureUrl, propertyTitle, propertyLoc
       <button
         type="button"
         onClick={open}
-        className={`flex h-12 w-full items-center justify-between bg-brand px-4 text-sm font-medium text-white btn-fill btn-brand ${className}`}
+        className={`flex h-12 w-full items-center justify-between bg-brand px-4 text-sm font-medium text-on-brand btn-fill btn-brand ${className}`}
       >
         Download brochure
         <span aria-hidden>↓</span>
@@ -154,7 +154,7 @@ export default function BrochureDialog({ brochureUrl, propertyTitle, propertyLoc
               <button
                 type="submit"
                 disabled={status === 'submitting'}
-                className="mt-8 flex h-12 w-full items-center justify-center bg-brand text-sm font-medium text-white btn-fill btn-brand disabled:opacity-60"
+                className="mt-8 flex h-12 w-full items-center justify-center bg-brand text-sm font-medium text-on-brand btn-fill btn-brand disabled:opacity-60"
               >
                 {status === 'submitting' ? 'Preparing your download…' : 'Download PDF'}
               </button>

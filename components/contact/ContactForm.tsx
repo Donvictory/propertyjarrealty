@@ -112,7 +112,7 @@ export default function ContactForm({ defaultSubject }: { defaultSubject?: strin
       <button
         type="submit"
         disabled={status === 'sending'}
-        className="btn-fill btn-brand mt-8 flex h-12 w-full items-center bg-brand px-4 text-sm font-medium text-white disabled:opacity-60"
+        className="btn-fill btn-brand mt-8 flex h-12 w-full items-center bg-brand px-4 text-sm font-medium text-on-brand disabled:opacity-60"
       >
         {status === 'sending' ? 'Sending…' : 'Send message'}
       </button>

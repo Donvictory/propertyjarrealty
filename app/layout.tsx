@@ -78,6 +78,12 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * Runs before first paint so the page never flashes the wrong theme: the visitor's saved choice
+ * (see components/site/ThemeToggle.tsx), otherwise the system appearance. Admin pins itself to light in AppLayout.
+ */
+const THEME_SCRIPT = `(function(){try{var s=localStorage.getItem('pjr-theme');document.documentElement.dataset.theme=s==='dark'||s==='light'?s:matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}catch(e){}})()`;
+
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'RealEstateAgent',
@@ -110,7 +116,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html data-scroll-behavior="smooth" lang="en" className={`${instrumentSans.variable} ${archivo.variable} ${instrumentSans.className} h-full antialiased`}>
+    // suppressHydrationWarning: the theme script sets data-theme on <html> before React hydrates.
+    <html data-scroll-behavior="smooth" lang="en" suppressHydrationWarning className={`${instrumentSans.variable} ${archivo.variable} ${instrumentSans.className} h-full antialiased`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body className="min-h-full flex flex-col overflow-x-clip bg-paper text-ink">
         <Script
           id="org-schema"

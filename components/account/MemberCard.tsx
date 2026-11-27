@@ -14,7 +14,7 @@ type Props = {
  */
 export default function MemberCard({ name, memberSince, role, referralCode }: Props) {
   return (
-    <div className="relative aspect-[1.6/1] w-full overflow-hidden bg-ink p-6 text-paper shadow-[0_24px_60px_rgba(28,28,27,0.25)] sm:p-7">
+    <div className="stay-dark relative aspect-[1.6/1] w-full overflow-hidden bg-ink p-6 text-paper shadow-[0_24px_60px_rgba(28,28,27,0.25)] sm:p-7">
       {/* Faint plot grid, echoing the site-plan drawings. */}
       <svg aria-hidden className="absolute inset-0 h-full w-full opacity-[0.07]" preserveAspectRatio="none">
         <defs>

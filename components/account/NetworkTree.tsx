@@ -71,7 +71,7 @@ export default function NetworkTree({ you, uplines, downlines }: { you: string; 
 
       {/* You */}
       <div className="mx-auto flex max-w-sm items-center gap-3 bg-ink px-4 py-4 text-paper">
-        <span aria-hidden className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand text-xs font-semibold text-white">
+        <span aria-hidden className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand text-xs font-semibold text-on-brand">
           {initials(you)}
         </span>
         <div>

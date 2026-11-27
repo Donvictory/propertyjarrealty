@@ -214,7 +214,7 @@ export function SignUpSteps({ role, google, next, refCode, backHref }: Props) {
           <button
             type="button"
             onClick={goNext}
-            className="btn-fill btn-brand flex h-14 w-full items-center justify-center bg-brand text-base font-medium text-white"
+            className="btn-fill btn-brand flex h-14 w-full items-center justify-center bg-brand text-base font-medium text-on-brand"
           >
             Continue
           </button>

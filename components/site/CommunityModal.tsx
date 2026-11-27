@@ -49,7 +49,7 @@ export default function CommunityModal() {
       className="get-started-modal m-auto w-[calc(100%-2rem)] max-w-[460px] bg-paper p-0 text-ink shadow-[0_30px_80px_rgba(28,28,27,0.35)] backdrop:bg-ink/60 backdrop:backdrop-blur-sm"
     >
       <div className="relative overflow-hidden">
-        <div className="relative bg-ink px-8 pb-10 pt-12 text-center text-paper">
+        <div className="stay-dark relative bg-ink px-8 pb-10 pt-12 text-center text-paper">
           <button
             type="button"
             onClick={answer}

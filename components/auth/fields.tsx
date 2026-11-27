@@ -121,7 +121,7 @@ export function PasswordField({
 export function SubmitButton({ children, pending: pendingLabel, tone = 'brand' }: { children: React.ReactNode; pending: string; tone?: 'brand' | 'ink' | 'danger' }) {
   const { pending } = useFormStatus();
   const tones = {
-    brand: 'btn-fill btn-brand bg-brand text-white',
+    brand: 'btn-fill btn-brand bg-brand text-on-brand',
     ink: 'btn-fill btn-accent bg-ink text-paper',
     danger: 'btn-fill btn-brand border border-brand bg-paper text-brand [--fill-fg:#fff]',
   };

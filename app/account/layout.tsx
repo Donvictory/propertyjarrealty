@@ -12,7 +12,7 @@ export default async function AccountLayout({ children }: { children: React.Reac
 
   return (
     <main>
-      <section className="bg-ink text-paper">
+      <section className="stay-dark bg-ink text-paper">
         <div className="shell pt-12 lg:pt-16">
           <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-8">

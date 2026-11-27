@@ -3,6 +3,7 @@ import { getCurrentUser } from '@/lib/user-session';
 import { getProperties } from '@/lib/properties';
 import { toPropertyCard } from '@/lib/property-display';
 import PropertyCard from '@/components/property/PropertyCard';
+import Reveal from '@/components/motion/Reveal';
 
 export default async function AccountSavedPage() {
   const user = (await getCurrentUser())!;
@@ -33,9 +34,11 @@ export default async function AccountSavedPage() {
 
       {cards.length > 0 ? (
         <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-          {cards.map((p) => (
+          {cards.map((p, i) => (
             <li key={p.id}>
-              <PropertyCard property={p} />
+              <Reveal from="below" delay={(i % 3) * 0.05} className="h-full">
+                <PropertyCard property={p} />
+              </Reveal>
             </li>
           ))}
         </ul>
@@ -47,7 +50,7 @@ export default async function AccountSavedPage() {
           </p>
           <Link
             href="/properties"
-            className="btn-fill btn-brand mt-8 inline-flex h-12 items-center bg-brand px-8 text-sm font-medium text-white"
+            className="btn-fill btn-brand mt-8 inline-flex h-12 items-center bg-brand px-8 text-sm font-medium text-on-brand"
           >
             Browse properties
           </Link>

@@ -218,7 +218,7 @@ export default async function PropertyDetailPage({ params }: PageProps) {
                 className={`flex h-12 w-full items-center px-4 text-sm font-medium ${
                   p.brochureUrl && !isShortlet
                     ? 'border border-line bg-paper btn-fill btn-ink'
-                    : 'bg-brand text-white btn-fill btn-brand'
+                    : 'bg-brand text-on-brand btn-fill btn-brand'
                 }`}
               >
                 {isShortlet ? 'Reserve on WhatsApp' : 'Send enquiry'}
@@ -311,7 +311,7 @@ export default async function PropertyDetailPage({ params }: PageProps) {
           href={enquiryHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex h-12 shrink-0 items-center self-start bg-brand px-8 text-sm font-medium text-white btn-fill btn-brand lg:w-56 lg:self-auto"
+          className="inline-flex h-12 shrink-0 items-center self-start bg-brand px-8 text-sm font-medium text-on-brand btn-fill btn-brand lg:w-56 lg:self-auto"
         >
           {isShortlet ? 'Reserve on WhatsApp' : 'Send enquiry'}
         </a>

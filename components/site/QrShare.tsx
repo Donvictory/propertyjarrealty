@@ -78,7 +78,7 @@ export default function QrShare() {
           <a
             href={QR_IMAGE}
             download="propertyjar-campaign-qr.jpeg"
-            className="btn-fill btn-brand mt-7 flex h-12 w-full items-center justify-center gap-2 bg-brand text-sm font-medium text-white"
+            className="btn-fill btn-brand mt-7 flex h-12 w-full items-center justify-center gap-2 bg-brand text-sm font-medium text-on-brand"
           >
             <Download size={18} strokeWidth={1.75} aria-hidden />
             Download QR image

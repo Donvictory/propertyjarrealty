@@ -30,7 +30,7 @@ export default function ContactPage() {
       <section className="grid overflow-x-clip lg:min-h-[calc(100svh-5rem)] lg:grid-cols-2">
         {/* Ways to reach us */}
         <HeroReveal from="left">
-          <div className={`flex h-full flex-col bg-ink py-14 text-paper lg:py-20 ${BLEED_LEFT}`}>
+          <div className={`stay-dark flex h-full flex-col bg-ink py-14 text-paper lg:py-20 ${BLEED_LEFT}`}>
             <h1 className="text-[44px] font-medium leading-[1.02] tracking-[-0.035em] sm:text-6xl lg:text-[64px]">
               We are here for you.
             </h1>
@@ -97,7 +97,7 @@ export default function ContactPage() {
                 href={WHATSAPP_BOOKING}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-fill btn-brand mt-6 flex h-12 items-center justify-center bg-brand text-sm font-medium text-white"
+                className="btn-fill btn-brand mt-6 flex h-12 items-center justify-center bg-brand text-sm font-medium text-on-brand"
               >
                 Book an appointment
               </a>

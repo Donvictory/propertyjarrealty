@@ -73,7 +73,7 @@ export default function PropertyCarousel({ properties, viewAll }: Props) {
               <span className="font-display text-3xl leading-tight">See all {viewAll.total} properties</span>
               <span className="flex items-center justify-between gap-4 text-sm text-paper/70">
                 Land, homes, commercial and short-lets
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand text-white transition-transform group-hover:translate-x-1">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand text-on-brand transition-transform group-hover:translate-x-1">
                   <ArrowRight size={18} strokeWidth={1.75} aria-hidden />
                 </span>
               </span>

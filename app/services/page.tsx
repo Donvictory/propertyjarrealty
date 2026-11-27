@@ -67,8 +67,8 @@ type Service = (typeof SERVICES)[number];
 
 /** Each tile gets its own tone; text, rules and the enquire button follow it. */
 const TONES = {
-  ink: { tile: 'bg-ink text-paper', muted: 'text-paper/70', rule: 'border-paper/20', btn: 'border-paper/40 btn-paper' },
-  brand: { tile: 'bg-brand text-white', muted: 'text-white/75', rule: 'border-white/25', btn: 'border-white/40 btn-paper' },
+  ink: { tile: 'stay-dark bg-ink text-paper', muted: 'text-paper/70', rule: 'border-paper/20', btn: 'border-paper/40 btn-paper' },
+  brand: { tile: 'bg-brand text-on-brand', muted: 'text-on-brand/75', rule: 'border-on-brand/25', btn: 'border-on-brand/40 btn-paper' },
   panel: { tile: 'bg-panel text-ink', muted: 'text-muted', rule: 'border-line', btn: 'border-ink/25 btn-ink' },
   sage: { tile: 'bg-sage-200 text-ink', muted: 'text-ink/65', rule: 'border-sage-line/50', btn: 'border-ink/25 btn-ink' },
   sageLight: { tile: 'bg-sage-100 text-ink', muted: 'text-ink/65', rule: 'border-sage-line/50', btn: 'border-ink/25 btn-ink' },

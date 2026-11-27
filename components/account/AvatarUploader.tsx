@@ -124,7 +124,7 @@ export default function AvatarUploader({ name, avatarUrl }: { name: string; avat
       {/* Camera badge on the photo instead of text links beside it. */}
       <span
         aria-hidden
-        className="pointer-events-none absolute -bottom-0.5 -right-0.5 flex h-8 w-8 items-center justify-center rounded-full border-2 border-ink bg-brand text-white lg:h-9 lg:w-9"
+        className="pointer-events-none absolute -bottom-0.5 -right-0.5 flex h-8 w-8 items-center justify-center rounded-full border-2 border-ink bg-brand text-on-brand lg:h-9 lg:w-9"
       >
         <Camera size={15} strokeWidth={2} />
       </span>

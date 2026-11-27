@@ -31,7 +31,7 @@ export default function WhyLagos({ content }: { content: CampaignContent }) {
   const subtitle = content.whyInvestSubtitle?.trim();
 
   return (
-    <section className="bg-ink text-paper">
+    <section className="stay-dark bg-ink text-paper">
       <div className="shell pb-16 pt-16 lg:pb-24 lg:pt-20">
         {/* Title row: heading left, subtitle bottom-right */}
         <HeroReveal>

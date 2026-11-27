@@ -11,23 +11,23 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <main className="min-h-screen bg-off-white pt-10 pb-20 selection:bg-brand selection:text-white">
+    <main className="min-h-screen bg-off-white dark:bg-paper pt-10 pb-20 selection:bg-brand selection:text-on-brand">
       <div className="container mx-auto px-6 max-w-4xl">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-gray-400 hover:text-charcoal transition-colors mb-10 text-xs font-bold uppercase tracking-widest"
+          className="inline-flex items-center gap-2 text-gray-400 dark:text-muted hover:text-charcoal dark:hover:text-ink transition-colors mb-10 text-xs font-bold uppercase tracking-widest"
         >
           ← Back to home
         </Link>
 
-        <div className="bg-white rounded-3xl p-8 md:p-16 border border-gray-100 shadow-xl">
-          <h1 className="text-3xl md:text-5xl font-bold text-charcoal mb-8 tracking-tighter leading-none">
+        <div className="bg-white dark:bg-panel rounded-3xl p-8 md:p-16 border border-gray-100 dark:border-line shadow-xl">
+          <h1 className="text-3xl md:text-5xl font-bold text-charcoal dark:text-ink mb-8 tracking-tighter leading-none">
             Privacy Policy
           </h1>
 
-          <div className="prose prose-neutral max-w-none text-gray-600 space-y-8 text-sm md:text-base leading-relaxed">
+          <div className="prose prose-neutral max-w-none text-gray-600 dark:text-muted space-y-8 text-sm md:text-base leading-relaxed">
             <section>
-              <h2 className="text-xl font-bold text-charcoal mb-4 tracking-tight">
+              <h2 className="text-xl font-bold text-charcoal dark:text-ink mb-4 tracking-tight">
                 1. Introduction
               </h2>
               <p>
@@ -41,7 +41,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-charcoal mb-4 tracking-tight">
+              <h2 className="text-xl font-bold text-charcoal dark:text-ink mb-4 tracking-tight">
                 2. Information Collection
               </h2>
               <p>
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-charcoal mb-4 tracking-tight">
+              <h2 className="text-xl font-bold text-charcoal dark:text-ink mb-4 tracking-tight">
                 3. Use of Your Information
               </h2>
               <p>
@@ -90,7 +90,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-charcoal mb-4 tracking-tight">
+              <h2 className="text-xl font-bold text-charcoal dark:text-ink mb-4 tracking-tight">
                 4. Security of Your Information
               </h2>
               <p>
@@ -105,7 +105,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-charcoal mb-4 tracking-tight">
+              <h2 className="text-xl font-bold text-charcoal dark:text-ink mb-4 tracking-tight">
                 5. Our AI Assistant
               </h2>
               <p>
@@ -122,14 +122,14 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-charcoal mb-4 tracking-tight">
+              <h2 className="text-xl font-bold text-charcoal dark:text-ink mb-4 tracking-tight">
                 6. Contact Us
               </h2>
               <p>
                 If you have questions or comments about this Privacy Policy,
                 please contact us at:
               </p>
-              <div className="bg-off-white/50 border border-gray-100 rounded-2xl p-6 mt-4 font-bold text-charcoal text-sm">
+              <div className="bg-off-white/50 dark:bg-paper border border-gray-100 dark:border-line rounded-2xl p-6 mt-4 font-bold text-charcoal dark:text-ink text-sm">
                 PropertyJar Realty Ltd
                 <br />
                 Email: support@propertyjarrealty.com

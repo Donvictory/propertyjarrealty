@@ -4,7 +4,7 @@ import HeroVideo from './HeroVideo';
 
 export default function HomeHero() {
   return (
-    <section className="relative isolate flex min-h-[calc(100svh-5rem)] flex-col overflow-hidden bg-ink text-paper">
+    <section className="stay-dark relative isolate flex min-h-[calc(100svh-5rem)] flex-col overflow-hidden bg-ink text-paper">
       <HeroVideo />
       {/* Scrims keep the copy readable over any frame of footage. */}
       <div aria-hidden className="absolute inset-0 bg-ink/45" />
@@ -26,7 +26,7 @@ export default function HomeHero() {
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
                 href="/properties"
-                className="inline-flex h-12 items-center bg-brand px-8 text-sm font-medium text-white btn-fill btn-brand"
+                className="inline-flex h-12 items-center bg-brand px-8 text-sm font-medium text-on-brand btn-fill btn-brand"
               >
                 Explore properties
               </Link>

@@ -15,7 +15,7 @@ type Props = {
 export default function AuthShell({ title, lede, children, footer }: Props) {
   return (
     <main className="grid min-h-[calc(100svh-5rem)] lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
-      <aside className="relative hidden overflow-clip bg-ink text-paper lg:block">
+      <aside className="stay-dark relative hidden overflow-clip bg-ink text-paper lg:block">
         <HeroVideo />
         <div aria-hidden className="absolute inset-0 bg-ink/60" />
         <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/50" />

@@ -96,7 +96,7 @@ async function ClientOverview({ user }: { user: UserRecord }) {
               </p>
               <Link
                 href="/properties"
-                className="btn-fill btn-brand mt-6 inline-flex h-11 items-center bg-brand px-6 text-sm font-medium text-white"
+                className="btn-fill btn-brand mt-6 inline-flex h-11 items-center bg-brand px-6 text-sm font-medium text-on-brand"
               >
                 Browse properties
               </Link>
@@ -241,7 +241,7 @@ export default async function AccountOverviewPage({ searchParams }: PageProps) {
             </div>
             <Link
               href="/account/profile#payout-details"
-              className="btn-fill btn-brand inline-flex h-11 shrink-0 items-center self-start bg-brand px-6 text-sm font-medium text-white sm:self-auto"
+              className="btn-fill btn-brand inline-flex h-11 shrink-0 items-center self-start bg-brand px-6 text-sm font-medium text-on-brand sm:self-auto"
             >
               Complete profile
             </Link>

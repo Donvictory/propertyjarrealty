@@ -10,6 +10,7 @@ import { useMe } from '@/lib/use-me';
 import { signOutAction } from '@/app/actions/account';
 import GetStarted, { GetStartedOptions } from './GetStarted';
 import QrShare from './QrShare';
+import ThemeToggle from './ThemeToggle';
 
 function initialsOf(name: string) {
   return name.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]?.toUpperCase()).join('') || '•';
@@ -69,6 +70,7 @@ export default function SiteHeader() {
 
         {/* Right side: one QR button for every size, then the account button (desktop) or menu (mobile). */}
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <QrShare />
           <div className="hidden lg:block">
             <AccountButton />
@@ -131,7 +133,7 @@ function MobileMenu({ open, pathname, onClose }: { open: boolean; pathname: stri
         <div className="lg:hidden">
           <motion.div
             aria-hidden
-            className="fixed inset-0 z-[60] bg-ink/55"
+            className="stay-dark fixed inset-0 z-[60] bg-ink/55"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -222,7 +224,7 @@ function AccountButton() {
       href="/account"
       aria-label={`${me.user.name}, open your account`}
       title={me.user.name}
-      className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-brand text-sm font-semibold tracking-wide text-white outline-none ring-offset-2 ring-offset-paper transition-shadow hover:ring-2 hover:ring-brand/40 focus-visible:ring-2 focus-visible:ring-brand"
+      className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-brand text-sm font-semibold tracking-wide text-on-brand outline-none ring-offset-2 ring-offset-paper transition-shadow hover:ring-2 hover:ring-brand/40 focus-visible:ring-2 focus-visible:ring-brand"
     >
       {me.user.avatarUrl ? (
         // Plain <img>: tiny, already optimised on upload, and avoids the optimiser for a 44px avatar.

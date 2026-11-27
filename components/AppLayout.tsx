@@ -13,8 +13,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith('/admin');
 
+  // Admin hasn't been designed for the dark theme: pin it to light whatever the visitor chose.
   if (isAdmin) {
-    return <>{children}</>;
+    return (
+      <div data-theme="light" className="min-h-full">
+        {children}
+      </div>
+    );
   }
 
   const showFooter = !NO_FOOTER.includes(pathname ?? '');

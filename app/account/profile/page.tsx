@@ -79,7 +79,7 @@ export default async function AccountProfilePage() {
                 Payout details
               </h2>
               {!complete && (
-                <span className="bg-brand px-2.5 py-1 text-xs font-medium text-white">Required</span>
+                <span className="bg-brand px-2.5 py-1 text-xs font-medium text-on-brand">Required</span>
               )}
             </div>
             <p className="mt-2 text-muted">Where we pay your commission, and the details we need to confirm who you are.</p>

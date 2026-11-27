@@ -94,7 +94,7 @@ export default function IntroVideo() {
 
         {/* The film, framed like a sheet */}
         <div className="order-1 mx-auto w-full max-w-[400px] lg:order-none">
-          <div className="rounded-xl bg-sage-200 p-4 sm:p-5">
+          <div className="stay-dark rounded-xl bg-sage-200 p-4 sm:p-5">
             <div className="relative aspect-[9/16] overflow-hidden rounded-lg bg-ink">
               <video
                 ref={videoRef}
@@ -119,7 +119,7 @@ export default function IntroVideo() {
                   aria-label="Play the PropertyJar film"
                   className="group absolute inset-0 flex items-center justify-center bg-ink/15"
                 >
-                  <span className="icon-fill h-16 w-16 bg-brand text-white [--fill-bg:var(--color-paper)] [--fill-fg:var(--color-brand)]">
+                  <span className="icon-fill h-16 w-16 bg-brand text-on-brand [--fill-bg:var(--color-paper)] [--fill-fg:var(--color-brand)]">
                     <svg width="18" height="20" viewBox="0 0 18 20" aria-hidden>
                       <path d="M0 0 18 10 0 20z" fill="currentColor" />
                     </svg>

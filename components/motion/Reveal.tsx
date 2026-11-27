@@ -14,8 +14,11 @@ import {
 
 type Props = {
   children: React.ReactNode;
-  /** Side the content travels in from on desktop. On small screens everything rises instead. */
-  from?: 'left' | 'right';
+  /**
+   * Side the content travels in from on desktop. On small screens everything rises instead.
+   * "below" rises at every size (grid items such as property cards).
+   */
+  from?: 'left' | 'right' | 'below';
   /** Shifts when this block starts moving, as a fraction of the viewport (0.1 ≈ a little later). */
   delay?: number;
   /**
@@ -129,7 +132,7 @@ export default function Reveal({ children, from = 'left', delay = 0, distance: t
   const y = useTransform(progress, [0, 1], [48 * Math.min(travel, 1.6), 0]);
   const opacity = useTransform(progress, [0, 0.55], [0, 1]);
 
-  const style = isMobile ? { y, opacity } : { x, opacity };
+  const style = isMobile || from === 'below' ? { y, opacity } : { x, opacity };
 
   // The outer div never moves, so its position is a stable reference; only the inner div animates.
   return (

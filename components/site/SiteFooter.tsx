@@ -32,7 +32,7 @@ const COLUMNS = [
 
 export default function SiteFooter() {
   return (
-    <footer className="bg-ink text-paper">
+    <footer className="stay-dark bg-ink text-paper">
       <div className="shell pb-10 pt-14 lg:pt-16">
         <div className="grid gap-10 lg:grid-cols-[1.8fr_1fr_1fr_1.2fr]">
           <div>

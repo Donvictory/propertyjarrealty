@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { CURRENCY_LABELS, type Currency } from '@/lib/currency';
 import type { PropertyCardData, PropertyCategory } from '@/lib/property-display';
 import PropertyCard from './PropertyCard';
+import Reveal from '@/components/motion/Reveal';
 
 type Filter = 'all' | PropertyCategory;
 
@@ -63,7 +64,7 @@ export default function PropertiesBrowser({ properties, emptyMessage }: Props) {
                 aria-pressed={active}
                 onClick={() => setFilter(f.value)}
                 className={`h-12 min-w-24 shrink-0 snap-start rounded-lg border px-4 text-left text-[15px] font-medium sm:min-w-28 lg:min-w-36 ${
-                  active ? 'border-brand bg-brand text-white' : 'border-line text-ink btn-fill btn-accent'
+                  active ? 'border-brand bg-brand text-on-brand' : 'border-line text-ink btn-fill btn-accent'
                 }`}
               >
                 {f.label}
@@ -111,9 +112,12 @@ export default function PropertiesBrowser({ properties, emptyMessage }: Props) {
         <ul
           className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6"
         >
-          {visible.map((p) => (
+          {visible.map((p, i) => (
             <li key={p.id}>
-              <PropertyCard property={p} currency={currency} />
+              {/* Each card rises on its own; columns in a row follow one another left to right. */}
+              <Reveal from="below" delay={(i % 3) * 0.05} className="h-full">
+                <PropertyCard property={p} currency={currency} />
+              </Reveal>
             </li>
           ))}
         </ul>

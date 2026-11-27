@@ -80,7 +80,7 @@ export default function GetStarted() {
         type="button"
         onClick={open}
         aria-haspopup="dialog"
-        className="btn-fill btn-brand inline-flex h-11 items-center bg-brand px-7 text-sm font-medium text-white outline-none"
+        className="btn-fill btn-brand inline-flex h-11 items-center bg-brand px-7 text-sm font-medium text-on-brand outline-none"
       >
         Get started
       </button>

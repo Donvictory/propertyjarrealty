@@ -43,7 +43,7 @@ export default function CompleteProfilePrompt({ onProfilePage = false }: { onPro
         >
           <X size={20} strokeWidth={1.5} />
         </button>
-        <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-brand text-white">
+        <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-brand text-on-brand">
           <Landmark size={24} strokeWidth={1.5} aria-hidden />
         </span>
         <h2 id="complete-profile-title" className="mt-6 text-3xl font-medium tracking-[-0.02em]">
@@ -59,7 +59,7 @@ export default function CompleteProfilePrompt({ onProfilePage = false }: { onPro
               type="button"
               autoFocus
               onClick={goToForm}
-              className="btn-fill btn-brand flex h-12 w-full items-center justify-center bg-brand text-sm font-medium text-white"
+              className="btn-fill btn-brand flex h-12 w-full items-center justify-center bg-brand text-sm font-medium text-on-brand"
             >
               Complete now
             </button>
@@ -68,7 +68,7 @@ export default function CompleteProfilePrompt({ onProfilePage = false }: { onPro
               href="/account/profile#payout-details"
               autoFocus
               onClick={close}
-              className="btn-fill btn-brand flex h-12 w-full items-center justify-center bg-brand text-sm font-medium text-white"
+              className="btn-fill btn-brand flex h-12 w-full items-center justify-center bg-brand text-sm font-medium text-on-brand"
             >
               Complete now
             </Link>

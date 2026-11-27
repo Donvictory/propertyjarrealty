@@ -428,7 +428,7 @@ export default function ChatWidget() {
             className="fixed inset-0 z-[70] flex flex-col bg-paper text-ink sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[min(640px,calc(100svh-7rem))] sm:w-[400px] sm:overflow-hidden sm:rounded-2xl sm:border sm:border-line sm:shadow-[0_30px_80px_rgba(28,28,27,0.3)]"
           >
             {/* Header */}
-            <header className="flex items-center gap-3 bg-ink px-4 py-3 text-paper pt-[max(0.75rem,env(safe-area-inset-top))]">
+            <header className="stay-dark flex items-center gap-3 bg-ink px-4 py-3 text-paper pt-[max(0.75rem,env(safe-area-inset-top))]">
               <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand">
                 <MessageCircle size={18} strokeWidth={1.75} />
               </span>
@@ -560,7 +560,7 @@ export default function ChatWidget() {
                   <button
                     type="button"
                     onClick={() => stopRecording(false)}
-                    className="rounded-lg flex h-11 shrink-0 items-center gap-2 bg-brand px-4 text-sm font-medium text-white"
+                    className="rounded-lg flex h-11 shrink-0 items-center gap-2 bg-brand px-4 text-sm font-medium text-on-brand"
                   >
                     <Square size={12} fill="currentColor" aria-hidden />
                     Send
@@ -603,7 +603,7 @@ export default function ChatWidget() {
                       type="submit"
                       disabled={pending || !input.trim()}
                       aria-label="Send message"
-                      className="rounded-lg flex h-11 w-11 shrink-0 items-center justify-center bg-brand text-white disabled:opacity-40"
+                      className="rounded-lg flex h-11 w-11 shrink-0 items-center justify-center bg-brand text-on-brand disabled:opacity-40"
                     >
                       <ArrowUp size={18} strokeWidth={2} />
                     </button>

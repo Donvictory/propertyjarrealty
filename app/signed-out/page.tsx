@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: 'Signed out', robots: { index: false,
 
 export default function SignedOutPage() {
   return (
-    <main className="flex min-h-[calc(100svh-5rem)] items-center bg-ink text-paper">
+    <main className="flex min-h-[calc(100svh-5rem)] items-center bg-ink text-paper stay-dark">
       <div className="shell py-20">
         <div className="mx-auto max-w-lg text-center">
           <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-paper">
@@ -34,7 +34,7 @@ export default function SignedOutPage() {
             </Link>
             <Link
               href="/"
-              className="btn-fill btn-brand inline-flex h-12 items-center justify-center bg-brand px-8 text-sm font-medium text-white"
+              className="btn-fill btn-brand inline-flex h-12 items-center justify-center bg-brand px-8 text-sm font-medium text-on-brand"
             >
               Back to home
             </Link>
